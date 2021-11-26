@@ -1,0 +1,12 @@
+/coverage
+/doc
+/pkg
+/vendor/bundle
+/Gemfile.lock
+/.bundle
+/.yardoc
+.DS_Store
+*.db
+*.log
+*.swp
+*~

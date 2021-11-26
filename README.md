@@ -1,0 +1,206 @@
+# ronin-core
+
+[![CI](https://github.com/ronin-rb/ronin-core/actions/workflows/ruby.yml/badge.svg)](https://github.com/ronin-rb/ronin-core/actions/workflows/ruby.yml)
+[![Code Climate](https://codeclimate.com/github/ronin-rb/ronin-core.svg)](https://codeclimate.com/github/ronin-rb/ronin-core)
+
+* [Website](https://ronin-rb.dev/)
+* [Source](https://github.com/ronin-rb/ronin-core)
+* [Issues](https://github.com/ronin-rb/ronin-core/issues)
+* [Documentation](https://ronin-rb.dev/docs/ronin-core/frames)
+* [Slack](https://ronin-rb.slack.com) |
+  [Discord](https://discord.gg/6WAb3PsVX9) |
+  [Twitter](https://twitter.com/ronin_rb)
+
+## Description
+
+ronin-core is a core library providing common functionality for all ronin
+libraries.
+
+## Features
+
+* Provides access to the XDG directories (`~/.config/`, `~/.cache/`,
+  `~/.local/share`).
+* Allows querying `~/.gitconfig` for common git settings.
+* Provides a common `Command` base class for all ronin libraries.
+
+## Requirements
+
+* [Ruby] >= 2.6.0
+* [command_kit] ~> 0.2, >= 0.2.1
+
+## Install
+
+### Gemfile
+
+```ruby
+gem 'ronin-core', '~> 0.1'
+```
+
+### gemspec
+
+```ruby
+gem.add_depedency 'ronin-core', '~> 0.1'
+```
+
+### [gemspec.yml]
+
+```yaml
+dependencies:
+  ronin-core: ~> 0.1
+```
+
+## Examples
+
+Define a main command for `ronin-foo`:
+
+```ruby
+# lib/ronin/foo/cli.rb
+require 'command_kit/commands'
+require 'command_kit/commands/auto_load'
+
+module Ronin
+  module Foo
+    class CLI
+
+      include CommandKit::Commands
+      include CommandKit::Commands::AutoLoad.new(
+        dir:       "#{__dir__}/cli/commands",
+        namespace: "#{self}::Commands"
+      )
+
+      command_name 'ronin-foo'
+
+      command_aliases['ls'] = 'list'
+      # ...
+
+    end
+  end
+end
+```
+
+Add a `bin/ronin-foo` file (don't forget to `chmod +x` it):
+
+```ruby
+#!/usr/bin/env ruby
+
+root = File.expand_path(File.join(__dir__,'..'))
+if File.file?(File.join(root,'Gemfile.lock'))
+  Dir.chdir(root) do
+    begin
+      require 'bundler/setup'
+    rescue LoadError => e
+      warn e.message
+      warn "Run `gem install bundler` to install Bundler"
+      exit -1
+    end
+  end
+end
+
+require 'ronin/foo/cli'
+Ronin::Foo::CLI.start
+```
+
+Define a common command class for `ronin-foo`'s sub-commands:
+
+```ruby
+# lib/ronin/foo/cli/command.rb
+require 'ronin/core/cli/command'
+
+module Ronin
+  module Foo
+    class CLI
+      class Command < Core::CLI::Command
+
+        man_dir File.join(__dir__,'..','..','..','..','man')
+
+      end
+    end
+  end
+end
+```
+
+Define a sub-command:
+
+```ruby
+# lib/ronin/foo/cli/commands/list.rb
+require 'ronin/foo/cli/command'
+
+module Ronin
+  module Foo
+    class CLI
+      module Commands
+        class List < Command
+
+          usage '[options] [NAME]'
+
+          argument :name, required: false,
+                          desc:     'Optional name to list'
+
+          description 'Lists all things'
+
+          man_page 'ronin-foo-list.1'
+
+          def run(name=nil)
+            # ...
+          end
+
+        end
+      end
+    end
+  end
+end
+```
+
+Test it out:
+
+```shell
+$ ./bin/ronin-foo
+Usage: ronin-foo [options] [COMMAND [ARGS...]]
+
+Options:
+    -h, --help                       Print help information
+
+Arguments:
+    [COMMAND]                        The command name to run
+    [ARGS ...]                       Additional arguments for the command
+
+Commands:
+    help
+    list, ls
+$ ./bin/ronin-foo ls
+```
+
+## Development
+
+1. [Fork It!](https://github.com/ronin-rb/ronin-core/fork)
+2. Clone It!
+3. `cd ronin-core/`
+4. `bundle install`
+5. `git checkout -b my_feature`
+6. Code It!
+7. `bundle exec rake spec`
+8. `git push origin my_feature`
+
+## License
+
+Copyright (c) 2021 Hal Brodigan (postmodern.mod3@gmail.com)
+
+This file is part of ronin-core.
+
+ronin-core is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ronin-core is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
+
+[Ruby]: https://www.ruby-lang.org
+[command_kit.rb]: https://github.com/postmodern/command_kit.rb#readme
+
+[gemspec.yml]: https://github.com/postmodern/gemspec.yml#readme
