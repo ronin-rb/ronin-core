@@ -17,7 +17,7 @@ metadata:
   changelog_uri:     https://github.com/ronin-rb/ronin-core/blob/main/ChangeLog.md
   rubygems_mfa_required: 'true'
 
-required_ruby_version: ">= 2.6.0"
+required_ruby_version: ">= 2.7.0"
 
 dependencies:
   command_kit: ~> 0.2, >= 0.2.1

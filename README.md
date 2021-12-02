@@ -25,7 +25,7 @@ libraries.
 
 ## Requirements
 
-* [Ruby] >= 2.6.0
+* [Ruby] >= 2.7.0
 * [command_kit] ~> 0.2, >= 0.2.1
 
 ## Install
