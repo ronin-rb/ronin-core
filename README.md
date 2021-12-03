@@ -16,6 +16,9 @@
 ronin-core is a core library providing common functionality for all ronin
 libraries.
 
+ronin-core is part of the [ronin-rb] project, a toolkit for security research
+and development.
+
 ## Features
 
 * Provides access to the XDG directories (`~/.config/`, `~/.cache/`,
@@ -199,6 +202,8 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
+
+[ronin-rb]: https://ronin-rb.dev/
 
 [Ruby]: https://www.ruby-lang.org
 [command_kit.rb]: https://github.com/postmodern/command_kit.rb#readme
