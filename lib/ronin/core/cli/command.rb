@@ -23,6 +23,59 @@ require 'command_kit/help/man'
 module Ronin
   module Core
     module CLI
+      #
+      # Common base class for all CLI commands.
+      #
+      # ## Example
+      #
+      # Define a common CLI command base class for all commands in the
+      # `ronin-foo` library:
+      #
+      #     # lib/ronin/foo/cli/command.rb
+      #     require 'ronin/core/cli/command'
+      #
+      #     module Ronin
+      #       module Foo
+      #         class CLI
+      #           class Command < Core::CLI::Command
+      #     
+      #             man_dir File.join(__dir__,'..','..','..','..','man')
+      #     
+      #           end
+      #         end
+      #       end
+      #     end
+      #
+      # Define a sub-command named `list` under the `ronin-foo` main command:
+      #
+      #     # lib/ronin/foo/cli/commands/list.rb
+      #     require 'ronin/foo/cli/command'
+      #     
+      #     module Ronin
+      #       module Foo
+      #         class CLI
+      #           module Commands
+      #             class List < Command
+      #     
+      #               usage '[options] [NAME]'
+      #     
+      #               argument :name, required: false,
+      #                               desc:     'Optional name to list'
+      #     
+      #               description 'Lists all things'
+      #     
+      #               man_page 'ronin-foo-list.1'
+      #     
+      #               def run(name=nil)
+      #                 # ...
+      #               end
+      #     
+      #             end
+      #           end
+      #         end
+      #       end
+      #     end
+      #
       class Command < CommandKit::Command
 
         include CommandKit::Help::Man
