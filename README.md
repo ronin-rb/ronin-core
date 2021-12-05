@@ -81,7 +81,8 @@ module Ronin
 end
 ```
 
-Add a `bin/ronin-foo` file (don't forget to `chmod +x` it):
+Add a `bin/ronin-foo` file (don't forget to `chmod +x` it) that invokes the
+main command:
 
 ```ruby
 #!/usr/bin/env ruby
@@ -103,7 +104,7 @@ require 'ronin/foo/cli'
 Ronin::Foo::CLI.start
 ```
 
-Define a common command class for `ronin-foo`'s sub-commands:
+Define a common command class for all `ronin-foo`'s commands:
 
 ```ruby
 # lib/ronin/foo/cli/command.rb
@@ -122,7 +123,7 @@ module Ronin
 end
 ```
 
-Define a sub-command:
+Define a `list` sub-command under the `ronin-foo` main command:
 
 ```ruby
 # lib/ronin/foo/cli/commands/list.rb
