@@ -207,6 +207,6 @@ along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-rb]: https://ronin-rb.dev/
 
 [Ruby]: https://www.ruby-lang.org
-[command_kit.rb]: https://github.com/postmodern/command_kit.rb#readme
+[command_kit]: https://github.com/postmodern/command_kit.rb#readme
 
 [gemspec.yml]: https://github.com/postmodern/gemspec.yml#readme
