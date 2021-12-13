@@ -255,6 +255,18 @@ describe Ronin::Core::CLI::Shell do
             }
           )
         end
+
+        context "but the input contains multiple spaces" do
+          let(:preposing) { "#{command} bla bla "}
+
+          it "must still return the argument values that match the end of the input" do
+            expect(subject.complete(word,preposing)).to eq(
+              subject.commands[command].completion.select { |value|
+                value.start_with?(word)
+              }
+            )
+          end
+        end
       end
 
       context "but the input does not start with a known command" do
