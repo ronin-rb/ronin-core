@@ -20,6 +20,7 @@
 require 'ronin/core/cli/shell/command'
 
 require 'command_kit/printing'
+require 'command_kit/colors'
 require 'reline'
 require 'shellwords'
 
@@ -57,6 +58,7 @@ module Ronin
       class Shell
 
         include CommandKit::Printing
+        include CommandKit::Colors
 
         #
         # The default shell prompt name.
@@ -203,7 +205,8 @@ module Ronin
         # @return [String]
         #
         def prompt
-          "#{shell_name}>"
+          c = colors(stdout)
+          c.red("#{shell_name}#{c.bold('>')}")
         end
 
         #

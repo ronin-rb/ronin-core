@@ -336,6 +336,23 @@ describe Ronin::Core::CLI::Shell do
 
     subject { shell_class.new(stdout: stdout) }
 
+    context "when stdout is a TTY" do
+      before do
+        allow(subject.stdout).to receive(:tty?).and_return(true)
+      end
+
+      let(:red)  { CommandKit::Colors::ANSI::RED }
+      let(:bold) { CommandKit::Colors::ANSI::BOLD }
+      let(:reset_intensity) { CommandKit::Colors::ANSI::RESET_INTENSITY }
+      let(:reset_color)     { CommandKit::Colors::ANSI::RESET_COLOR     }
+
+      it "must return an ANSI colored prompt" do
+        expect(subject.prompt).to eq(
+          "#{red}#{subject.shell_name}#{bold}>#{reset_intensity}#{reset_color}"
+        )
+      end
+    end
+
     context "when stdout is not a TTY" do
       it "must return a plain-text prompt" do
         expect(subject.prompt).to eq("#{subject.shell_name}>")
