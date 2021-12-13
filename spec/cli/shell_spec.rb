@@ -331,6 +331,18 @@ describe Ronin::Core::CLI::Shell do
     end
   end
 
+  describe "#prompt" do
+    let(:stdout) { StringIO.new }
+
+    subject { shell_class.new(stdout: stdout) }
+
+    context "when stdout is not a TTY" do
+      it "must return a plain-text prompt" do
+        expect(subject.prompt).to eq("#{subject.shell_name}>")
+      end
+    end
+  end
+
   describe "#call" do
     context "when the command exists" do
       context "but the command does not accept any arguments" do
