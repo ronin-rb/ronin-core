@@ -19,7 +19,13 @@ describe Ronin::Core::CLI::Logging do
 
   let(:message) { "foo bar baz" }
 
-  let(:ansi) { CommandKit::Colors::ANSI }
+  let(:green)  { CommandKit::Colors::ANSI::GREEN  }
+  let(:yellow) { CommandKit::Colors::ANSI::YELLOW }
+  let(:red)    { CommandKit::Colors::ANSI::RED    }
+  let(:white)  { CommandKit::Colors::ANSI::WHITE  }
+  let(:bold)   { CommandKit::Colors::ANSI::BOLD   }
+  let(:reset_intensity) { CommandKit::Colors::ANSI::RESET_INTENSITY }
+  let(:reset_color)     { CommandKit::Colors::ANSI::RESET_COLOR     }
 
   describe "#log_info" do
     context "when stdout is a TTY" do
@@ -29,7 +35,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_info(message)
 
         expect(stdout.string).to eq(
-          "#{ansi.bold(ansi.green('>>>'))} #{ansi.bold(ansi.white(message))}#{$/}"
+          "#{bold}#{green}>>>#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
@@ -51,7 +57,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_warn(message)
 
         expect(stdout.string).to eq(
-          "#{ansi.bold(ansi.yellow('***'))} #{ansi.bold(ansi.white(message))}#{$/}"
+          "#{bold}#{yellow}***#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
@@ -73,7 +79,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_error(message)
 
         expect(stderr.string).to eq(
-          "#{ansi.bold(ansi.red('!!!'))} #{ansi.bold(ansi.white(message))}#{$/}"
+          "#{bold}#{red}!!!#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
