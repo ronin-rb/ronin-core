@@ -201,6 +201,101 @@ describe Ronin::Core::CLI::Shell do
     end
   end
 
+  describe ".complete" do
+    module TestShell
+      class ShellWithCompletions < Ronin::Core::CLI::Shell
+        shell_name 'test'
+
+        command :foo, summary: 'Foo command'
+        def foo
+        end
+
+        command :bar, completion: %w[arg1 arg2 foo], summary: 'Bar command'
+        def bar
+        end
+
+        command :baz, summary: 'Baz command'
+        def baz
+        end
+      end
+    end
+
+    let(:shell_class) { TestShell::ShellWithCompletions }
+    subject { shell_class }
+
+    context "when the input is empty" do
+      let(:preposing) { '' }
+      let(:word)      { '' }
+
+      it "must return all available command names" do
+        expect(subject.complete(word,preposing)).to eq(subject.commands.keys)
+      end
+    end
+
+    context "when the input does not contain a space" do
+      let(:preposing) { ''   }
+      let(:word)      { 'ba' }
+
+      it "must return the matching command names" do
+        expect(subject.complete(word,preposing)).to eq(%w[bar baz])
+      end
+    end
+
+    context "when the input does contain a space" do
+      context "and the input starts with a known command" do
+        let(:command)   { 'bar'         }
+        let(:arg)       { "arg"         }
+        let(:preposing) { "#{command} " }
+        let(:word)      { arg           }
+
+        it "must return the argument values that match the end of the input" do
+          expect(subject.complete(word,preposing)).to eq(
+            subject.commands[command].completion.select { |value|
+              value.start_with?(word)
+            }
+          )
+        end
+      end
+
+      context "but the input does not start with a known command" do
+        let(:command) { 'does_not_exist' }
+        let(:arg)       { "arg"         }
+        let(:preposing) { "#{command} " }
+        let(:word)      { arg           }
+
+        it "must return nil" do
+          expect(subject.complete(word,preposing)).to be(nil)
+        end
+      end
+    end
+
+    context "when the input ends with a space" do
+      context "and the input starts with a known command" do
+        let(:command) { 'bar' }
+
+        let(:preposing) { "#{command} " }
+        let(:word)      { ''            }
+
+        it "must return all possible completion values for the command" do
+          expect(subject.complete(word,preposing)).to eq(
+            subject.commands[command].completion
+          )
+        end
+      end
+
+      context "but the input does not start with a known command" do
+        let(:command) { 'does_not_exist' }
+
+        let(:preposing) { ''      }
+        let(:word)      { command }
+
+        it "must return nil" do
+          expect(subject.complete(word,preposing)).to eq([])
+        end
+      end
+    end
+  end
+
   module TestShell
     class TestShell < Ronin::Core::CLI::Shell
       shell_name 'test'

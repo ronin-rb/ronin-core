@@ -96,16 +96,23 @@ module Ronin
         # @param [String, nil] usage
         #   A usage string indicating the shell command's options/arguments.
         #
+        # @param [Array<String>] completion
+        #   The possible tab completion values for the command's arguments.
+        #
         # @param [String] summary
         #   A one-line summary of the shell command.
         #
         # @param [String] help
         #   Multi-line help output for the shell command.
         #
-        def self.command(name, usage: nil, summary: , help: summary)
-          commands[name.to_s] = Command.new(name, usage:   usage,
-                                                  summary: summary,
-                                                  help:    help.strip)
+        def self.command(name, usage:      nil,
+                               completion: [],
+                               summary: ,
+                               help: summary)
+          commands[name.to_s] = Command.new(name, usage:      usage,
+                                                  completion: completion,
+                                                  summary:    summary,
+                                                  help:       help.strip)
         end
 
         #
@@ -123,6 +130,7 @@ module Ronin
         def self.start(*arguments,**kwargs)
           shell = new(*arguments,**kwargs)
 
+          Reline.completion_proc = method(:complete)
           use_history = true
 
           begin
@@ -141,6 +149,35 @@ module Ronin
               end
             end
           rescue Interrupt # catch Ctrl^C
+          end
+        end
+
+        #
+        # The partially input being tab completed.
+        #
+        # @param [String] input
+        #   The partial input.
+        #
+        # @return [Array<String>]
+        #   The possible completion values.
+        #
+        def self.complete(word,preposing)
+          if !preposing.empty?
+            name = preposing.split(/\s+/,2).first
+
+            if (command = commands[name])
+              if !word.empty?
+                command.completion.select { |arg| arg.start_with?(word) }
+              else
+                command.completion
+              end
+            end
+          else
+            if !word.empty?
+              commands.keys.select { |name| name.start_with?(word) }
+            else
+              commands.keys
+            end
           end
         end
 
