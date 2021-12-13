@@ -166,18 +166,10 @@ module Ronin
             name = preposing.split(/\s+/,2).first
 
             if (command = commands[name])
-              if !word.empty?
-                command.completion.select { |arg| arg.start_with?(word) }
-              else
-                command.completion
-              end
+              command.completion.select { |arg| arg.start_with?(word) }
             end
           else
-            if !word.empty?
-              commands.keys.select { |name| name.start_with?(word) }
-            else
-              commands.keys
-            end
+            commands.keys.select { |name| name.start_with?(word) }
           end
         end
 
