@@ -33,6 +33,11 @@ module Ronin
           # @return [String, nil]
           attr_reader :usage
 
+          # Possible tab completion values for the command's arguments.
+          #
+          # @return [Array<String>]
+          attr_reader :completion
+
           # The command's one-line summary.
           #
           # @return [String]
@@ -52,17 +57,24 @@ module Ronin
           # @param [String, nil] usage
           #   The usage string for the command's arguments.
           #
+          # @param [Array<String>] completion
+          #   Potential tab completion values for the command's arguments.
+          #
           # @param [String] summary
           #   A single line summary for the command.
           #
           # @param [String] help
           #   Multi-line help information for the command.
           #
-          def initialize(name,usage: nil, summary: , help: summary)
-            @name    = name
-            @usage   = usage
-            @summary = summary
-            @help    = help
+          def initialize(name,usage: nil,
+                              completion: [],
+                              summary: ,
+                              help: summary)
+            @name       = name
+            @usage      = usage
+            @completion = completion
+            @summary    = summary
+            @help       = help
           end
 
           #
