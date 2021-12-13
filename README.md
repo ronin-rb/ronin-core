@@ -29,6 +29,7 @@ and development.
 ## Requirements
 
 * [Ruby] >= 2.7.0
+* [reline] ~> 0.1
 * [command_kit] ~> 0.2, >= 0.2.1
 
 ## Install
@@ -53,6 +54,8 @@ dependencies:
 ```
 
 ## Examples
+
+### CLI
 
 Define a main command for `ronin-foo`:
 
@@ -174,6 +177,43 @@ Commands:
 $ ./bin/ronin-foo ls
 ```
 
+### Shell
+
+Define a custom command shell:
+
+```ruby
+class HTTPShell < Ronin::Core::CLI::Shell
+
+  shell_name 'http'
+
+  command :get, usage: 'PATH [HEADERS...]',
+                summary: 'Sends a GET request'
+  def get(path,*headers)
+    # ...
+  end
+
+  command :post, usage: 'PATH DATA [HEADERS...]',
+                 summary: 'Sends a POST request'
+  def post(path,data,*headers)
+    # ...
+  end
+
+end
+```
+
+Then start it:
+
+```ruby
+HTTPShell.start
+```
+
+```
+http> get /foo
+...
+http> post /foo var=bar
+...
+```
+
 ## Development
 
 1. [Fork It!](https://github.com/ronin-rb/ronin-core/fork)
@@ -208,5 +248,6 @@ along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 
 [Ruby]: https://www.ruby-lang.org
 [command_kit]: https://github.com/postmodern/command_kit.rb#readme
+[reline]: https://github.com/ruby/reline#readme
 
 [gemspec.yml]: https://github.com/postmodern/gemspec.yml#readme
