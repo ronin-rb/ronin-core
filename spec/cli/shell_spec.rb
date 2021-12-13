@@ -325,6 +325,12 @@ describe Ronin::Core::CLI::Shell do
   let(:shell_class) { TestShell::TestShell }
   subject { shell_class.new }
 
+  describe "#shell_name" do
+    it "must return the shell class'es .shell_name" do
+      expect(subject.shell_name).to eq(shell_class.shell_name)
+    end
+  end
+
   describe "#call" do
     context "when the command exists" do
       context "but the command does not accept any arguments" do
