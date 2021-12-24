@@ -31,6 +31,7 @@ and development.
 * [Ruby] >= 2.7.0
 * [reline] ~> 0.1
 * [command_kit] ~> 0.2, >= 0.2.1
+* [irb] ~> 1.0
 
 ## Install
 
@@ -249,5 +250,6 @@ along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 [Ruby]: https://www.ruby-lang.org
 [command_kit]: https://github.com/postmodern/command_kit.rb#readme
 [reline]: https://github.com/ruby/reline#readme
+[irb]: https://github.com/ruby/irb#readme
 
 [gemspec.yml]: https://github.com/postmodern/gemspec.yml#readme
