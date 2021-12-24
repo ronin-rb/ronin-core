@@ -157,8 +157,12 @@ module Ronin
         #
         # The partially input being tab completed.
         #
-        # @param [String] input
-        #   The partial input.
+        # @param [String] word
+        #   The partial input being tab completed.
+        #
+        # @param [String] preposing
+        #   The optional command name that preceeds the argument that's being
+        #   tab completed.
         #
         # @return [Array<String>]
         #   The possible completion values.
