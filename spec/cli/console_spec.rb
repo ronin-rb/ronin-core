@@ -43,9 +43,10 @@ describe Ronin::Core::CLI::Console do
       expect(IRB.conf[:IRB_NAME]).to eq(subject.name)
     end
 
-    let(:colors) { subject.colors(STDOUT) }
-    let(:red)    { colors::RED }
-    let(:bold)   { colors::BOLD }
+    let(:colors)          { subject.colors(STDOUT) }
+    let(:red)             { colors::RED }
+    let(:bright_red)      { colors::BRIGHT_RED }
+    let(:bold)            { colors::BOLD }
     let(:reset_intensity) { colors::RESET_INTENSITY }
     let(:reset_color)     { colors::RESET_COLOR     }
 
@@ -53,9 +54,9 @@ describe Ronin::Core::CLI::Console do
       expect(IRB.conf[:PROMPT][:RONIN]).to eq(
         {
           AUTO_INDENT: true,
-          PROMPT_I: "#{red}irb#{bold}(#{reset_intensity}%N#{bold})#{reset_intensity}#{bold}>#{reset_intensity} #{reset_color}",
-          PROMPT_S: "#{red}irb#{bold}(#{reset_intensity}%N#{bold})#{reset_intensity}%l #{reset_color}",
-          PROMPT_C: "#{red}irb#{bold}(#{reset_intensity}%N#{bold})#{reset_intensity}* #{reset_color}",
+          PROMPT_I: "#{red}irb#{reset_color}#{bold}#{bright_red}(#{reset_color}#{reset_intensity}#{red}%N#{reset_color}#{bold}#{bright_red})#{reset_color}#{reset_intensity}#{bold}#{bright_red}>#{reset_color}#{reset_intensity} ",
+          PROMPT_S: "#{red}irb#{reset_color}#{bold}#{bright_red}(#{reset_color}#{reset_intensity}#{red}%N#{reset_color}#{bold}#{bright_red})#{reset_color}#{reset_intensity}%l ",
+          PROMPT_C: "#{red}irb#{reset_color}#{bold}#{bright_red}(#{reset_color}#{reset_intensity}#{red}%N#{reset_color}#{bold}#{bright_red})#{reset_color}#{reset_intensity}* ",
           RETURN: "=> %s#{$/}"
         }
       )

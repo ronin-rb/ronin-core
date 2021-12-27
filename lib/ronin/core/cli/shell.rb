@@ -210,7 +210,8 @@ module Ronin
         #
         def prompt
           c = colors(stdout)
-          c.red("#{shell_name}#{c.bold('>')}")
+
+          "#{c.red(shell_name)}#{c.bold(c.bright_red('>'))}"
         end
 
         #

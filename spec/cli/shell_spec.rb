@@ -341,14 +341,15 @@ describe Ronin::Core::CLI::Shell do
         allow(subject.stdout).to receive(:tty?).and_return(true)
       end
 
-      let(:red)  { CommandKit::Colors::ANSI::RED }
-      let(:bold) { CommandKit::Colors::ANSI::BOLD }
+      let(:red)             { CommandKit::Colors::ANSI::RED }
+      let(:bright_red)      { CommandKit::Colors::ANSI::BRIGHT_RED }
+      let(:bold)            { CommandKit::Colors::ANSI::BOLD }
       let(:reset_intensity) { CommandKit::Colors::ANSI::RESET_INTENSITY }
       let(:reset_color)     { CommandKit::Colors::ANSI::RESET_COLOR     }
 
       it "must return an ANSI colored prompt" do
         expect(subject.prompt).to eq(
-          "#{red}#{subject.shell_name}#{bold}>#{reset_intensity}#{reset_color}"
+          "#{red}#{subject.shell_name}#{reset_color}#{bold}#{bright_red}>#{reset_color}#{reset_intensity}"
         )
       end
     end

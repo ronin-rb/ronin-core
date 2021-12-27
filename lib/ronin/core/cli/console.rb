@@ -108,15 +108,15 @@ module Ronin
         #
         def set_prompt
           colors(STDOUT).tap do |c|
-            left_paren    = c.bold('(')
-            right_paren   = c.bold(')')
-            prompt_prefix = "irb#{left_paren}%N#{right_paren}"
+            left_paren    = c.bold(c.bright_red('('))
+            right_paren   = c.bold(c.bright_red(')'))
+            prompt_prefix = "#{c.red('irb')}#{left_paren}#{c.red('%N')}#{right_paren}"
 
             IRB.conf[:PROMPT][:RONIN] = {
               AUTO_INDENT: true,
-              PROMPT_I: c.red("#{prompt_prefix}#{c.bold('>')} "),
-              PROMPT_S: c.red("#{prompt_prefix}%l "),
-              PROMPT_C: c.red("#{prompt_prefix}* "),
+              PROMPT_I: "#{prompt_prefix}#{c.bold(c.bright_red('>'))} ",
+              PROMPT_S: "#{prompt_prefix}%l ",
+              PROMPT_C: "#{prompt_prefix}* ",
               RETURN:   "=> %s#{$/}"
             }
             IRB.conf[:PROMPT_MODE] = :RONIN
