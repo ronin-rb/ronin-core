@@ -30,7 +30,7 @@ and development.
 
 * [Ruby] >= 2.7.0
 * [reline] ~> 0.1
-* [command_kit] ~> 0.2, >= 0.2.1
+* [command_kit] ~> 0.3
 * [irb] ~> 1.0
 
 ## Install

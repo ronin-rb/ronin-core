@@ -4,7 +4,7 @@ gemspec
 
 gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
 
-# gem 'command_kit', '~> 0.2', github: 'postmodern/command_kit.rb',
+# gem 'command_kit', '~> 0.3', github: 'postmodern/command_kit.rb',
 #                              branch: 'main'
 
 group :development do
