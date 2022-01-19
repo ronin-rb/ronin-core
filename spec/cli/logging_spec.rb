@@ -19,9 +19,9 @@ describe Ronin::Core::CLI::Logging do
 
   let(:message) { "foo bar baz" }
 
-  let(:green)  { CommandKit::Colors::ANSI::GREEN  }
-  let(:yellow) { CommandKit::Colors::ANSI::YELLOW }
-  let(:red)    { CommandKit::Colors::ANSI::RED    }
+  let(:bright_green)  { CommandKit::Colors::ANSI::BRIGHT_GREEN  }
+  let(:bright_yellow) { CommandKit::Colors::ANSI::BRIGHT_YELLOW }
+  let(:bright_red)    { CommandKit::Colors::ANSI::BRIGHT_RED    }
   let(:white)  { CommandKit::Colors::ANSI::WHITE  }
   let(:bold)   { CommandKit::Colors::ANSI::BOLD   }
   let(:reset_intensity) { CommandKit::Colors::ANSI::RESET_INTENSITY }
@@ -35,7 +35,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_info(message)
 
         expect(stdout.string).to eq(
-          "#{bold}#{green}>>>#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
+          "#{bold}#{bright_green}>>>#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
@@ -57,7 +57,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_warn(message)
 
         expect(stdout.string).to eq(
-          "#{bold}#{yellow}***#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
+          "#{bold}#{bright_yellow}***#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
@@ -79,7 +79,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_error(message)
 
         expect(stderr.string).to eq(
-          "#{bold}#{red}!!!#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
+          "#{bold}#{bright_red}!!!#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
