@@ -178,12 +178,12 @@ Commands:
 $ ./bin/ronin-foo ls
 ```
 
-### Shell
+### CommandShell
 
 Define a custom command shell:
 
 ```ruby
-class HTTPShell < Ronin::Core::CLI::Shell
+class HTTPShell < Ronin::Core::CLI::CommandShell
 
   shell_name 'http'
 
