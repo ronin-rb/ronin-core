@@ -150,7 +150,7 @@ module Ronin
         #   Indicates whether the command was successfully executed.
         #
         def exec(command)
-          call(*self.class.parse(command))
+          call(*self.class.parse_command(command))
         end
 
         #
