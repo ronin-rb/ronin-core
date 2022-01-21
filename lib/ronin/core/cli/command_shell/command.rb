@@ -17,10 +17,12 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require 'ronin/core/cli/shell'
+
 module Ronin
   module Core
     module CLI
-      class CommandShell
+      class CommandShell < Shell
         class Command
 
           # The command's name.

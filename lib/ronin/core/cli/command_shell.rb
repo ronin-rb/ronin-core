@@ -17,11 +17,9 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require 'ronin/core/cli/shell'
 require 'ronin/core/cli/command_shell/command'
 
-require 'command_kit/printing'
-require 'command_kit/colors'
-require 'reline'
 require 'shellwords'
 
 module Ronin
@@ -55,25 +53,7 @@ module Ronin
       #
       # @api semipublic
       #
-      class CommandShell
-
-        include CommandKit::Printing
-        include CommandKit::Colors
-
-        #
-        # The default shell prompt name.
-        #
-        # @return [String]
-        #
-        def self.shell_name(new_name=nil)
-          if new_name
-            @shell_name = new_name
-          else
-            @shell_name ||= if superclass < CommandShell
-                              superclass.shell_name
-                            end
-          end
-        end
+      class CommandShell < Shell
 
         #
         # The registered shell commands.
@@ -118,43 +98,6 @@ module Ronin
         end
 
         #
-        # Starts the shell and processes each line of input.
-        #
-        # @param [Array<Object>] arguments
-        #   Additional arguments for `initialize`.
-        #
-        # @param [Hash{Symbol => Object}] kwargs
-        #   Additional keyword arguments for `initialize`.
-        #
-        # @note
-        #   The shell will exit if `Ctrl^C` or `Ctrl^D` is pressed.
-        #
-        def self.start(*arguments,**kwargs)
-          shell = new(*arguments,**kwargs)
-
-          Reline.completion_proc = method(:complete)
-          use_history = true
-
-          begin
-            loop do
-              line = Reline.readline("#{shell.prompt} ", use_history)
-
-              if line.nil? # Ctrl^D
-                puts
-                break
-              end
-
-              line.chomp!
-
-              unless line.empty?
-                shell.call(*parse(line))
-              end
-            end
-          rescue Interrupt # catch Ctrl^C
-          end
-        end
-
-        #
         # The partially input being tab completed.
         #
         # @param [String] word
@@ -164,7 +107,7 @@ module Ronin
         #   The optional command name that preceeds the argument that's being
         #   tab completed.
         #
-        # @return [Array<String>]
+        # @return [Array<String>, nil]
         #   The possible completion values.
         #
         def self.complete(word,preposing)
@@ -188,30 +131,21 @@ module Ronin
         # @return [String, Array<String>]
         #   The command name and any additional arguments.
         #
-        def self.parse(line)
+        def self.parse_command(line)
           Shellwords.shellsplit(line)
         end
 
         #
-        # The shell name used in the prompt.
+        # Executes a command.
         #
-        # @return [String]
+        # @param [String] command
+        #   The command to execute.
         #
-        # @see shell_name
+        # @return [Boolean]
+        #   Indicates whether the command was successfully executed.
         #
-        def shell_name
-          self.class.shell_name
-        end
-
-        #
-        # The shell prompt.
-        #
-        # @return [String]
-        #
-        def prompt
-          c = colors(stdout)
-
-          "#{c.red(shell_name)}#{c.bold(c.bright_red('>'))}"
+        def exec(command)
+          call(*self.class.parse(command))
         end
 
         #
