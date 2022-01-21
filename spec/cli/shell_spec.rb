@@ -135,6 +135,38 @@ describe Ronin::Core::CLI::Shell do
   let(:shell_class) { TestShell::TestShell }
   subject { shell_class.new }
 
+  describe "#initialize" do
+    context "when no keyword arguments are given" do
+      it "must default #shell_name to self.class.shell_name" do
+        expect(subject.shell_name).to eq(shell_class.shell_name)
+      end
+
+      it "must default #prompt_sigil to self.class.prompt_sigil" do
+        expect(subject.prompt_sigil).to eq(shell_class.prompt_sigil)
+      end
+    end
+
+    context "when the shell_name: keyword argument is given" do
+      let(:new_shell_name) { 'override' }
+
+      subject { shell_class.new(shell_name: new_shell_name) }
+
+      it "must override #shell_name" do
+        expect(subject.shell_name).to eq(new_shell_name)
+      end
+    end
+
+    context "when the prompt_sigil: keyword argument is given" do
+      let(:new_prompt_sigil) { '$' }
+
+      subject { shell_class.new(prompt_sigil: new_prompt_sigil) }
+
+      it "must override #prompt_sigil" do
+        expect(subject.prompt_sigil).to eq(new_prompt_sigil)
+      end
+    end
+  end
+
   describe "#shell_name" do
     it "must return the shell class'es .shell_name" do
       expect(subject.shell_name).to eq(shell_class.shell_name)

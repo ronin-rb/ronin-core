@@ -119,26 +119,26 @@ module Ronin
         def self.complete(word,preposing)
         end
 
+        # The shell's name.
         #
-        # The shell name used in the prompt.
+        # @return [String, nil]
+        attr_reader :shell_name
+
+        # The prompt sigil character (ex: `>`).
         #
         # @return [String]
-        #
-        # @see shell_name
-        #
-        def shell_name
-          self.class.shell_name
-        end
+        attr_reader :prompt_sigil
 
         #
-        # The prompt sigil symbol (ex: `>`).
+        # Initializes the shell instance.
         #
-        # @return [String]
-        #
-        # @see prompt_sigil
-        #
-        def prompt_sigil
-          self.class.prompt_sigil
+        def initialize(shell_name:   self.class.shell_name,
+                       prompt_sigil: self.class.prompt_sigil,
+                       **kwargs)
+          super(**kwargs)
+
+          @shell_name   = shell_name
+          @prompt_sigil = prompt_sigil
         end
 
         #
