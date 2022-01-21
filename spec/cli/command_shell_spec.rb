@@ -280,6 +280,14 @@ describe Ronin::Core::CLI::CommandShell do
   let(:shell_class) { TestCommandShell::TestCommandShell }
   subject { shell_class.new }
 
+  describe "#exec" do
+    it "must call the underlying command method" do
+      expect(subject).to receive(:foo)
+
+      subject.exec('foo')
+    end
+  end
+
   describe "#call" do
     context "when the command exists" do
       context "but the command does not accept any arguments" do
