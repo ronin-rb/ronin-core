@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'ronin/core/cli/shell/command'
+require 'ronin/core/cli/command_shell/command'
 
-describe Ronin::Core::CLI::Shell::Command do
+describe Ronin::Core::CLI::CommandShell::Command do
   let(:name)       { :foo }
   let(:usage)      { 'ARG1 [ARG2]' }
   let(:completion) { %w[arg1 arg2] }

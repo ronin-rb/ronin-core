@@ -20,7 +20,7 @@
 module Ronin
   module Core
     module CLI
-      class Shell
+      class CommandShell
         class Command
 
           # The command's name.

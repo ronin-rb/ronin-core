@@ -1,17 +1,17 @@
 require 'spec_helper'
-require 'ronin/core/cli/shell'
+require 'ronin/core/cli/command_shell'
 
-describe Ronin::Core::CLI::Shell do
+describe Ronin::Core::CLI::CommandShell do
   describe ".shell_name" do
     subject { shell_class }
 
     context "and when shell_name is not set in the shell class" do
-      module TestShell
-        class ShellWithNoShellName < Ronin::Core::CLI::Shell
+      module TestCommandShell
+        class ShellWithNoShellName < Ronin::Core::CLI::CommandShell
         end
       end
 
-      let(:shell_class) { TestShell::ShellWithNoShellName }
+      let(:shell_class) { TestCommandShell::ShellWithNoShellName }
 
       it "must default to nil" do
         expect(subject.shell_name).to be(nil)
@@ -19,13 +19,13 @@ describe Ronin::Core::CLI::Shell do
     end
 
     context "and when shell_name is set in the shell class" do
-      module TestShell
-        class ShellWithShellName < Ronin::Core::CLI::Shell
+      module TestCommandShell
+        class ShellWithShellName < Ronin::Core::CLI::CommandShell
           shell_name 'test'
         end
       end
 
-      let(:shell_class) { TestShell::ShellWithShellName }
+      let(:shell_class) { TestCommandShell::ShellWithShellName }
 
       it "must return the set shell_name" do
         expect(subject.shell_name).to eq("test")
@@ -33,25 +33,29 @@ describe Ronin::Core::CLI::Shell do
     end
 
     context "but when the shell_name was set in the superclass" do
-      module TestShell
+      module TestCommandShell
         class ShellThatInheritsItsShellName < ShellWithShellName
         end
       end
 
-      let(:shell_class) { TestShell::ShellThatInheritsItsShellName }
+      let(:shell_class) do
+        TestCommandShell::ShellThatInheritsItsShellName
+      end
 
       it "must return the shell_name set in the superclass" do
         expect(subject.shell_name).to eq("test")
       end
 
       context "but the shell_name is overridden in the sub-class" do
-        module TestShell
+        module TestCommandShell
           class ShellThatOverridesItsInheritedShellName < ShellWithShellName
             shell_name "test2"
           end
         end
 
-        let(:shell_class) { TestShell::ShellThatOverridesItsInheritedShellName }
+        let(:shell_class) do
+          TestCommandShell::ShellThatOverridesItsInheritedShellName
+        end
 
         it "must return the shell_name set in the superclass" do
           expect(subject.shell_name).to eq("test2")
@@ -64,13 +68,13 @@ describe Ronin::Core::CLI::Shell do
     subject { shell_class }
 
     context "when no commands have been defined in the shell class" do
-      module TestShell
-        class ShellWithNoCommands < Ronin::Core::CLI::Shell
+      module TestCommandShell
+        class ShellWithNoCommands < Ronin::Core::CLI::CommandShell
           shell_name 'test'
         end
       end
 
-      let(:shell_class) { TestShell::ShellWithNoCommands }
+      let(:shell_class) { TestCommandShell::ShellWithNoCommands }
 
       it "must return a Hash only containing the help command" do
         expect(subject.commands.keys).to eq(%w[help])
@@ -79,8 +83,8 @@ describe Ronin::Core::CLI::Shell do
     end
 
     context "when commands have been defined in the shell class" do
-      module TestShell
-        class ShellWithCommands < Ronin::Core::CLI::Shell
+      module TestCommandShell
+        class ShellWithCommands < Ronin::Core::CLI::CommandShell
           shell_name 'test'
 
           command :foo, summary: 'Foo command'
@@ -89,7 +93,7 @@ describe Ronin::Core::CLI::Shell do
         end
       end
 
-      let(:shell_class) { TestShell::ShellWithCommands }
+      let(:shell_class) { TestCommandShell::ShellWithCommands }
 
       it "must return the Hash of command names and Command classes" do
         expect(subject.commands['foo']).to be_kind_of(described_class::Command)
@@ -99,21 +103,26 @@ describe Ronin::Core::CLI::Shell do
     end
 
     context "but when the commands are defined in the superclass" do
-      module TestShell
+      module TestCommandShell
         class ShellWithInheritedCommands < ShellWithCommands
           shell_name 'test'
         end
       end
 
-      let(:shell_superclass) { TestShell::ShellWithCommands          }
-      let(:shell_class)      { TestShell::ShellWithInheritedCommands }
+      let(:shell_superclass) do
+        TestCommandShell::ShellWithCommands
+      end
+
+      let(:shell_class) do
+        TestCommandShell::ShellWithInheritedCommands
+      end
 
       it "must return the commands defined in the superclass" do
         expect(subject.commands['foo']).to be(shell_superclass.commands['foo'])
       end
 
       context "but additional commands are defined in the sub-class" do
-        module TestShell
+        module TestCommandShell
           class ShellWithInheritedCommandsAndItsOwnCommands < ShellWithCommands
             shell_name 'test'
             command :bar, summary: 'Bar command'
@@ -122,7 +131,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithInheritedCommandsAndItsOwnCommands }
+        let(:shell_class) do
+          TestCommandShell::ShellWithInheritedCommandsAndItsOwnCommands
+        end
 
         it "must contain the commands defined in the subclass" do
           expect(subject.commands['bar']).to be_kind_of(described_class::Command)
@@ -144,7 +155,7 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "but the commands defined in the sub-class override those in the superclass" do
-        module TestShell
+        module TestCommandShell
           class ShellThatOverridesInheritedCommands < ShellWithCommands
             shell_name 'test'
             command :foo, summary: 'Overrided foo command'
@@ -153,7 +164,7 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellThatOverridesInheritedCommands }
+        let(:shell_class) { TestCommandShell::ShellThatOverridesInheritedCommands }
 
         it "must contain the commands overridden in the sub-class" do
           expect(subject.commands['foo']).to_not be(shell_superclass.commands['foo'])
@@ -202,8 +213,8 @@ describe Ronin::Core::CLI::Shell do
   end
 
   describe ".complete" do
-    module TestShell
-      class ShellWithCompletions < Ronin::Core::CLI::Shell
+    module TestCommandShell
+      class ShellWithCompletions < Ronin::Core::CLI::CommandShell
         shell_name 'test'
 
         command :foo, summary: 'Foo command'
@@ -220,7 +231,7 @@ describe Ronin::Core::CLI::Shell do
       end
     end
 
-    let(:shell_class) { TestShell::ShellWithCompletions }
+    let(:shell_class) { TestCommandShell::ShellWithCompletions }
     subject { shell_class }
 
     context "when the input is empty" do
@@ -308,8 +319,8 @@ describe Ronin::Core::CLI::Shell do
     end
   end
 
-  module TestShell
-    class TestShell < Ronin::Core::CLI::Shell
+  module TestCommandShell
+    class TestCommandShell < Ronin::Core::CLI::CommandShell
       shell_name 'test'
 
       command :foo, summary: 'Foo command'
@@ -322,7 +333,7 @@ describe Ronin::Core::CLI::Shell do
     end
   end
 
-  let(:shell_class) { TestShell::TestShell }
+  let(:shell_class) { TestCommandShell::TestCommandShell }
   subject { shell_class.new }
 
   describe "#shell_name" do
@@ -364,8 +375,8 @@ describe Ronin::Core::CLI::Shell do
   describe "#call" do
     context "when the command exists" do
       context "but the command does not accept any arguments" do
-        module TestShell
-          class ShellWithCommandWithNoArgs < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithNoArgs < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd, summary: 'Example command'
@@ -375,7 +386,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithNoArgs }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithNoArgs
+        end
         let(:name) { 'cmd' }
 
         context "and no arguments are given" do
@@ -401,8 +414,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts an argument" do
-        module TestShell
-          class ShellWithCommandWithArg < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithArg < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_arg, usage: 'ARG',
@@ -413,7 +426,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithArg }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithArg
+        end
         let(:name) { 'cmd_with_arg' }
 
         context "and no arguments are given" do
@@ -451,8 +466,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts multiple arguments" do
-        module TestShell
-          class ShellWithCommandWithMultipleArgs < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithMultipleArgs < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_args, usage: 'ARG1 ARG2',
@@ -463,7 +478,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithMultipleArgs }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithMultipleArgs
+        end
         let(:name) { 'cmd_with_args' }
 
         context "and no arguments are given" do
@@ -514,8 +531,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts an optional argument" do
-        module TestShell
-          class ShellWithCommandWithOptionalArg < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithOptionalArg < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_opt_arg, usage: '[ARG]',
@@ -526,7 +543,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithOptionalArg }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithOptionalArg
+        end
         let(:name) { 'cmd_with_opt_arg' }
 
         context "and no arguments are given" do
@@ -564,8 +583,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts an argument and an optional argument" do
-        module TestShell
-          class ShellWithCommandWithArgAndOptionalArg < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithArgAndOptionalArg < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_arg_and_opt_arg, usage: 'ARG1 [ARG2]',
@@ -576,7 +595,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithArgAndOptionalArg }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithArgAndOptionalArg
+        end
         let(:name) { 'cmd_with_arg_and_opt_arg' }
 
         context "and no arguments are given" do
@@ -627,8 +648,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts a splat of arguments" do
-        module TestShell
-          class ShellWithCommandWithSplatArgs < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithSplatArgs < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_splat_args, usage: '[ARGS...]',
@@ -639,7 +660,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithSplatArgs }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithSplatArgs
+        end
         let(:name) { 'cmd_with_splat_args' }
 
         context "and no arguments are given" do
@@ -677,8 +700,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts an argument and splat arguments" do
-        module TestShell
-          class ShellWithCommandWithArgAndSplatArgs < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithArgAndSplatArgs < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_arg_and_splat_args, usage: 'ARG [ARGS...]',
@@ -689,7 +712,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithArgAndSplatArgs }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithArgAndSplatArgs
+        end
         let(:name) { 'cmd_with_arg_and_splat_args' }
 
         context "and no arguments are given" do
@@ -740,8 +765,8 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "and the command accepts an optional argument and splat arguments" do
-        module TestShell
-          class ShellWithCommandWithOptionalArgAndSplatArgs < Ronin::Core::CLI::Shell
+        module TestCommandShell
+          class ShellWithCommandWithOptionalArgAndSplatArgs < Ronin::Core::CLI::CommandShell
             shell_name 'test'
 
             command :cmd_with_opt_arg_and_splat_args, usage: '[ARG] [ARGS...]',
@@ -752,7 +777,9 @@ describe Ronin::Core::CLI::Shell do
           end
         end
 
-        let(:shell_class) { TestShell::ShellWithCommandWithOptionalArgAndSplatArgs }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandWithOptionalArgAndSplatArgs
+        end
         let(:name) { 'cmd_with_opt_arg_and_splat_args' }
 
         context "and no arguments are given" do
@@ -814,15 +841,17 @@ describe Ronin::Core::CLI::Shell do
     end
 
     context "when the command was defined but no method is defined" do
-      module TestShell
-        class ShellWithCommandButNoMethod < Ronin::Core::CLI::Shell
+      module TestCommandShell
+        class ShellWithCommandButNoMethod < Ronin::Core::CLI::CommandShell
 
           command 'cmd', summary: 'Test command'
 
         end
       end
 
-      let(:shell_class) { TestShell::ShellWithCommandButNoMethod }
+      let(:shell_class) do
+        TestCommandShell::ShellWithCommandButNoMethod
+      end
       let(:name) { 'cmd' }
 
       it "must raise NotImplementedError" do
@@ -854,8 +883,8 @@ describe Ronin::Core::CLI::Shell do
   end
 
   describe "#help" do
-    module TestShell
-      class ShellWithCommandsWithoutUsages < Ronin::Core::CLI::Shell
+    module TestCommandShell
+      class ShellWithCommandsWithoutUsages < Ronin::Core::CLI::CommandShell
         shell_name 'test'
 
         command :foo, summary: 'Foo command'
@@ -867,7 +896,7 @@ describe Ronin::Core::CLI::Shell do
         end
       end
 
-      class ShellWithCommandsWithCustomUsages < Ronin::Core::CLI::Shell
+      class ShellWithCommandsWithCustomUsages < Ronin::Core::CLI::CommandShell
         shell_name 'test'
 
         command :foo, usage: 'ARG',
@@ -884,7 +913,9 @@ describe Ronin::Core::CLI::Shell do
 
     context "when called with no arguments" do
       context "but the shell has no commands" do
-        let(:shell_class) { TestShell::ShellWithNoCommands }
+        let(:shell_class) do
+          TestCommandShell::ShellWithNoCommands
+        end
 
         it "must list the help command" do
           expect {
@@ -899,7 +930,9 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "but the commands do not have usage strings" do
-        let(:shell_class) { TestShell::ShellWithCommandsWithoutUsages }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandsWithoutUsages
+        end
 
         it "must print the command names and summaries in two columns" do
           expect {
@@ -916,7 +949,9 @@ describe Ronin::Core::CLI::Shell do
       end
 
       context "when the commands defines custom usages" do
-        let(:shell_class) { TestShell::ShellWithCommandsWithCustomUsages }
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandsWithCustomUsages
+        end
 
         it "must print the custom usages next to the command names with extra right-padding" do
           expect {
@@ -938,7 +973,9 @@ describe Ronin::Core::CLI::Shell do
 
       context "but the command does not have a usage string" do
         context "nor does the command have any additional help output" do
-          let(:shell_class) { TestShell::ShellWithCommandsWithoutUsages }
+          let(:shell_class) do
+            TestCommandShell::ShellWithCommandsWithoutUsages
+          end
 
           it "must print the command's name and summary" do
             expect {
@@ -955,8 +992,8 @@ describe Ronin::Core::CLI::Shell do
         end
 
         context "and the command has additional help output" do
-          module TestShell
-            class ShellWithCommandsWithNoUsagesButWithHelp < Ronin::Core::CLI::Shell
+          module TestCommandShell
+            class ShellWithCommandsWithNoUsagesButWithHelp < Ronin::Core::CLI::CommandShell
               shell_name 'test'
 
               command :foo, summary: 'Foo command',
@@ -971,7 +1008,9 @@ describe Ronin::Core::CLI::Shell do
             end
           end
 
-          let(:shell_class) { TestShell::ShellWithCommandsWithNoUsagesButWithHelp }
+          let(:shell_class) do
+            TestCommandShell::ShellWithCommandsWithNoUsagesButWithHelp
+          end
 
           it "must print the command name and additional help output" do
             expect {
@@ -990,7 +1029,9 @@ describe Ronin::Core::CLI::Shell do
 
       context "and the command does have a usage string" do
         context "but the command does not have any additional help output" do
-          let(:shell_class) { TestShell::ShellWithCommandsWithCustomUsages }
+          let(:shell_class) do
+            TestCommandShell::ShellWithCommandsWithCustomUsages
+          end
 
           it "must print the command name, usage, and summary" do
             expect {
@@ -1007,8 +1048,8 @@ describe Ronin::Core::CLI::Shell do
         end
 
         context "and the command does have any additional help output" do
-          module TestShell
-            class ShellWithCommandsWithUsagesButWithHelp < Ronin::Core::CLI::Shell
+          module TestCommandShell
+            class ShellWithCommandsWithUsagesButWithHelp < Ronin::Core::CLI::CommandShell
               shell_name 'test'
 
               command :foo, usage:   'ARG',
@@ -1025,7 +1066,9 @@ describe Ronin::Core::CLI::Shell do
             end
           end
 
-          let(:shell_class) { TestShell::ShellWithCommandsWithUsagesButWithHelp }
+          let(:shell_class) do
+            TestCommandShell::ShellWithCommandsWithUsagesButWithHelp
+          end
 
           it "must print the command name, usage, and additional help output" do
             expect {

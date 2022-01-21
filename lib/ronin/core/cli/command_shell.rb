@@ -17,7 +17,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/cli/shell/command'
+require 'ronin/core/cli/command_shell/command'
 
 require 'command_kit/printing'
 require 'command_kit/colors'
@@ -55,7 +55,7 @@ module Ronin
       #
       # @api semipublic
       #
-      class Shell
+      class CommandShell
 
         include CommandKit::Printing
         include CommandKit::Colors
@@ -69,7 +69,7 @@ module Ronin
           if new_name
             @shell_name = new_name
           else
-            @shell_name ||= if superclass < Shell
+            @shell_name ||= if superclass < CommandShell
                               superclass.shell_name
                             end
           end
@@ -82,7 +82,7 @@ module Ronin
         #   The registered shell commands.
         #
         def self.commands
-          @commands ||= if superclass <= Shell
+          @commands ||= if superclass <= CommandShell
                           superclass.commands.dup
                         else
                           {}
