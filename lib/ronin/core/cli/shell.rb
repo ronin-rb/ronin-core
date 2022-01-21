@@ -45,6 +45,26 @@ module Ronin
         end
 
         #
+        # The default prompt sigil.
+        #
+        # @param [String, nil] new_sigil
+        #   The optional new prompt sigil to use.
+        #
+        # @return [String]
+        #
+        def self.prompt_sigil(new_sigil=nil)
+          if new_sigil
+            @prompt_sigil = new_sigil
+          else
+            @prompt_sigil ||= if superclass <= Shell
+                              superclass.prompt_sigil
+                            end
+          end
+        end
+
+        prompt_sigil '>'
+
+        #
         # Starts the shell and processes each line of input.
         #
         # @param [Array<Object>] arguments
@@ -111,6 +131,17 @@ module Ronin
         end
 
         #
+        # The prompt sigil symbol (ex: `>`).
+        #
+        # @return [String]
+        #
+        # @see prompt_sigil
+        #
+        def prompt_sigil
+          self.class.prompt_sigil
+        end
+
+        #
         # The shell prompt.
         #
         # @return [String]
@@ -118,7 +149,7 @@ module Ronin
         def prompt
           c = colors(stdout)
 
-          "#{c.red(shell_name)}#{c.bold(c.bright_red('>'))}"
+          "#{c.red(shell_name)}#{c.bold(c.bright_red(prompt_sigil))}"
         end
 
         #

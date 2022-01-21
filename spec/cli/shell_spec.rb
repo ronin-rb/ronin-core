@@ -64,6 +64,68 @@ describe Ronin::Core::CLI::Shell do
     end
   end
 
+  describe ".prompt_sigil" do
+    subject { shell_class }
+
+    context "and when prompt_sigil is not set in the shell class" do
+      module TestShell
+        class ShellWithNoPromptSigil < Ronin::Core::CLI::Shell
+        end
+      end
+
+      let(:shell_class) { TestShell::ShellWithNoPromptSigil }
+
+      it "must default to '>'" do
+        expect(subject.prompt_sigil).to eq('>')
+      end
+    end
+
+    context "and when prompt_sigil is set in the shell class" do
+      module TestShell
+        class ShellWithPromptSigil < Ronin::Core::CLI::Shell
+          prompt_sigil '$'
+        end
+      end
+
+      let(:shell_class) { TestShell::ShellWithPromptSigil }
+
+      it "must return the set prompt_sigil" do
+        expect(subject.prompt_sigil).to eq("$")
+      end
+    end
+
+    context "but when the prompt_sigil was set in the superclass" do
+      module TestShell
+        class ShellThatInheritsItsPromptSigil < ShellWithPromptSigil
+        end
+      end
+
+      let(:shell_class) do
+        TestShell::ShellThatInheritsItsPromptSigil
+      end
+
+      it "must return the prompt_sigil set in the superclass" do
+        expect(subject.prompt_sigil).to eq("$")
+      end
+
+      context "but the prompt_sigil is overridden in the sub-class" do
+        module TestShell
+          class ShellThatOverridesItsInheritedPromptSigil < ShellWithPromptSigil
+            prompt_sigil "#"
+          end
+        end
+
+        let(:shell_class) do
+          TestShell::ShellThatOverridesItsInheritedPromptSigil
+        end
+
+        it "must return the prompt_sigil set in the superclass" do
+          expect(subject.prompt_sigil).to eq("#")
+        end
+      end
+    end
+  end
+
   module TestShell
     class TestShell < Ronin::Core::CLI::Shell
       shell_name 'test'
@@ -76,6 +138,12 @@ describe Ronin::Core::CLI::Shell do
   describe "#shell_name" do
     it "must return the shell class'es .shell_name" do
       expect(subject.shell_name).to eq(shell_class.shell_name)
+    end
+  end
+
+  describe "#prompt_sigil" do
+    it "must return the shell class'es .prompt_sigil" do
+      expect(subject.prompt_sigil).to eq(shell_class.prompt_sigil)
     end
   end
 
