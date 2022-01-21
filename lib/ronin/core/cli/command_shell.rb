@@ -75,6 +75,9 @@ module Ronin
         # @param [Symbol] name
         #   The name of the shell command.
         #
+        # @param [Symbol] method_name
+        #   Optional method name to use. Defaults to the name argument.
+        #
         # @param [String, nil] usage
         #   A usage string indicating the shell command's options/arguments.
         #
@@ -87,14 +90,16 @@ module Ronin
         # @param [String] help
         #   Multi-line help output for the shell command.
         #
-        def self.command(name, usage:      nil,
+        def self.command(name, method_name: name,
+                               usage: nil,
                                completion: [],
                                summary: ,
                                help: summary)
-          commands[name.to_s] = Command.new(name, usage:      usage,
-                                                  completion: completion,
-                                                  summary:    summary,
-                                                  help:       help.strip)
+          commands[name.to_s] = Command.new(name, method_name: method_name,
+                                                  usage:       usage,
+                                                  completion:  completion,
+                                                  summary:     summary,
+                                                  help:        help.strip)
         end
 
         #
@@ -168,15 +173,17 @@ module Ronin
             return command_missing(name,*args)
           end
 
-          unless respond_to?(name,false)
-            raise(NotImplementedError,"#{self.class}##{name} was not defined for the #{name.inspect} command")
+          method_name = command.method_name
+
+          unless respond_to?(method_name,false)
+            raise(NotImplementedError,"#{self.class}##{method_name} was not defined for the #{name.inspect} command")
           end
 
-          unless method_arity_check(name,args)
+          unless method_arity_check(method_name,args)
             return false
           end
 
-          send(name,*args)
+          send(method_name,*args)
           return true
         end
 

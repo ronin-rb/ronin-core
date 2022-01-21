@@ -30,6 +30,11 @@ module Ronin
           # @return [Symbol]
           attr_reader :name
 
+          # The command's method name.
+          #
+          # @return [Symbol]
+          attr_reader :method_name
+
           # The usage string for the command's arguments.
           #
           # @return [String, nil]
@@ -56,6 +61,9 @@ module Ronin
           # @param [Symbol] name
           #   The name of the command.
           #
+          # @param [Symbol] method_name
+          #   The command's method name. Defaults to the name argument.
+          #
           # @param [String, nil] usage
           #   The usage string for the command's arguments.
           #
@@ -68,15 +76,17 @@ module Ronin
           # @param [String] help
           #   Multi-line help information for the command.
           #
-          def initialize(name,usage: nil,
-                              completion: [],
-                              summary: ,
-                              help: summary)
-            @name       = name
-            @usage      = usage
-            @completion = completion
-            @summary    = summary
-            @help       = help
+          def initialize(name, method_name: name,
+                               usage: nil,
+                               completion: [],
+                               summary: ,
+                               help: summary)
+            @name        = name
+            @method_name = method_name
+            @usage       = usage
+            @completion  = completion
+            @summary     = summary
+            @help        = help
           end
 
           #

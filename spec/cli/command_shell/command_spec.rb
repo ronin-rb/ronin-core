@@ -28,6 +28,28 @@ describe Ronin::Core::CLI::CommandShell::Command do
       expect(subject.name).to eq(name)
     end
 
+    context "when the method_name: keyword is not given" do
+      it "must default #method_name to name" do
+        expect(subject.method_name).to eq(name)
+      end
+    end
+
+    context "when the method_name: keyword is given" do
+      let(:method_name) { 'foo2' }
+
+      subject do
+        described_class.new(name, method_name: method_name,
+                                  usage:       usage,
+                                  completion:  completion,
+                                  summary:     summary,
+                                  help:        help)
+      end
+
+      it "must override #method_name" do
+        expect(subject.method_name).to eq(method_name)
+      end
+    end
+
     context "when the usage: keyword is not given" do
       subject { described_class.new(name, summary: summary) }
 
