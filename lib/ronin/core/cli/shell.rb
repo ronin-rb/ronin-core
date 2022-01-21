@@ -94,7 +94,11 @@ module Ronin
               line.chomp!
 
               unless line.empty?
-                shell.exec(line)
+                begin
+                  shell.exec(line)
+                rescue => error
+                  shell.print_exception(error)
+                end
               end
             end
           rescue Interrupt # catch Ctrl^C
