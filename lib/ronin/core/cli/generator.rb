@@ -175,17 +175,19 @@ module Ronin
         #   The relative path to the file. The `.erb` template will be derived
         #   from the file path by appending the `.erb` file extension.
         #
-        # @param [String] dest
+        # @param [String, nil] dest
         #   The destination path to write the rendered file to.
+        #   If no destination path is given, the result of the rendered `.erb`
+        #   template will be returned.
         #
-        def erb(source,dest)
-          print_action 'erb', source, dest
+        def erb(source,dest=nil)
+          if dest
+            print_action 'erb', source, dest
+          end
 
-          erb_path = File.join(@template_dir,source)
-          erb      = ERB.new(File.read(erb_path),nil,'-')
-          output   = erb.result(binding)
+          source_path = File.join(@template_dir,source)
 
-          File.write(dest,output)
+          return super(source_path,dest)
         end
 
         #

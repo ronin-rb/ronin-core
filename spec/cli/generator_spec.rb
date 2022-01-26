@@ -200,6 +200,17 @@ describe Ronin::Core::CLI::Generator do
 
       subject.erb(source,dest)
     end
+
+    context "when no destination path is given" do
+      it "must not call #print_action, but return the rendered result" do
+        expect(subject).to_not receive(:print_action).with('erb',source,dest)
+        expect(File).to_not receive(:write).with(
+          dest, "1 + 1 = 2"
+        )
+
+        expect(subject.erb(source)).to eq("1 + 1 = 2")
+      end
+    end
   end
 
   describe "#sh" do
