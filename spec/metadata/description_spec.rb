@@ -61,7 +61,7 @@ describe Ronin::Core::Metadata::Description do
           TestMetadataDescription::OverridesItsInheritedDescription
         end
 
-        it "must return the description set in the superclass" do
+        it "must return the description set in the sub-class" do
           expect(subject.description).to eq("test2")
         end
       end

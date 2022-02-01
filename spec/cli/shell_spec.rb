@@ -57,7 +57,7 @@ describe Ronin::Core::CLI::Shell do
           TestShell::ShellThatOverridesItsInheritedShellName
         end
 
-        it "must return the shell_name set in the superclass" do
+        it "must return the shell_name set in the sub-class" do
           expect(subject.shell_name).to eq("test2")
         end
       end
@@ -119,7 +119,7 @@ describe Ronin::Core::CLI::Shell do
           TestShell::ShellThatOverridesItsInheritedPromptSigil
         end
 
-        it "must return the prompt_sigil set in the superclass" do
+        it "must return the prompt_sigil set in the sub-class" do
           expect(subject.prompt_sigil).to eq("#")
         end
       end
