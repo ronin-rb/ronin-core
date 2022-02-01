@@ -5,7 +5,7 @@ describe Ronin::Core::Metadata::References do
   describe ".references" do
     subject { test_class }
 
-    context "and when references is not set in the shell class" do
+    context "and when references is not set in the class" do
       module TestMetadataReferences
         class WithNoReferencesSet
           include Ronin::Core::Metadata::References
@@ -19,7 +19,7 @@ describe Ronin::Core::Metadata::References do
       end
     end
 
-    context "and when references is set in the shell class" do
+    context "and when references is set in the class" do
       module TestMetadataReferences
         class WithReferencesSet
           include Ronin::Core::Metadata::References

@@ -5,7 +5,7 @@ describe Ronin::Core::Metadata::Author do
   describe ".author" do
     subject { test_class }
 
-    context "and when author is not set in the shell class" do
+    context "and when author is not set in the class" do
       module TestMetadataAuthor
         class WithNoAuthorSet
           include Ronin::Core::Metadata::Author
@@ -19,7 +19,7 @@ describe Ronin::Core::Metadata::Author do
       end
     end
 
-    context "and when author name is set in the shell class" do
+    context "and when author name is set in the class" do
       module TestMetadataAuthor
         class WithAuthorNameSet
           include Ronin::Core::Metadata::Author
@@ -35,7 +35,7 @@ describe Ronin::Core::Metadata::Author do
       end
     end
 
-    context "and when author name and email are set in the shell class" do
+    context "and when author name and email are set in the class" do
       module TestMetadataAuthor
         class WithAuthorNameAndEmailSet
           include Ronin::Core::Metadata::Author

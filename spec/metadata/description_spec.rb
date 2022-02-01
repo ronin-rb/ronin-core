@@ -5,7 +5,7 @@ describe Ronin::Core::Metadata::Description do
   describe ".description" do
     subject { test_class }
 
-    context "and when description is not set in the shell class" do
+    context "and when description is not set in the class" do
       module TestMetadataDescription
         class WithNoDescriptionSet
           include Ronin::Core::Metadata::Description
@@ -19,7 +19,7 @@ describe Ronin::Core::Metadata::Description do
       end
     end
 
-    context "and when description is set in the shell class" do
+    context "and when description is set in the class" do
       module TestMetadataDescription
         class WithDescriptionSet
           include Ronin::Core::Metadata::Description
