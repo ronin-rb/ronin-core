@@ -20,6 +20,50 @@
 module Ronin
   module Core
     #
+    # A mixin that adds a module registry to a library:
+    #
+    # ### Example
+    #
+    # `lib/ronin/exploits.rb`:
+    #
+    #     require 'ronin/core/module_registry'
+    #     
+    #     module Ronin
+    #       module Exploits
+    #         include Ronin::Core::ModuleRegistry
+    #     
+    #         module_load_path 'ronin/exploits'
+    #       end
+    #     end
+    #
+    # `lib/ronin/exploits/exploit.rb`:
+    #
+    #     module Ronin
+    #       module Exploits
+    #         class Exploit
+    #     
+    #           def self.register(name)
+    #             Exploits.register_module(name,self)
+    #           end
+    #     
+    #         end
+    #       end
+    #     end
+    #
+    # `lib/ronin/exploits/my_exploit.rb`:
+    #
+    #     require 'ronin/exploits/exploit'
+    #     
+    #     module Ronin
+    #       module Exploits
+    #         class MyExploit < Exploit
+    #     
+    #           register 'my_exploit'
+    #     
+    #         end
+    #       end
+    #     end
+    #
     # @api semipublic
     #
     module ModuleRegistry
