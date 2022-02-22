@@ -165,7 +165,7 @@ describe Ronin::Core::CLI::CommandShell do
         def foo
         end
 
-        command :bar, completion: %w[arg1 arg2 foo], summary: 'Bar command'
+        command :bar, completions: %w[arg1 arg2 foo], summary: 'Bar command'
         def bar
         end
 
@@ -205,7 +205,7 @@ describe Ronin::Core::CLI::CommandShell do
 
         it "must return the command's argument values that match the end of the input" do
           expect(subject.complete(word,preposing)).to eq(
-            subject.commands[command].completion.select { |value|
+            subject.commands[command].completions.select { |value|
               value.start_with?(word)
             }
           )
@@ -216,7 +216,7 @@ describe Ronin::Core::CLI::CommandShell do
 
           it "must still return the command's argument values that match the end of the input" do
             expect(subject.complete(word,preposing)).to eq(
-              subject.commands[command].completion.select { |value|
+              subject.commands[command].completions.select { |value|
                 value.start_with?(word)
               }
             )
@@ -245,7 +245,7 @@ describe Ronin::Core::CLI::CommandShell do
 
         it "must return all possible completion values for the command" do
           expect(subject.complete(word,preposing)).to eq(
-            subject.commands[command].completion
+            subject.commands[command].completions
           )
         end
       end

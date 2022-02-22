@@ -81,7 +81,7 @@ module Ronin
         # @param [String, nil] usage
         #   A usage string indicating the shell command's options/arguments.
         #
-        # @param [Array<String>] completion
+        # @param [Array<String>] completions
         #   The possible tab completion values for the command's arguments.
         #
         # @param [String] summary
@@ -92,12 +92,12 @@ module Ronin
         #
         def self.command(name, method_name: name,
                                usage: nil,
-                               completion: [],
+                               completions: [],
                                summary: ,
                                help: summary)
           commands[name.to_s] = Command.new(name, method_name: method_name,
                                                   usage:       usage,
-                                                  completion:  completion,
+                                                  completions: completions,
                                                   summary:     summary,
                                                   help:        help.strip)
         end
@@ -120,7 +120,7 @@ module Ronin
             name = preposing.split(/\s+/,2).first
 
             if (command = commands[name])
-              command.completion.select { |arg| arg.start_with?(word) }
+              command.completions.select { |arg| arg.start_with?(word) }
             end
           else
             commands.keys.select { |name| name.start_with?(word) }

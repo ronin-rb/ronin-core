@@ -2,10 +2,10 @@ require 'spec_helper'
 require 'ronin/core/cli/command_shell/command'
 
 describe Ronin::Core::CLI::CommandShell::Command do
-  let(:name)       { :foo }
-  let(:usage)      { 'ARG1 [ARG2]' }
-  let(:completion) { %w[arg1 arg2] }
-  let(:summary)    { 'Foo bar baz' }
+  let(:name)        { :foo }
+  let(:usage)       { 'ARG1 [ARG2]' }
+  let(:completions) { %w[arg1 arg2] }
+  let(:summary)     { 'Foo bar baz' }
   let(:help) do
     [
       "Foo bar baz",
@@ -17,10 +17,10 @@ describe Ronin::Core::CLI::CommandShell::Command do
   end
 
   subject do
-    described_class.new(name, usage:      usage,
-                              completion: completion,
-                              summary:    summary,
-                              help:       help)
+    described_class.new(name, usage:       usage,
+                              completions: completions,
+                              summary:     summary,
+                              help:        help)
   end
 
   describe "#initialize" do
@@ -40,7 +40,7 @@ describe Ronin::Core::CLI::CommandShell::Command do
       subject do
         described_class.new(name, method_name: method_name,
                                   usage:       usage,
-                                  completion:  completion,
+                                  completions: completions,
                                   summary:     summary,
                                   help:        help)
       end
@@ -64,17 +64,17 @@ describe Ronin::Core::CLI::CommandShell::Command do
       end
     end
 
-    context "when the completion: keyword is not given" do
+    context "when the completions: keyword is not given" do
       subject { described_class.new(name, summary: summary) }
 
-      it "must default #completion to []" do
-        expect(subject.completion).to eq([])
+      it "must default #completions to []" do
+        expect(subject.completions).to eq([])
       end
     end
 
-    context "when the completion: keyword is given" do
-      it "must set #completion" do
-        expect(subject.completion).to eq(completion)
+    context "when the completions: keyword is given" do
+      it "must set #completions" do
+        expect(subject.completions).to eq(completions)
       end
     end
 
