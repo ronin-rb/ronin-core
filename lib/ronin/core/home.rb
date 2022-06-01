@@ -32,7 +32,13 @@ module Ronin
       end
 
       #
+      # Returns the path to the sub-directory within the `~/.config/` directory.
+      #
+      # @param [String] subdir
+      #   The sub-directory.
+      #
       # @return [String]
+      #   The path to the `~/.config/<subdir>` directory.
       #
       def self.config_dir(subdir)
         File.join(CONFIG_DIR,subdir)
@@ -44,7 +50,13 @@ module Ronin
       end
 
       #
+      # Returns the path to the sub-directory within the `~/.cache/` directory.
+      #
+      # @param [String] subdir
+      #   The sub-directory.
+      #
       # @return [String]
+      #   The path to the `~/.cache/<subdir>` directory.
       #
       def self.cache_dir(subdir)
         File.join(CACHE_DIR,subdir)
@@ -56,7 +68,14 @@ module Ronin
       end
 
       #
+      # Returns the path to the sub-directory within the `~/.local/share/`
+      # directory.
+      #
+      # @param [String] subdir
+      #   The sub-directory.
+      #
       # @return [String]
+      #   The path to the `~/.local/share/<subdir>` directory.
       #
       def self.local_share_dir(subdir)
         File.join(LOCAL_SHARE_DIR,subdir)
