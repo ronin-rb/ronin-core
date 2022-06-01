@@ -26,24 +26,6 @@ module Ronin
       # Path to the user's home directory.
       DIR = Gem.user_home
 
-      # Path to the user's `~/.config/` directory.
-      CONFIG_DIR = ENV.fetch('XDG_CONFIG_HOME') do
-        File.join(DIR,'.config')
-      end
-
-      #
-      # Returns the path to the sub-directory within the `~/.config/` directory.
-      #
-      # @param [String] subdir
-      #   The sub-directory.
-      #
-      # @return [String]
-      #   The path to the `~/.config/<subdir>` directory.
-      #
-      def self.config_dir(subdir)
-        File.join(CONFIG_DIR,subdir)
-      end
-
       # Path to the user's `~/.cache/` directory.
       CACHE_DIR = ENV.fetch('XDG_CACHE_HOME') do
         File.join(DIR,'.cache')
@@ -60,6 +42,24 @@ module Ronin
       #
       def self.cache_dir(subdir)
         File.join(CACHE_DIR,subdir)
+      end
+
+      # Path to the user's `~/.config/` directory.
+      CONFIG_DIR = ENV.fetch('XDG_CONFIG_HOME') do
+        File.join(DIR,'.config')
+      end
+
+      #
+      # Returns the path to the sub-directory within the `~/.config/` directory.
+      #
+      # @param [String] subdir
+      #   The sub-directory.
+      #
+      # @return [String]
+      #   The path to the `~/.config/<subdir>` directory.
+      #
+      def self.config_dir(subdir)
+        File.join(CONFIG_DIR,subdir)
       end
 
       # Path to the user's `~/.local/share` directory.
