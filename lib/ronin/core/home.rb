@@ -20,6 +20,8 @@
 module Ronin
   module Core
     #
+    # Home directory constants and methods.
+    #
     # @api semipublic
     #
     module Home
