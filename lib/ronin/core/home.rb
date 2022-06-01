@@ -24,11 +24,11 @@ module Ronin
     #
     module Home
       # Path to the user's home directory.
-      PATH = Gem.user_home
+      DIR = Gem.user_home
 
       # Path to the user's `~/.config/` directory.
       CONFIG_DIR = ENV.fetch('XDG_CONFIG_HOME') do
-        File.join(PATH,'.config')
+        File.join(DIR,'.config')
       end
 
       #
@@ -40,7 +40,7 @@ module Ronin
 
       # Path to the user's `~/.cache/` directory.
       CACHE_DIR = ENV.fetch('XDG_CACHE_HOME') do
-        File.join(PATH,'.cache')
+        File.join(DIR,'.cache')
       end
 
       #
@@ -52,7 +52,7 @@ module Ronin
 
       # Path to the user's `~/.local/share` directory.
       LOCAL_SHARE_DIR = ENV.fetch('XDG_DATA_HOME') do
-        File.join(PATH,'.local','share')
+        File.join(DIR,'.local','share')
       end
 
       #

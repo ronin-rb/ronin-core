@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'ronin/core/home'
 
 describe Ronin::Core::Home do
-  describe "PATH" do
+  describe "DIR" do
     it "must equal Gem.user_home" do
-      expect(subject::PATH).to eq(Gem.user_home)
+      expect(subject::DIR).to eq(Gem.user_home)
     end
   end
 
