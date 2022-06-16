@@ -143,16 +143,21 @@ module Ronin
         end
 
         #
-        # Returns the path for the module name.
+        # Finds the path for the module name.
         #
         # @param [String] name
         #   The module name.
         #
-        # @return [String]
-        #   The path for the module.
+        # @return [String, nil]
+        #   The path for the module. If the module file does not exist in
+        #   {#moduls_dir} then `nil` will be returned.
         #
-        def module_path(name)
-          File.join(modules_dir,name)
+        def find_module(name)
+          path = File.join(modules_dir,"#{name}.rb")
+
+          if File.file?(path)
+            return path
+          end
         end
 
         #
@@ -172,7 +177,9 @@ module Ronin
           if (mod = module_registry[name])
             return mod
           else
-            path = module_path(name)
+            unless (path = find_module(name))
+              raise(ModuleNotFound,"could not find module #{name.inspect}")
+            end
 
             begin
               require path

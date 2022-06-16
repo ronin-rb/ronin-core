@@ -66,6 +66,26 @@ describe Ronin::Core::ModuleRegistry do
     end
   end
 
+  describe ".find_module" do
+    context "when the module name exists within the .modules_dir" do
+      let(:name) { 'loaded_module' }
+
+      it "must return the path to the .rb file for the module" do
+        expect(subject.find_module(name)).to eq(
+          File.join(subject.modules_dir,"#{name}.rb")
+        )
+      end
+    end
+
+    context "when the module name does not have a file within .modules_dir" do
+      let(:name) { "does_not_exist" }
+
+      it "must return nil" do
+        expect(subject.find_module(name)).to be(nil)
+      end
+    end
+  end
+
   describe ".register_module" do
     module TestModuleRegistry
       module ExampleNamespace
@@ -114,13 +134,13 @@ describe Ronin::Core::ModuleRegistry do
       it do
         expect {
           subject.load_module(name)
-        }.to raise_error(described_class::ModuleNotFound,"could not load module #{name.inspect}")
+        }.to raise_error(described_class::ModuleNotFound,"could not find module #{name.inspect}")
       end
     end
 
     context "when the file does not register a module" do
       let(:name) { 'no_module' }
-      let(:path) { File.join(subject.modules_dir,"#{name}") }
+      let(:path) { File.join(subject.modules_dir,"#{name}.rb") }
 
       it do
         expect {
@@ -131,7 +151,7 @@ describe Ronin::Core::ModuleRegistry do
 
     context "when the file registers a module of a different name" do
       let(:name) { 'name_mismatch' }
-      let(:path) { File.join(subject.modules_dir,"#{name}") }
+      let(:path) { File.join(subject.modules_dir,"#{name}.rb") }
 
       it do
         expect {
