@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'ronin/core/module_registry'
 
 describe Ronin::Core::ModuleRegistry do
-  let(:fixtures_dir) { File.join(__dir__,'fixtures') }
-  let(:modules_dir) { File.join(fixtures_dir,'modules') }
+  let(:fixtures_dir) { File.join(__dir__,'fixtures')     }
+  let(:modules_dir)  { File.join(fixtures_dir,'modules') }
 
   describe ".modules_dir" do
     context "when a modules_dir has been defined" do
