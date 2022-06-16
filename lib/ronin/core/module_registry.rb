@@ -32,7 +32,7 @@ module Ronin
     #       module Exploits
     #         include Ronin::Core::ModuleRegistry
     #     
-    #         module_load_path 'ronin/exploits'
+    #         modules_dir "#{__dir__}/modules"
     #       end
     #     end
     #
@@ -88,16 +88,16 @@ module Ronin
         #   The module directory path.
         # 
         # @raise [NotImplementedError]
-        #   The `module_load_path` method was not defined in the module.
+        #   The `modules_dir` method was not defined in the module.
         #
         # @example
-        #   module_load_path 'ronin/exploits'
+        #   modules_dir "#{__dir__}/modules"
         #
-        def module_load_path(new_dir=nil)
+        def modules_dir(new_dir=nil)
           if new_dir
-            @module_load_path = new_dir
+            @modules_dir = new_dir
           else
-            @module_load_path || raise(NotImplementedError,"#{self} did not define a module_load_path")
+            @modules_dir || raise(NotImplementedError,"#{self} did not define a modules_dir")
           end
         end
 
@@ -140,7 +140,20 @@ module Ronin
         end
 
         #
-        # Loads a module from the {#module_load_path}.
+        # Returns the path for the module name.
+        #
+        # @param [String] name
+        #   The module name.
+        #
+        # @return [String]
+        #   The path for the module.
+        #
+        def module_path(name)
+          File.join(modules_dir,name)
+        end
+
+        #
+        # Loads a module from the {#modules_dir}.
         #
         # @param [String] name
         #   The module nmae to load.
@@ -149,14 +162,14 @@ module Ronin
         #   The loaded module class.
         #
         # @raise [ModuleNotFound]
-        #   The module file could not be found within {#module_load_path}.
+        #   The module file could not be found within {#modules_dir}.
         #
         def load_module(name)
           # short-circuit if the module is already loaded
           if (mod = module_registry[name])
             return mod
           else
-            path = File.join(module_load_path,name)
+            path = module_path(name)
 
             begin
               require path

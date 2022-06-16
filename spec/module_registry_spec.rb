@@ -3,28 +3,26 @@ require 'ronin/core/module_registry'
 
 describe Ronin::Core::ModuleRegistry do
   let(:fixtures_dir) { File.join(__dir__,'fixtures') }
-  let(:mock_lib_dir) { File.join(fixtures_dir,'module_registry') }
+  let(:modules_dir) { File.join(fixtures_dir,'modules') }
 
-  before { $LOAD_PATH.unshift(mock_lib_dir) }
-
-  describe ".module_load_path" do
-    context "when a module_load_path has been defined" do
+  describe ".modules_dir" do
+    context "when a modules_dir has been defined" do
       module TestModuleRegistry
-        module WithAModuleLoadPath
+        module WithAModulesDir
           include Ronin::Core::ModuleRegistry
 
-          module_load_path 'test/dir'
+          modules_dir "#{__dir__}/test/dir"
         end
       end
 
-      subject { TestModuleRegistry::WithAModuleLoadPath }
+      subject { TestModuleRegistry::WithAModulesDir }
 
-      it "must return the previously set .module_load_path" do
-        expect(subject.module_load_path).to eq('test/dir')
+      it "must return the previously set .modules_dir" do
+        expect(subject.modules_dir).to eq("#{__dir__}/test/dir")
       end
     end
 
-    context "but when no module_load_path has been defined" do
+    context "but when no modules_dir has been defined" do
       module TestModuleRegistry
         module WithNoModuleLoadPath
           include Ronin::Core::ModuleRegistry
@@ -35,8 +33,8 @@ describe Ronin::Core::ModuleRegistry do
 
       it do
         expect {
-          subject.module_load_path
-        }.to raise_error(NotImplementedError,"#{subject} did not define a module_load_path")
+          subject.modules_dir
+        }.to raise_error(NotImplementedError,"#{subject} did not define a modules_dir")
       end
     end
   end
@@ -44,7 +42,7 @@ describe Ronin::Core::ModuleRegistry do
   module TestModuleRegistry
     module ExampleNamespace
       include Ronin::Core::ModuleRegistry
-      module_load_path 'example_namespace'
+      modules_dir "#{__dir__}/fixtures/module_registry/modules"
     end
   end
 
@@ -93,11 +91,11 @@ describe Ronin::Core::ModuleRegistry do
     let(:name) { 'loaded_module' }
     let(:mod)  { TestModuleRegistry::ExampleNamespace::LoadedModule }
 
-    it "must require the file within the .module_load_path" do
+    it "must require the file within the .modules_dir" do
       subject.load_module(name)
 
       expect($LOADED_FEATURES).to include(
-        File.join(mock_lib_dir,subject.module_load_path,"#{name}.rb")
+        File.join(subject.modules_dir,"#{name}.rb")
       )
     end
 
@@ -123,7 +121,7 @@ describe Ronin::Core::ModuleRegistry do
 
     context "when the file does not register a module" do
       let(:name) { 'no_module' }
-      let(:path) { File.join(subject.module_load_path,"#{name}") }
+      let(:path) { File.join(subject.modules_dir,"#{name}") }
 
       it do
         expect {
@@ -134,7 +132,7 @@ describe Ronin::Core::ModuleRegistry do
 
     context "when the file registers a module of a different name" do
       let(:name) { 'name_mismatch' }
-      let(:path) { File.join(subject.module_load_path,"#{name}") }
+      let(:path) { File.join(subject.modules_dir,"#{name}") }
 
       it do
         expect {
@@ -144,5 +142,5 @@ describe Ronin::Core::ModuleRegistry do
     end
   end
 
-  after { $LOAD_PATH.delete(mock_lib_dir) }
+  after { $LOAD_PATH.delete(modules_dir) }
 end
