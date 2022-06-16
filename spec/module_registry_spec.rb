@@ -48,6 +48,18 @@ describe Ronin::Core::ModuleRegistry do
 
   subject { TestModuleRegistry::ExampleNamespace }
 
+  describe ".list_modules" do
+    it "must return an Array of module names" do
+      expect(subject.list_modules).to eq(
+        %w[
+          loaded_module
+          name_mismatch
+          no_module
+        ]
+      )
+    end
+  end
+
   describe ".module_registry" do
     it "must default to {}" do
       expect(subject.module_registry).to eq({})
