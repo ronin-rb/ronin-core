@@ -108,11 +108,9 @@ module Ronin
         #   The list of module names within {#modules_dir}.
         #
         def list_modules
-          dir = modules_dir
-
-          Dir.glob(File.join(dir,'{**/}*.rb')).map do |path|
-            path[(dir.length+1)..].chomp('.rb')
-          end
+          paths = Dir.glob('{**/}*.rb', base: modules_dir)
+          paths.each { |path| path.chomp!('.rb') }
+          return paths
         end
 
         #
