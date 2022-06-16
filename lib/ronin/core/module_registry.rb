@@ -187,35 +187,6 @@ module Ronin
             return mod
           end
         end
-
-        #
-        # Lists all registered or pre-registered modules.
-        #
-        # @return [Array<String>]
-        #   The list of module names.
-        #
-        def module_names(&block)
-          module_registry.keys
-        end
-
-        #
-        # Searches through the module names for matching module names.
-        #
-        # @param [String, Regexp] pattern
-        #   The substring or regular expression to match against the names.
-        #
-        # @yield [name]
-        #   If a block is given, it will be passed each matching module name.
-        #
-        # @yieldparam [String] name
-        #   A matching name of a registered or pre-registered module.
-        #
-        # @return [Array<String>]
-        #   The matching module names.
-        #
-        def find_modules(pattern)
-          module_names.select { |name| name.match(pattern) }
-        end
       end
     end
   end
