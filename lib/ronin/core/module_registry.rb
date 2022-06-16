@@ -127,17 +127,6 @@ module Ronin
         end
 
         #
-        # Pre-registers a module with the registry, even though the class has
-        # not been loaded yet.
-        #
-        # @param [String] name
-        #   The module name to pre-register.
-        #
-        def pre_register_module(name)
-          module_registry[name] = nil
-        end
-
-        #
         # Registers a module with the registry.
         #
         # @param [String] name

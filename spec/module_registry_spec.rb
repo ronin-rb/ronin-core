@@ -66,19 +66,6 @@ describe Ronin::Core::ModuleRegistry do
     end
   end
 
-  describe ".pre_register_module" do
-    let(:name) { 'foo' }
-
-    before { subject.pre_register_module(name) }
-
-    it "must add the module name as a key and nil value to .module_registry" do
-      expect(subject.module_registry).to have_key(name)
-      expect(subject.module_registry[name]).to be(nil)
-    end
-
-    after { subject.module_registry.clear }
-  end
-
   describe ".register_module" do
     module TestModuleRegistry
       module ExampleNamespace
