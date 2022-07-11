@@ -148,7 +148,7 @@ module Ronin
         #   The path to the file or directory.
         #
         def chmod(mode,path)
-          print_action "chmod #{mode}", path
+          print_action "chmod", path
           FileUtils.chmod(mode,path)
         end
 

@@ -165,7 +165,7 @@ describe Ronin::Core::CLI::Generator do
     let(:mode) { "+x" }
 
     it "must call #print_action and call FileUtils.chmod" do
-      expect(subject).to receive(:print_action).with("chmod #{mode}",dest)
+      expect(subject).to receive(:print_action).with("chmod",dest)
       expect(FileUtils).to receive(:chmod).with(mode,dest)
 
       subject.chmod(mode,dest)
