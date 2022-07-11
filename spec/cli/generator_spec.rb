@@ -160,6 +160,18 @@ describe Ronin::Core::CLI::Generator do
     end
   end
 
+  describe "#chmod" do
+    let(:dest) { 'path/to/new_file' }
+    let(:mode) { "+x" }
+
+    it "must call #print_action and call FileUtils.chmod" do
+      expect(subject).to receive(:print_action).with("chmod #{mode}",dest)
+      expect(FileUtils).to receive(:chmod).with(mode,dest)
+
+      subject.chmod(mode,dest)
+    end
+  end
+
   describe "#cp" do
     let(:source) { 'file.txt' }
     let(:dest)   { 'path/to/root' }
