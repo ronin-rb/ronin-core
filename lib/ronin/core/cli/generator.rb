@@ -141,10 +141,10 @@ module Ronin
         #
         # Changes the permissions of a file or directory.
         #
-        # @param [String, Integer]
+        # @param [String, Integer] mode
         #   The chmod String (ex: `"+x"`) or octal mask.
         #
-        # @param [String]
+        # @param [String] path
         #   The path to the file or directory.
         #
         def chmod(mode,path)
