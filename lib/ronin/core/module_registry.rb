@@ -148,7 +148,7 @@ module Ronin
         #
         # @return [String, nil]
         #   The path for the module. If the module file does not exist in
-        #   {#moduls_dir} then `nil` will be returned.
+        #   {#modules_dir} then `nil` will be returned.
         #
         def find_module(name)
           path = File.join(modules_dir,"#{name}.rb")
