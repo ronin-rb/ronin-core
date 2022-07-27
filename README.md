@@ -25,6 +25,9 @@ and development.
   `~/.local/share`).
 * Allows querying `~/.gitconfig` for common git settings.
 * Provides a common `Command` base class for all ronin libraries.
+* Provides a `Shell` and `CommandShell` base classes for writing interactive
+  shells.
+* Provides a `Params` API for adding user configurable parameters to classes.
 
 ## Requirements
 
@@ -55,6 +58,47 @@ dependencies:
 ```
 
 ## Examples
+
+### Params
+
+```ruby
+class BaseClass
+
+  include Ronin::Core::Params::Mixin
+
+end
+```
+
+```ruby
+class MyModule < BaseClass
+
+  param :str, desc: 'A basic string param'
+
+  param :feature_flag, Boolean, desc: 'A boolean param'
+
+  param :enum, Enum[:one, :two, :three],
+               desc: 'An enum param'
+
+  param :num1, Integer, desc: 'An integer param'
+
+  param :num2, Integer, default: 42,
+                       desc: 'A param with a default value'
+
+  param :num3, Integer, default: ->{ rand(42) },
+                        desc: 'A param with a dynamic default value'
+
+  param :float, Float, 'Floating point param'
+
+  param :url, URI, desc: 'URL param'
+
+  param :pattern, Regexp, desc: 'Regular Expression param'
+
+end
+
+mod = MyModule.new(params: {num1: 1, enum: :two})
+mod.params
+# => {:num2=>42, :num3=>25, :num1=>1, :enum=>:two}
+```
 
 ### CLI
 
@@ -178,7 +222,7 @@ Commands:
 $ ./bin/ronin-foo ls
 ```
 
-### CommandShell
+### CLI::CommandShell
 
 Define a custom command shell:
 
