@@ -34,7 +34,7 @@ module Ronin
       #       include Ronin::Core::Params::Mixin
       #     
       #     end
-      #     
+      #
       #     class MyModule < BaseClass
       #     
       #       param :str, desc: 'A basic string param'
