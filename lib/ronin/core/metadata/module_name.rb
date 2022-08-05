@@ -61,6 +61,17 @@ module Ronin
             end
           end
         end
+
+        #
+        # The module name for the class.
+        #
+        # @return [String, nil]
+        #
+        # @see ClassMethods#module_name
+        #
+        def module_name
+          self.class.module_name
+        end
       end
     end
   end
