@@ -21,56 +21,59 @@ module Ronin
   module Core
     module Metadata
       #
-      # Adds a {ModuleName::ClassMethods#module_name module_name} metadata
-      # attribute to a class.
+      # Adds a {ID::ClassMethods#id id} metadata attribute to a class.
       #
       # ### Example
       #
-      #     class MyModule
+      #     class MyClass
       #     
-      #       include Ronin::Core::Metadata::ModuleName
+      #       include Ronin::Core::Metadata::ID
       #
-      #       module_name 'my_module'
+      #       id 'my_class'
       #
       #     end
       #     
-      module ModuleName
+      module ID
         def self.included(base)
           base.extend ClassMethods
         end
 
         module ClassMethods
           #
-          # Gets or sets the module name.
+          # Gets or sets the class `id`.
           #
-          # @param [String, nil] new_name
-          #   The optional new module name to set.
+          # @param [String, nil] new_id
+          #   The optional new class `id` to set.
           #
           # @return [String, nil]
-          #   The previously set module name.
+          #   The previously set class `id`.
           #
-          # @example Setting the module name:
-          #   module_name 'my_module'
+          # @example Setting the class `id`:
+          #   class MyClass
+          #     include Ronin::Core::Metadata::ID
+          #     id 'my_class'
+          #   end
           #
-          # @example Getting the module name:
-          #   MyModule.module_name
+          # @example Getting the class `id`:
+          #   MyClass.id
+          #   # => "my_class"
           #
-          def module_name(new_name=nil)
-            if new_name then @module_name = new_name
-            else             @module_name
+          def id(new_id=nil)
+            if new_id then @id = new_id
+            else           @id
             end
           end
         end
 
         #
-        # The module name for the class.
+        # The {ClassMethods#id id} of the class.
         #
         # @return [String, nil]
         #
-        # @see ClassMethods#module_name
+        # @see ClassMethods#id
         #
-        def module_name
-          self.class.module_name
+        def class_id
+          self.class.id
         end
       end
     end
