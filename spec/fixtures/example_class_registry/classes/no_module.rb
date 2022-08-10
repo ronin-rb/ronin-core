@@ -1,4 +1,4 @@
-module ExampleNamespace
+module ExampleClassRegistry
   class SomeClass
   end
 end

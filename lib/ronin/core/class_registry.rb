@@ -26,13 +26,13 @@ module Ronin
     #
     # `lib/ronin/exploits.rb`:
     #
-    #     require 'ronin/core/module_registry'
+    #     require 'ronin/core/class_registry'
     #     
     #     module Ronin
     #       module Exploits
-    #         include Ronin::Core::ModuleRegistry
+    #         include Ronin::Core::ClassRegistry
     #     
-    #         modules_dir "#{__dir__}/modules"
+    #         class_dir "#{__dir__}/modules"
     #       end
     #     end
     #
@@ -43,7 +43,7 @@ module Ronin
     #         class Exploit
     #     
     #           def self.register(name)
-    #             Exploits.register_module(name,self)
+    #             Exploits.register(name,self)
     #           end
     #     
     #         end
@@ -66,15 +66,18 @@ module Ronin
     #
     # @api semipublic
     #
-    module ModuleRegistry
-      class ModuleNotFound < RuntimeError
+    module ClassRegistry
+      class ClassNotFound < RuntimeError
       end
 
       #
       # Extends {ClassMethods}.
       #
-      def self.included(base)
-        base.extend ClassMethods
+      # @param [Module] namespace
+      #   The module that is including {ClassRegistry}.
+      #
+      def self.included(namespace)
+        namespace.extend ClassMethods
       end
 
       module ClassMethods
@@ -88,27 +91,27 @@ module Ronin
         #   The module directory path.
         # 
         # @raise [NotImplementedError]
-        #   The `modules_dir` method was not defined in the module.
+        #   The `class_dir` method was not defined in the module.
         #
         # @example
-        #   modules_dir "#{__dir__}/modules"
+        #   class_dir "#{__dir__}/modules"
         #
-        def modules_dir(new_dir=nil)
+        def class_dir(new_dir=nil)
           if new_dir
-            @modules_dir = new_dir
+            @class_dir = new_dir
           else
-            @modules_dir || raise(NotImplementedError,"#{self} did not define a modules_dir")
+            @class_dir || raise(NotImplementedError,"#{self} did not define a class_dir")
           end
         end
 
         #
-        # Lists all modules within {#modules_dir}.
+        # Lists all modules within {#class_dir}.
         #
         # @return [Array<String>]
-        #   The list of module names within {#modules_dir}.
+        #   The list of module names within {#class_dir}.
         #
-        def list_modules
-          paths = Dir.glob('{**/}*.rb', base: modules_dir)
+        def list_files
+          paths = Dir.glob('{**/}*.rb', base: class_dir)
           paths.each { |path| path.chomp!('.rb') }
           return paths
         end
@@ -120,7 +123,7 @@ module Ronin
         #   The mapping of module names and classes. A `nil` value indicates a
         #   module has been pre-registered, but is not yet loaded.
         #
-        def module_registry
+        def registry
           @registry ||= {}
         end
 
@@ -134,10 +137,10 @@ module Ronin
         #   The module class to be registered.
         #
         # @example
-        #   Exploits.register_module('myexploit',MyExploit)
+        #   Exploits.register('myexploit',MyExploit)
         #
-        def register_module(name,mod)
-          module_registry[name] = mod
+        def register(name,mod)
+          registry[name] = mod
         end
 
         #
@@ -148,10 +151,10 @@ module Ronin
         #
         # @return [String, nil]
         #   The path for the module. If the module file does not exist in
-        #   {#modules_dir} then `nil` will be returned.
+        #   {#class_dir} then `nil` will be returned.
         #
-        def find_module(name)
-          path = File.join(modules_dir,"#{name}.rb")
+        def path_for(name)
+          path = File.join(class_dir,"#{name}.rb")
 
           if File.file?(path)
             return path
@@ -159,7 +162,7 @@ module Ronin
         end
 
         #
-        # Loads a module from the {#modules_dir}.
+        # Loads a module from the {#class_dir}.
         #
         # @param [String] name
         #   The module nmae to load.
@@ -167,26 +170,35 @@ module Ronin
         # @return [Class]
         #   The loaded module class.
         #
-        # @raise [ModuleNotFound]
-        #   The module file could not be found within {#modules_dir}.
+        # @raise [ClassNotFound]
+        #   The module file could not be found within {#class_dir}.or has
+        #   a file/registered-name mismatch.
         #
-        def load_module(name)
+        def load_class(name)
           # short-circuit if the module is already loaded
-          if (mod = module_registry[name])
+          if (mod = registry[name])
             return mod
           else
-            unless (path = find_module(name))
-              raise(ModuleNotFound,"could not find module #{name.inspect}")
+            unless (path = path_for(name))
+              raise(ClassNotFound,"could not find file #{name.inspect}")
             end
+
+            previous_entries = registry.keys
 
             begin
               require path
             rescue LoadError
-              raise(ModuleNotFound,"could not load module #{name.inspect}")
+              raise(ClassNotFound,"could not load file #{name.inspect}")
             end
 
-            unless (mod = module_registry[name])
-              raise(ModuleNotFound,"module with name #{name.inspect} not found in file #{path.inspect}")
+            unless (mod = registry[name])
+              new_entries = registry.keys - previous_entries
+
+              if new_entries.empty?
+                raise(ClassNotFound,"file did not register a class: #{path.inspect}")
+              else
+                raise(ClassNotFound,"file registered a class with a different name (#{new_entries.map(&:inspect).join(', ')}): #{path.inspect}")
+              end
             end
 
             return mod
