@@ -20,7 +20,7 @@
 module Ronin
   module Core
     #
-    # A mixin that adds a module registry to a library:
+    # A mixin that adds a class registry to a library:
     #
     # ### Example
     #
@@ -32,7 +32,7 @@ module Ronin
     #       module Exploits
     #         include Ronin::Core::ClassRegistry
     #     
-    #         class_dir "#{__dir__}/modules"
+    #         class_dir "#{__dir__}/classes"
     #       end
     #     end
     #
@@ -82,19 +82,19 @@ module Ronin
 
       module ClassMethods
         #
-        # Gets or sets the module directory path.
+        # Gets or sets the class directory path.
         #
         # @param [String, nil] new_dir
-        #   The new module directory path.
+        #   The new class directory path.
         #
         # @return [String]
-        #   The module directory path.
+        #   The class directory path.
         # 
         # @raise [NotImplementedError]
         #   The `class_dir` method was not defined in the module.
         #
         # @example
-        #   class_dir "#{__dir__}/modules"
+        #   class_dir "#{__dir__}/classes"
         #
         def class_dir(new_dir=nil)
           if new_dir
@@ -105,10 +105,10 @@ module Ronin
         end
 
         #
-        # Lists all modules within {#class_dir}.
+        # Lists all class files within {#class_dir}.
         #
         # @return [Array<String>]
-        #   The list of module names within {#class_dir}.
+        #   The list of class paths within {#class_dir}.
         #
         def list_files
           paths = Dir.glob('{**/}*.rb', base: class_dir)
@@ -117,44 +117,47 @@ module Ronin
         end
 
         #
-        # The module registry.
+        # The class registry.
         #
         # @return [Hash{String => Class,nil}]
-        #   The mapping of module names and classes. A `nil` value indicates a
-        #   module has been pre-registered, but is not yet loaded.
+        #   The mapping of class `id` and classes.
         #
         def registry
           @registry ||= {}
         end
 
         #
-        # Registers a module with the registry.
+        # Registers a class with the registry.
         #
-        # @param [String] name
-        #   The module name to be registered.
+        # @param [String] id
+        #   The class `id` to be registered.
         #
         # @param [Class] mod
-        #   The module class to be registered.
+        #   The class to be registered.
         #
         # @example
         #   Exploits.register('myexploit',MyExploit)
         #
-        def register(name,mod)
-          registry[name] = mod
+        def register(id,mod)
+          registry[id] = mod
         end
 
         #
-        # Finds the path for the module name.
+        # Finds the path for the class `id`.
         #
-        # @param [String] name
-        #   The module name.
+        # @param [String] id
+        #   The class `id`.
         #
         # @return [String, nil]
         #   The path for the module. If the module file does not exist in
         #   {#class_dir} then `nil` will be returned.
         #
-        def path_for(name)
-          path = File.join(class_dir,"#{name}.rb")
+        # @example
+        #   Exploits.path_for('my_exploit')
+        #   # => "/path/to/lib/ronin/exploits/classes/my_exploit.rb"
+        #
+        def path_for(id)
+          path = File.join(class_dir,"#{id}.rb")
 
           if File.file?(path)
             return path
@@ -162,25 +165,25 @@ module Ronin
         end
 
         #
-        # Loads a module from the {#class_dir}.
+        # Loads a class from the {#class_dir}.
         #
-        # @param [String] name
-        #   The module nmae to load.
+        # @param [String] id
+        #   The class `id` to load.
         #
         # @return [Class]
-        #   The loaded module class.
+        #   The loaded class.
         #
         # @raise [ClassNotFound]
-        #   The module file could not be found within {#class_dir}.or has
+        #   The class file could not be found within {#class_dir}.or has
         #   a file/registered-name mismatch.
         #
-        def load_class(name)
+        def load_class(id)
           # short-circuit if the module is already loaded
-          if (mod = registry[name])
+          if (mod = registry[id])
             return mod
           else
-            unless (path = path_for(name))
-              raise(ClassNotFound,"could not find file #{name.inspect}")
+            unless (path = path_for(id))
+              raise(ClassNotFound,"could not find file for #{id.inspect}")
             end
 
             previous_entries = registry.keys
@@ -188,16 +191,16 @@ module Ronin
             begin
               require path
             rescue LoadError
-              raise(ClassNotFound,"could not load file #{name.inspect}")
+              raise(ClassNotFound,"could not load file for #{id .inspect}")
             end
 
-            unless (mod = registry[name])
+            unless (mod = registry[id])
               new_entries = registry.keys - previous_entries
 
               if new_entries.empty?
                 raise(ClassNotFound,"file did not register a class: #{path.inspect}")
               else
-                raise(ClassNotFound,"file registered a class with a different name (#{new_entries.map(&:inspect).join(', ')}): #{path.inspect}")
+                raise(ClassNotFound,"file registered a class with a different id (#{new_entries.map(&:inspect).join(', ')}): #{path.inspect}")
               end
             end
 

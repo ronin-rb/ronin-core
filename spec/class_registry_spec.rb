@@ -46,7 +46,7 @@ describe Ronin::Core::ClassRegistry do
     it "must return an Array of module names" do
       expect(subject.list_files).to eq(
         %w[
-          loaded_module
+          loaded_class
           name_mismatch
           no_module
         ]
@@ -62,20 +62,20 @@ describe Ronin::Core::ClassRegistry do
 
   describe ".path_for" do
     context "when the module name exists within the .class_dir" do
-      let(:name) { 'loaded_module' }
+      let(:id) { 'loaded_class' }
 
       it "must return the path to the .rb file for the module" do
-        expect(subject.path_for(name)).to eq(
-          File.join(subject.class_dir,"#{name}.rb")
+        expect(subject.path_for(id)).to eq(
+          File.join(subject.class_dir,"#{id}.rb")
         )
       end
     end
 
     context "when the module name does not have a file within .class_dir" do
-      let(:name) { "does_not_exist" }
+      let(:id) { "does_not_exist" }
 
       it "must return nil" do
-        expect(subject.path_for(name)).to be(nil)
+        expect(subject.path_for(id)).to be(nil)
       end
     end
   end
@@ -88,71 +88,71 @@ describe Ronin::Core::ClassRegistry do
       end
     end
 
-    let(:name) { 'foo' }
-    let(:mod)  { TestClassRegistry::ExampleNamespace::Foo }
+    let(:id)    { 'foo' }
+    let(:klass) { TestClassRegistry::ExampleNamespace::Foo }
 
-    before { subject.register(name,mod) }
+    before { subject.register(id,klass) }
 
-    it "must add the module name and module to #registry" do
-      expect(subject.registry[name]).to be(mod)
+    it "must add the class id and class to #registry" do
+      expect(subject.registry[id]).to be(klass)
     end
 
     after { subject.registry.clear }
   end
 
   describe ".load_class" do
-    let(:name) { 'loaded_module' }
-    let(:mod)  { ExampleClassRegistry::LoadedModule }
+    let(:id)    { 'loaded_class' }
+    let(:klass) { ExampleClassRegistry::LoadedClass }
 
     it "must require the file within the .class_dir" do
-      subject.load_class(name)
+      subject.load_class(id)
 
       expect($LOADED_FEATURES).to include(
-        File.join(subject.class_dir,"#{name}.rb")
+        File.join(subject.class_dir,"#{id}.rb")
       )
     end
 
     it "must return the registered module" do
-      expect(subject.load_class(name)).to be(mod)
+      expect(subject.load_class(id)).to be(klass)
     end
 
-    it "must register the module with the same name as the file" do
-      subject.load_class(name)
+    it "must register the module with the same id as the file" do
+      subject.load_class(id)
 
-      expect(subject.registry[name]).to be(mod)
+      expect(subject.registry[id]).to be(klass)
     end
 
     context "when the file does not exist" do
-      let(:name) { 'does_not_exist' }
+      let(:id) { 'does_not_exist' }
 
       it do
         expect {
-          subject.load_class(name)
-        }.to raise_error(described_class::ClassNotFound,"could not find file #{name.inspect}")
+          subject.load_class(id)
+        }.to raise_error(described_class::ClassNotFound,"could not find file for #{id.inspect}")
       end
     end
 
     context "when the file does not register a module" do
-      let(:name) { 'no_module' }
-      let(:path) { File.join(subject.class_dir,"#{name}.rb") }
+      let(:id)   { 'no_module' }
+      let(:path) { File.join(subject.class_dir,"#{id}.rb") }
 
       it do
         expect {
-          subject.load_class(name)
+          subject.load_class(id)
         }.to raise_error(described_class::ClassNotFound,"file did not register a class: #{path.inspect}")
       end
     end
 
     context "when the file registers a module of a different name" do
-      let(:name) { 'name_mismatch' }
-      let(:path) { File.join(subject.class_dir,"#{name}.rb") }
+      let(:id)   { 'name_mismatch' }
+      let(:path) { File.join(subject.class_dir,"#{id}.rb") }
 
-      let(:unexpected_name) { 'different_name' }
+      let(:unexpected_id) { 'different_name' }
 
       it do
         expect {
-          subject.load_class(name)
-        }.to raise_error(described_class::ClassNotFound,"file registered a class with a different name (#{unexpected_name.inspect}): #{path.inspect}")
+          subject.load_class(id)
+        }.to raise_error(described_class::ClassNotFound,"file registered a class with a different id (#{unexpected_id.inspect}): #{path.inspect}")
       end
     end
   end

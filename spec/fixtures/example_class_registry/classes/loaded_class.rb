@@ -1,9 +1,9 @@
 require_relative '../base_class'
 
 module ExampleClassRegistry
-  class LoadedModule < BaseClass
+  class LoadedClass < BaseClass
 
-    register 'loaded_module'
+    register 'loaded_class'
 
   end
 end
