@@ -45,7 +45,7 @@ module Ronin
         # @param [Class] type_class
         #   The ruby class to map to a param type class.
         #
-        # @return [Types::Type.class]
+        # @return [Class<Types::Type>]
         #   The param type class.
         #
         def self.lookup(type_class)
