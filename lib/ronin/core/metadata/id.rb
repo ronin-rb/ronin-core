@@ -34,6 +34,14 @@ module Ronin
       #     end
       #     
       module ID
+        #
+        # Adds {ClassMethods} to the class.
+        #
+        # @param [Class] base
+        #   The base class which is including {ID}.
+        #
+        # @private
+        #
         def self.included(base)
           base.extend ClassMethods
         end
