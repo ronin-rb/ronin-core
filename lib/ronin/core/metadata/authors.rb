@@ -42,6 +42,14 @@ module Ronin
       #     # John Smith <john.smith@example.com>
       #
       module Authors
+        #
+        # Adds {ClassMethods} to the class.
+        #
+        # @param [Class] base
+        #   The base class which is including {Authors}.
+        #
+        # @api private
+        #
         def self.included(base)
           base.extend ClassMethods
         end
