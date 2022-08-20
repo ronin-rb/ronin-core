@@ -48,6 +48,14 @@ module Ronin
       module Generator
         include CommandKit::Colors
 
+        #
+        # Adds {ClassMethods} to the class.
+        #
+        # @param [Class] command
+        #   The command class which is including {Generator}.
+        #
+        # @api private
+        #
         def self.included(command)
           command.extend ClassMethods
         end
@@ -84,6 +92,9 @@ module Ronin
 
         #
         # Initializes the command.
+        #
+        # @param [Hash{Symbol => Object}] kwargs
+        #   Additional keyword arguments for `initialize`.
         #
         # @raise [NotImplementedError]
         #   The class did not set the {template_dir} path.
