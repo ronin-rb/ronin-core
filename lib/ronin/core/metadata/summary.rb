@@ -35,6 +35,14 @@ module Ronin
       #     end
       #
       module Summary
+        #
+        # Adds {ClassMethods} to the class.
+        #
+        # @param [Class] base
+        #   The base class which is including {Summary}.
+        #
+        # @api private
+        #
         def self.included(base)
           base.extend ClassMethods
         end
