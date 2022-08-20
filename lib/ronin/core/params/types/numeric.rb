@@ -30,14 +30,14 @@ module Ronin
 
           # The optional minimum value.
           #
-          # @return [Integer, nil]
+          # @return [::Integer, nil]
           # 
           # @api private
           attr_reader :min
 
           # The optional maximum value.
           #
-          # @return [Integer, nil]
+          # @return [::Integer, nil]
           #
           # @api private
           attr_reader :max
@@ -52,10 +52,10 @@ module Ronin
           #
           # Initializes the numeric value.
           #
-          # @param [Integer, nil] min
+          # @param [::Integer, nil] min
           #   Optional minimum value for the integer param.
           #
-          # @param [Integer, nil] max
+          # @param [::Integer, nil] max
           #   Optional maximum value for the integer param.
           #
           # @param [Range] range
@@ -70,10 +70,10 @@ module Ronin
           #
           # Validates a numeric value.
           #
-          # @param [Integer, Float] value
+          # @param [::Integer, ::Float] value
           #   The value to validate.
           #
-          # @return [Integer, Float]
+          # @return [::Integer, ::Float]
           #   The validated value.
           #
           # @raise [ValidationError]

@@ -34,7 +34,7 @@ module Ronin
           # @param [::Integer, ::String, #to_i, Object] value
           #   The given value to coerce.
           #
-          # @return [Integer]
+          # @return [::Integer]
           #   The coerced Integer value.
           #
           # @raise [ValidationError]
@@ -71,9 +71,9 @@ module Ronin
           #
           # Parses a binary string.
           #
-          # @param [String] string
+          # @param [::String] string
           #
-          # @return [Integer]
+          # @return [::Integer]
           #
           def parse_binary(string)
             integer = string.sub(/\A[+-]?0b/,'').to_i(2)
@@ -84,9 +84,9 @@ module Ronin
           #
           # Parses a hexadecimal string.
           #
-          # @param [String] string
+          # @param [::String] string
           #
-          # @return [Integer]
+          # @return [::Integer]
           #
           def parse_hexadecimal(string)
             integer = string.sub(/\A[+-]?(?:0x)?/,'').to_i(16)
