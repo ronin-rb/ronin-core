@@ -38,6 +38,14 @@ module Ronin
       #     end
       #
       module References
+        #
+        # Adds {ClassMethods} to the class.
+        #
+        # @param [Class] base
+        #   The base class which is including {References}.
+        #
+        # @api private
+        #
         def self.included(base)
           base.extend ClassMethods
         end
