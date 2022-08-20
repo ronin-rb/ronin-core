@@ -32,7 +32,11 @@ module Ronin
         #
         # The default shell prompt name.
         #
+        # @param [String, nil] new_name
+        #   The optional new shell prompt name to set.
+        #
         # @return [String]
+        #   The shell prompt name.
         #
         def self.shell_name(new_name=nil)
           if new_name
@@ -51,6 +55,7 @@ module Ronin
         #   The optional new prompt sigil to use.
         #
         # @return [String]
+        #   The prompt sigil.
         #
         def self.prompt_sigil(new_sigil=nil)
           if new_sigil
@@ -135,6 +140,12 @@ module Ronin
 
         #
         # Initializes the shell instance.
+        #
+        # @param [String, nil] shell_name
+        #   The optional shell name to override {shell_name}.
+        #
+        # @param [String] prompt_sigil
+        #   The optional prompt sigil to override {prompt_sigil}.
         #
         def initialize(shell_name:   self.class.shell_name,
                        prompt_sigil: self.class.prompt_sigil,
