@@ -117,7 +117,7 @@ module Ronin
           # @param [Symbol] name
           #   The name for the new param.
           #
-          # @param [Class, Type] type
+          # @param [Class, Types::Type] type
           #   The type for the new param. Available types are:
           #   * {Types::Boolean Boolean}
           #   * {Types::Enum Enum}
@@ -136,6 +136,9 @@ module Ronin
           # @param [String] desc
           #   The description for the param. All defined params must have a
           #   description.
+          #
+          # @param [Hash{Symbol => Object}] kwargs
+          #   Additional keyword arguments for the {Types type class}.
           #
           # @example Define a basic String param:
           #   param :foo, desc: 'Foo param'
@@ -245,6 +248,9 @@ module Ronin
         #
         # @param [Object] value
         #   The new param value.
+        #
+        # @return [Object]
+        #   The param's new value.
         #
         # @raise [ValidationError]
         #   The given param value was invalid.
