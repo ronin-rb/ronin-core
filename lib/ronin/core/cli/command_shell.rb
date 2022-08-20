@@ -58,7 +58,7 @@ module Ronin
         #
         # The registered shell commands.
         #
-        # @return [Hash{String => Command}]
+        # @return [Hash{String => CommandShell::Command}]
         #   The registered shell commands.
         #
         def self.commands

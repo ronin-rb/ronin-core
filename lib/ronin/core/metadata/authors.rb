@@ -50,7 +50,7 @@ module Ronin
           #
           # The authors associated with the class.
           #
-          # @return [Array<Author>]
+          # @return [Array<Authors::Author>]
           #
           # @api semipublic
           #
