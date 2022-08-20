@@ -79,22 +79,22 @@ module Ronin
           # @param [Hash{Symbol => Object}] kwargs
           #   Additional keyword arguments for {Author#initialize}.
           #
-          # @option kwargs [String, nil] email
+          # @option kwargs [String, nil] :email
           #   The author's email.
           #
-          # @option kwargs [String, nil] pgp
+          # @option kwargs [String, nil] :pgp
           #   The author's PGP Key ID.
           #
-          # @option kwargs [String, nil] github
+          # @option kwargs [String, nil] :github
           #   The author's GitHub user name.
           #
-          # @option kwargs [String, nil] gitlab
+          # @option kwargs [String, nil] :gitlab
           #   The author's GitLab user name.
           #
-          # @option kwargs [String, nil] twitter
+          # @option kwargs [String, nil] :twitter
           #   The author's Twitter handle.
           #
-          # @option kwargs [String, nil] discord
+          # @option kwargs [String, nil] :discord
           #   The author's Discord handle.
           #
           # @example Adds an author name:
