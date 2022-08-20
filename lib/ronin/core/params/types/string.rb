@@ -30,19 +30,19 @@ module Ronin
 
           # Optional regexp to validate values with.
           #
-          # @return [Regexp, nil]
+          # @return [::Regexp, nil]
           attr_reader :format
 
           #
           # Initializes the value.
           #
-          # @param [Boolean] allow_empty
+          # @param [::Boolean] allow_empty
           #   Specifies whether the argument may accept empty values.
           #
-          # @param [Boolean] allow_blank
+          # @param [::Boolean] allow_blank
           #   Specifies whether the argument may accept blank values.
           #
-          # @param [(Regexp, String), nil] format
+          # @param [(::Regexp, ::String), nil] format
           #   Optional regular expression to validate the given param value.
           #
           def initialize(allow_empty: false, allow_blank: false, format: nil)
@@ -55,7 +55,7 @@ module Ronin
           #
           # Specifies whether the param may accept empty values.
           #
-          # @return [Boolean]
+          # @return [::Boolean]
           #
           # @api private
           #
@@ -66,7 +66,7 @@ module Ronin
           #
           # Specifies whether the param may accept blank values.
           #
-          # @return [Boolean]
+          # @return [::Boolean]
           #
           # @api private
           #
@@ -80,7 +80,7 @@ module Ronin
           # @param [Object] value
           #   The given value to validate.
           #
-          # @return [String]
+          # @return [::String]
           #   The coerced String.
           #
           # @raise [ValidationError]
