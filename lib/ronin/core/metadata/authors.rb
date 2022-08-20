@@ -68,7 +68,7 @@ module Ronin
           # @param [String, nil] name
           #   The new author name to add.
           #
-          # @param [Hash{Symbols => Object}] kwargs
+          # @param [Hash{Symbol => Object}] kwargs
           #   Additional keyword arguments for {Author#initialize}.
           #
           # @option kwargs [String, nil] email
