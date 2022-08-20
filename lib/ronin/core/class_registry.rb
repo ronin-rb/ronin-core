@@ -119,7 +119,7 @@ module Ronin
         #
         # The class registry.
         #
-        # @return [Hash{String => Class,nil}]
+        # @return [Hash{String => Class}]
         #   The mapping of class `id` and classes.
         #
         def registry
