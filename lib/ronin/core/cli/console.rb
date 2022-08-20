@@ -52,6 +52,9 @@ module Ronin
         # @param [Object] context
         #   Custom context to launch IRB from within.
         #
+        # @param [Hash{Symbol => Object}] kwargs
+        #   Additional keyword arguments for `initialize`.
+        #
         def initialize(name: 'ronin', context: nil, **kwargs)
           super(**kwargs)
 
