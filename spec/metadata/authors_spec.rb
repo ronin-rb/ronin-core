@@ -82,9 +82,9 @@ describe Ronin::Core::Metadata::Authors do
       end
 
       let(:test_class) { TestMetadataAuthor::AuthorWithOnlyName }
-      let(:author)     { subject.authors.first }
+      let(:author)     { subject.authors.last }
 
-      it "must initialize the #{described_class::Author} object with that name" do
+      it "must initialize the #{described_class::Author} object with that name and add it to .authors" do
         expect(author).to be_kind_of(described_class::Author)
         expect(author.name).to eq('John Doe')
       end
@@ -105,9 +105,9 @@ describe Ronin::Core::Metadata::Authors do
       end
 
       let(:test_class) { TestMetadataAuthor::AuthorsWithContactInfo }
-      let(:author)     { subject.authors.first }
+      let(:author)     { subject.authors.last }
 
-      it "must initialize #{described_class}::Author with those keywords" do
+      it "must initialize #{described_class}::Author with those keywords and add it to .authors" do
         expect(author).to be_kind_of(described_class::Author)
         expect(author.name).to    eq('John Smith')
         expect(author.email).to   eq('john.smith@example.com')
