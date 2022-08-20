@@ -85,6 +85,7 @@ describe Ronin::Core::Metadata::Authors do
       let(:author)     { subject.authors.first }
 
       it "must initialize the #{described_class::Author} object with that name" do
+        expect(author).to be_kind_of(described_class::Author)
         expect(author.name).to eq('John Doe')
       end
     end
@@ -107,6 +108,7 @@ describe Ronin::Core::Metadata::Authors do
       let(:author)     { subject.authors.first }
 
       it "must initialize #{described_class}::Author with those keywords" do
+        expect(author).to be_kind_of(described_class::Author)
         expect(author.name).to    eq('John Smith')
         expect(author.email).to   eq('john.smith@example.com')
         expect(author.pgp).to     eq('0x123456789')
