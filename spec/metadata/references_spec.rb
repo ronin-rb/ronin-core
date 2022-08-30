@@ -85,6 +85,15 @@ describe Ronin::Core::Metadata::References do
             ]
           )
         end
+
+        it "must not modify the superclass'es references" do
+          expect(subject.superclass.references).to eq(
+            [
+              'https://example.com/link1',
+              'https://example.com/link2'
+            ]
+          )
+        end
       end
     end
   end

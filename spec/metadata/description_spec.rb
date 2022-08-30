@@ -64,6 +64,10 @@ describe Ronin::Core::Metadata::Description do
         it "must return the description set in the sub-class" do
           expect(subject.description).to eq("test2")
         end
+
+        it "must not modify the superclass'es description" do
+          expect(subject.superclass.description).to eq('test')
+        end
       end
     end
   end

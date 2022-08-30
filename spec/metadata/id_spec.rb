@@ -62,6 +62,10 @@ describe Ronin::Core::Metadata::ID do
         it "must return the id set in the sub-class" do
           expect(subject.id).to eq("test2")
         end
+
+        it "must not modify the superclass'es id" do
+          expect(subject.superclass.id).to eq('test')
+        end
       end
     end
   end

@@ -64,6 +64,10 @@ describe Ronin::Core::Metadata::Summary do
         it "must return the summary set in the sub-class" do
           expect(subject.summary).to eq("test2")
         end
+
+        it "must not modify the superclass'es summary" do
+          expect(subject.superclass.summary).to eq('test')
+        end
       end
     end
   end
