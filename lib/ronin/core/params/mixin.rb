@@ -279,6 +279,7 @@ module Ronin
         # @api semipublic
         #
         def params=(new_params)
+          # re-initialize the params each time they are set en-mass
           initialize_params()
 
           new_params.each do |name,value|
