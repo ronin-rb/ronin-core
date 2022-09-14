@@ -163,6 +163,48 @@ module Ronin
         end
 
         #
+        # Loads a class from a file.
+        #
+        # @param [String] id
+        #   The expected class `id` in the file.
+        #
+        # @param [String] file
+        #   The file to load.
+        #
+        # @return [Class]
+        #   The loaded class.
+        #
+        # @raise [ClassNotFound]
+        #   The file does not exist or the class `id` was not found within the
+        #   file.
+        #
+        def load_class_from_file(id,file)
+          unless File.file?(file)
+            raise(ClassNotFound,"no such file or directory: #{file.inspect}")
+          end
+
+          previous_entries = registry.keys
+
+          begin
+            require file
+          rescue LoadError
+            raise(ClassNotFound,"could not load file: #{file.inspect}")
+          end
+
+          unless (klass = registry[id])
+            new_entries = registry.keys - previous_entries
+
+            if new_entries.empty?
+              raise(ClassNotFound,"file did not register a class: #{file.inspect}")
+            else
+              raise(ClassNotFound,"file registered a class with a different id (#{new_entries.map(&:inspect).join(', ')}): #{file.inspect}")
+            end
+          end
+
+          return klass
+        end
+
+        #
         # Loads a class from the {#class_dir}.
         #
         # @param [String] id
@@ -184,25 +226,7 @@ module Ronin
               raise(ClassNotFound,"could not find file for #{id.inspect}")
             end
 
-            previous_entries = registry.keys
-
-            begin
-              require path
-            rescue LoadError
-              raise(ClassNotFound,"could not load file for #{id .inspect}")
-            end
-
-            unless (mod = registry[id])
-              new_entries = registry.keys - previous_entries
-
-              if new_entries.empty?
-                raise(ClassNotFound,"file did not register a class: #{path.inspect}")
-              else
-                raise(ClassNotFound,"file registered a class with a different id (#{new_entries.map(&:inspect).join(', ')}): #{path.inspect}")
-              end
-            end
-
-            return mod
+            load_class_from_file(id,path)
           end
         end
       end
