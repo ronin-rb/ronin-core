@@ -219,8 +219,8 @@ module Ronin
         #
         def load_class(id)
           # short-circuit if the module is already loaded
-          if (mod = registry[id])
-            return mod
+          if (klass = registry[id])
+            return klass
           else
             unless (path = path_for(id))
               raise(ClassNotFound,"could not find file for #{id.inspect}")
