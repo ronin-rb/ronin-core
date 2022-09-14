@@ -83,6 +83,12 @@ module Ronin
           # @option kwargs [String, nil] :pgp
           #   The author's PGP Key ID.
           #
+          # @option kwargs [String, nil] :website
+          #   The author's website.
+          #
+          # @option kwargs [String, nil] :blog
+          #   The author's blog.
+          #
           # @option kwargs [String, nil] :github
           #   The author's GitHub user name.
           #

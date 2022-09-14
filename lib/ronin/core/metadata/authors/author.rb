@@ -36,6 +36,16 @@ module Ronin
           # @return [String, nil]
           attr_reader :pgp
 
+          # The author's website
+          #
+          # @return [String, nil]
+          attr_reader :website
+
+          # The author's blog.
+          #
+          # @return [String, nil]
+          attr_reader :blog
+
           # The author's GitHub user name.
           #
           # @return [String, nil]
@@ -68,6 +78,12 @@ module Ronin
           # @param [String, nil] pgp
           #   The author's PGP Key ID.
           #
+          # @param [String, nil] website
+          #   The author's website.
+          #
+          # @param [String, nil] blog
+          #   The author's blog.
+          #
           # @param [String, nil] github
           #   The author's GitHub user name.
           #
@@ -82,6 +98,8 @@ module Ronin
           #
           def initialize(name, email:   nil,
                                pgp:     nil,
+                               website: nil,
+                               blog:    nil,
                                github:  nil,
                                gitlab:  nil,
                                twitter: nil,
@@ -90,6 +108,8 @@ module Ronin
             @email = email
             @pgp   = pgp
 
+            @website = website
+            @blog    = blog
             @github  = github
             @gitlab  = gitlab
             @twitter = twitter
@@ -112,6 +132,24 @@ module Ronin
           #
           def pgp?
             @pgp != nil
+          end
+
+          #
+          # Determines if the author has a {#website} set.
+          #
+          # @return [Boolean]
+          #
+          def website?
+            @website != nil
+          end
+
+          #
+          # Determines if the author has a {#blog} set.
+          #
+          # @return [Boolean]
+          #
+          def blog?
+            @blog != nil
           end
 
           #

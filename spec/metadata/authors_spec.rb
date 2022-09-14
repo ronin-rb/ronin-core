@@ -97,6 +97,8 @@ describe Ronin::Core::Metadata::Authors do
 
           author 'John Smith', email:   'john.smith@example.com',
                                pgp:     '0x123456789',
+                               website: 'https://jsmith.name',
+                               blog:    'https://jsmith.name/blog',
                                github:  'jsmith1',
                                gitlab:  'jsmith2',
                                twitter: 'jsmith3',
@@ -109,13 +111,15 @@ describe Ronin::Core::Metadata::Authors do
 
       it "must initialize #{described_class}::Author with those keywords and add it to .authors" do
         expect(author).to be_kind_of(described_class::Author)
-        expect(author.name).to    eq('John Smith')
-        expect(author.email).to   eq('john.smith@example.com')
-        expect(author.pgp).to     eq('0x123456789')
-        expect(author.github).to  eq('jsmith1')
-        expect(author.gitlab).to  eq('jsmith2')
-        expect(author.twitter).to eq('jsmith3')
-        expect(author.discord).to eq('jsmith4')
+        expect(author.name).to     eq('John Smith')
+        expect(author.email).to    eq('john.smith@example.com')
+        expect(author.pgp).to      eq('0x123456789')
+        expect(author.website).to  eq('https://jsmith.name')
+        expect(author.blog).to     eq('https://jsmith.name/blog')
+        expect(author.github).to   eq('jsmith1')
+        expect(author.gitlab).to   eq('jsmith2')
+        expect(author.twitter).to  eq('jsmith3')
+        expect(author.discord).to  eq('jsmith4')
       end
     end
   end

@@ -2,13 +2,15 @@ require 'spec_helper'
 require 'ronin/core/metadata/authors/author'
 
 describe Ronin::Core::Metadata::Authors::Author do
-  let(:name)    { 'John Smith'             }
-  let(:email)   { 'john.smith@example.com' }
-  let(:pgp)     { '0x123456789'            }
-  let(:github)  { 'jsmith_github'          }
-  let(:gitlab)  { 'jsmith_gitlab'          }
-  let(:twitter) { 'jsmith_twitter'         }
-  let(:discord) { 'jsmith_discord'         }
+  let(:name)    { 'John Smith'               }
+  let(:email)   { 'john.smith@example.com'   }
+  let(:pgp)     { '0x123456789'              }
+  let(:website) { 'https://jsmith.name'      }
+  let(:blog)    { 'https://blog.jsmith.name' }
+  let(:github)  { 'jsmith_github'            }
+  let(:gitlab)  { 'jsmith_gitlab'            }
+  let(:twitter) { 'jsmith_twitter'           }
+  let(:discord) { 'jsmith_discord'           }
 
   describe "#initialize" do
     subject { described_class.new(name) }
@@ -30,6 +32,22 @@ describe Ronin::Core::Metadata::Authors::Author do
 
       it "must set #pgp" do
         expect(subject.pgp).to eq(pgp)
+      end
+    end
+
+    context "when given the website: keyword argument" do
+      subject { described_class.new(name, website: website) }
+
+      it "must set #website" do
+        expect(subject.website).to eq(website)
+      end
+    end
+
+    context "when given the blog: keyword argument" do
+      subject { described_class.new(name, blog: blog) }
+
+      it "must set #blog" do
+        expect(subject.blog).to eq(blog)
       end
     end
 
@@ -107,6 +125,42 @@ describe Ronin::Core::Metadata::Authors::Author do
 
       it "must return false" do
         expect(subject.pgp?).to be(false)
+      end
+    end
+  end
+
+  describe "#website?" do
+    context "when #website is set" do
+      subject { described_class.new(name, website: website) }
+
+      it "must return true" do
+        expect(subject.website?).to be(true)
+      end
+    end
+
+    context "when #website is not set" do
+      subject { described_class.new(name) }
+
+      it "must return false" do
+        expect(subject.website?).to be(false)
+      end
+    end
+  end
+
+  describe "#blog?" do
+    context "when #blog is set" do
+      subject { described_class.new(name, blog: blog) }
+
+      it "must return true" do
+        expect(subject.blog?).to be(true)
+      end
+    end
+
+    context "when #blog is not set" do
+      subject { described_class.new(name) }
+
+      it "must return false" do
+        expect(subject.blog?).to be(false)
       end
     end
   end
