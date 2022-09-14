@@ -39,13 +39,13 @@ module Ronin
                                  desc: 'Sets a param' do |str|
                                    name, value = str.split('=',2)
 
-                                   @params[name] = value
+                                   @params[name.to_sym] = value
                                  end
         end
 
         # The set params.
         #
-        # @return [Hash{String => String}]
+        # @return [Hash{Symbol => String}]
         attr_reader :params
 
         #

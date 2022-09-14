@@ -35,8 +35,8 @@ describe Ronin::Core::CLI::ParamOption do
     context "when given --param foo=bar" do
       before { subject.option_parser.parse(%w[--param foo=bar]) }
 
-      it "must set the 'foo' key to 'bar' in #params" do
-        expect(subject.params['foo']).to eq('bar')
+      it "must set the :foo key to 'bar' in #params" do
+        expect(subject.params[:foo]).to eq('bar')
       end
     end
 
