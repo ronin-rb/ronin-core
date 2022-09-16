@@ -33,7 +33,7 @@ and development.
 
 * [Ruby] >= 3.0.0
 * [reline] ~> 0.1
-* [command_kit] ~> 0.3
+* [command_kit] ~> 0.4
 * [irb] ~> 1.0
 
 ## Install
