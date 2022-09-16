@@ -196,7 +196,7 @@ module Ronin
           #   if no {#github} user name has been set.
           #
           def github_url
-            "https://github.com/#{@github.sub(/^@/,'')}" if @github
+            "https://github.com/#{@github.sub(/\A@/,'')}" if @github
           end
 
           #
@@ -207,7 +207,7 @@ module Ronin
           #   if no {#gitlab} user name has been set.
           #
           def gitlab_url
-            "https://gitlab.com/#{@gitlab.sub(/^@/,'')}" if @gitlab
+            "https://gitlab.com/#{@gitlab.sub(/\A@/,'')}" if @gitlab
           end
 
           #
@@ -218,7 +218,7 @@ module Ronin
           #   if no {#twitter} user name has been set.
           #
           def twitter_url
-            "https://twitter.com/#{@twitter.sub(/^@/,'')}" if @twitter
+            "https://twitter.com/#{@twitter.sub(/\A@/,'')}" if @twitter
           end
 
           #
