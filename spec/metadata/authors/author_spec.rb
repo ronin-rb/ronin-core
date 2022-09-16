@@ -244,6 +244,14 @@ describe Ronin::Core::Metadata::Authors::Author do
       it "must return the 'https://github.com/...' URL" do
         expect(subject.github_url).to eq("https://github.com/#{github}")
       end
+
+      context "but the twitter handle starts with a '@'" do
+        subject { described_class.new(name, github: "@#{github}") }
+
+        it "must omit the leading '@' character" do
+          expect(subject.github_url).to eq("https://github.com/#{github}")
+        end
+      end
     end
 
     context "when #github is not set" do
@@ -261,6 +269,14 @@ describe Ronin::Core::Metadata::Authors::Author do
 
       it "must return the 'https://gitlab.com/...' URL" do
         expect(subject.gitlab_url).to eq("https://gitlab.com/#{gitlab}")
+      end
+
+      context "but the twitter handle starts with a '@'" do
+        subject { described_class.new(name, gitlab: "@#{gitlab}") }
+
+        it "must omit the leading '@' character" do
+          expect(subject.gitlab_url).to eq("https://gitlab.com/#{gitlab}")
+        end
       end
     end
 
