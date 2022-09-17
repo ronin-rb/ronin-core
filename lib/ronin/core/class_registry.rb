@@ -178,6 +178,10 @@ module Ronin
         #   The file does not exist or the class `id` was not found within the
         #   file.
         #
+        # @raise [LoadError]
+        #   A load error curred while requiring the other files required by
+        #   the class file.
+        #
         def load_class_from_file(id,file)
           unless File.file?(file)
             raise(ClassNotFound,"no such file or directory: #{file.inspect}")
@@ -185,11 +189,7 @@ module Ronin
 
           previous_entries = registry.keys
 
-          begin
-            require file
-          rescue LoadError
-            raise(ClassNotFound,"could not load file: #{file.inspect}")
-          end
+          require file
 
           unless (klass = registry[id])
             new_entries = registry.keys - previous_entries
