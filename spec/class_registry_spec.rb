@@ -121,13 +121,27 @@ describe Ronin::Core::ClassRegistry do
       expect(subject.registry[id]).to be(klass)
     end
 
+    context "when given a relative path" do
+      let(:relative_path) { File.join(subject.class_dir,'foo','..',"#{id}.rb") }
+      let(:absolute_path) { File.expand_path(relative_path) }
+
+      it "must expand the path first" do
+        expect(subject).to receive(:require).with(absolute_path) do
+          load(absolute_path)
+        end
+
+        subject.load_class_from_file(relative_path)
+      end
+    end
+
     context "when the file does not exist" do
-      let(:file) { "path/does/not/exist.rb" }
+      let(:file)          { "path/does/not/exist.rb" }
+      let(:absolute_path) { File.expand_path(file)   }
 
       it do
         expect {
           subject.load_class_from_file(file)
-        }.to raise_error(described_class::ClassNotFound,"no such file or directory: #{file.inspect}")
+        }.to raise_error(described_class::ClassNotFound,"no such file or directory: #{absolute_path.inspect}")
       end
     end
 

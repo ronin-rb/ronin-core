@@ -180,6 +180,8 @@ module Ronin
         #   the class file.
         #
         def load_class_from_file(file)
+          file = File.expand_path(file)
+
           unless File.file?(file)
             raise(ClassNotFound,"no such file or directory: #{file.inspect}")
           end
