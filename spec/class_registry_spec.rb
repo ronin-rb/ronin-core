@@ -106,17 +106,17 @@ describe Ronin::Core::ClassRegistry do
     let(:klass) { ExampleClassRegistry::LoadedClass }
 
     it "must require the file" do
-      subject.load_class_from_file(id,file)
+      subject.load_class_from_file(file)
 
       expect($LOADED_FEATURES).to include(file)
     end
 
     it "must return the registered module" do
-      expect(subject.load_class_from_file(id,file)).to be(klass)
+      expect(subject.load_class_from_file(file)).to be(klass)
     end
 
     it "must register the module with the same id as the file" do
-      subject.load_class_from_file(id,file)
+      subject.load_class_from_file(file)
 
       expect(subject.registry[id]).to be(klass)
     end
@@ -126,7 +126,7 @@ describe Ronin::Core::ClassRegistry do
 
       it do
         expect {
-          subject.load_class_from_file(id,file)
+          subject.load_class_from_file(file)
         }.to raise_error(described_class::ClassNotFound,"no such file or directory: #{file.inspect}")
       end
     end
@@ -137,21 +137,8 @@ describe Ronin::Core::ClassRegistry do
 
       it do
         expect {
-          subject.load_class_from_file(id,file)
+          subject.load_class_from_file(file)
         }.to raise_error(described_class::ClassNotFound,"file did not register a class: #{file.inspect}")
-      end
-    end
-
-    context "when the file registers a module of a different name" do
-      let(:id)   { 'name_mismatch' }
-      let(:file) { File.join(subject.class_dir,"#{id}.rb") }
-
-      let(:unexpected_id) { 'different_name' }
-
-      it do
-        expect {
-          subject.load_class_from_file(id,file)
-        }.to raise_error(described_class::ClassNotFound,"file registered a class with a different id (#{unexpected_id.inspect}): #{file.inspect}")
       end
     end
 

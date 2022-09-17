@@ -165,9 +165,6 @@ module Ronin
         #
         # Loads a class from a file.
         #
-        # @param [String] id
-        #   The expected class `id` in the file.
-        #
         # @param [String] file
         #   The file to load.
         #
@@ -182,26 +179,20 @@ module Ronin
         #   A load error curred while requiring the other files required by
         #   the class file.
         #
-        def load_class_from_file(id,file)
+        def load_class_from_file(file)
           unless File.file?(file)
             raise(ClassNotFound,"no such file or directory: #{file.inspect}")
           end
 
           previous_entries = registry.keys
+          require(file)
+          new_entries = registry.keys - previous_entries
 
-          require file
-
-          unless (klass = registry[id])
-            new_entries = registry.keys - previous_entries
-
-            if new_entries.empty?
-              raise(ClassNotFound,"file did not register a class: #{file.inspect}")
-            else
-              raise(ClassNotFound,"file registered a class with a different id (#{new_entries.map(&:inspect).join(', ')}): #{file.inspect}")
-            end
+          if new_entries.empty?
+            raise(ClassNotFound,"file did not register a class: #{file.inspect}")
           end
 
-          return klass
+          return registry[new_entries.last]
         end
 
         #
@@ -217,17 +208,34 @@ module Ronin
         #   The class file could not be found within {#class_dir}.or has
         #   a file/registered-name mismatch.
         #
+        # @raise [LoadError]
+        #   A load error curred while requiring the other files required by
+        #   the class file.
+        #
         def load_class(id)
           # short-circuit if the module is already loaded
           if (klass = registry[id])
             return klass
-          else
-            unless (path = path_for(id))
-              raise(ClassNotFound,"could not find file for #{id.inspect}")
-            end
-
-            load_class_from_file(id,path)
           end
+
+          unless (path = path_for(id))
+            raise(ClassNotFound,"could not find file for #{id.inspect}")
+          end
+
+          previous_entries = registry.keys
+          require(path)
+
+          unless (klass = registry[id])
+            new_entries = registry.keys - previous_entries
+
+            if new_entries.empty?
+              raise(ClassNotFound,"file did not register a class: #{path.inspect}")
+            else
+              raise(ClassNotFound,"file registered a class with a different id (#{new_entries.map(&:inspect).join(', ')}): #{path.inspect}")
+            end
+          end
+
+          return klass
         end
       end
     end
