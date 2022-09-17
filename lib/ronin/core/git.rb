@@ -28,11 +28,7 @@ module Ronin
       #   The value of `user.name` or `nil` if it was not set.
       #
       def self.user_name
-        output = `git config user.name`.chomp
-
-        if output.empty? then nil
-        else                  output
-        end
+        config_value('user.name')
       end
 
       #
@@ -42,11 +38,7 @@ module Ronin
       #   The value of `user.email` or `nil` if it was not set.
       #
       def self.user_email
-        output = `git config user.email`.chomp
-
-        if output.empty? then nil
-        else                  output
-        end
+        config_value('user.email')
       end
 
       #
@@ -56,7 +48,22 @@ module Ronin
       #   The value of `github.user` or `nil` if it was not set.
       #
       def self.github_user
-        output = `git config github.user`.chomp
+        config_value('github.user')
+      end
+
+      private
+
+      #
+      # Queries a git configuration value.
+      #
+      # @param [String] name
+      #   The configuration name.
+      #
+      # @return [string, nil]
+      #   The configuration value or `nil` if nothing was returned.
+      #
+      def self.config_value(name)
+        output = `git config #{name}`.chomp
 
         if output.empty? then nil
         else                  output
