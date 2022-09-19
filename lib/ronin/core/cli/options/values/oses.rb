@@ -19,10 +19,12 @@ module Ronin
   module Core
     module CLI
       module Options
-        # Supported Operating Systems (OS)
-        OSES = [
-          :linux, :macos, :windows, :freebsd, :openbsd, :netbsd
-        ]
+        module Values
+          # Supported Operating Systems (OS)
+          OSES = [
+            :linux, :macos, :windows, :freebsd, :openbsd, :netbsd
+          ]
+        end
       end
     end
   end

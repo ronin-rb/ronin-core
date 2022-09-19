@@ -19,23 +19,25 @@ module Ronin
   module Core
     module CLI
       module Options
-        # Supported architecture names and their Symbol equivalents
-        ARCHES = {
-          'x86'      => :x86,
-          'x86-64'   => :x86_64,
-          'amd64'    => :x86_64,
-          'ia64'     => :ia64,
-          'ppc'      => :ppc,
-          'ppc64'    => :ppc64,
-          'arm'      => :arm,
-          'armbe'    => :arm_be,
-          'arm64'    => :arm64,
-          'arm64be'  => :arm64_be,
-          'mips'     => :mips,
-          'mipsle'   => :mips_le,
-          'mips64'   => :mips64,
-          'mips64le' => :mips64_le
-        }
+        module Values
+          # Supported architecture names and their Symbol equivalents
+          ARCHES = {
+            'x86'      => :x86,
+            'x86-64'   => :x86_64,
+            'amd64'    => :x86_64,
+            'ia64'     => :ia64,
+            'ppc'      => :ppc,
+            'ppc64'    => :ppc64,
+            'arm'      => :arm,
+            'armbe'    => :arm_be,
+            'arm64'    => :arm64,
+            'arm64be'  => :arm64_be,
+            'mips'     => :mips,
+            'mipsle'   => :mips_le,
+            'mips64'   => :mips64,
+            'mips64le' => :mips64_le
+          }
+        end
       end
     end
   end

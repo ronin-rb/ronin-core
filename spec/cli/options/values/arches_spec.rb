@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'ronin/core/cli/options/arches'
+require 'ronin/core/cli/options/values/arches'
 
-describe "Ronin::Core::CLI::Options::ARCHES" do
-  subject { Ronin::Core::CLI::Options::ARCHES }
+describe "Ronin::Core::CLI::Options::Values::ARCHES" do
+  subject { Ronin::Core::CLI::Options::Values::ARCHES }
 
   it "must map 'x86' to :x86" do
     expect(subject['x86']).to eq(:x86)
