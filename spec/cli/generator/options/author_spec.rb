@@ -59,7 +59,13 @@ describe Ronin::Core::CLI::Generator::Options::Author do
       expect(subject.options[:author].value.default.call).to eq(described_class.default_name)
       expect(subject.options[:author].value.type).to eq(String)
       expect(subject.options[:author].value.usage).to eq('NAME')
-      expect(subject.options[:author].desc).to eq("The name of the author (Default: #{described_class.default_name})")
+
+      if (default_name = described_class.default_name)
+        expect(subject.options[:author].desc).to eq("The name of the author (Default: #{default_name})")
+      else
+        expect(subject.options[:author].desc).to eq("The name of the author")
+      end
+
       expect(subject.options[:author].block).to_not be_nil
     end
 
@@ -70,7 +76,13 @@ describe Ronin::Core::CLI::Generator::Options::Author do
       expect(subject.options[:author_email].value.default.call).to eq(described_class.default_email)
       expect(subject.options[:author_email].value.type).to eq(String)
       expect(subject.options[:author_email].value.usage).to eq('EMAIL')
-      expect(subject.options[:author_email].desc).to eq("The email address of the author (Default: #{described_class.default_email})")
+
+      if (default_email = described_class.default_email)
+        expect(subject.options[:author_email].desc).to eq("The email address of the author (Default: #{default_email})")
+      else
+        expect(subject.options[:author_email].desc).to eq("The email address of the author")
+      end
+
       expect(subject.options[:author_email].block).to_not be_nil
     end
   end
