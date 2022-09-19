@@ -1,11 +1,11 @@
 require 'spec_helper'
-require 'ronin/core/cli/param_option'
+require 'ronin/core/cli/options/param'
 require 'ronin/core/cli/command'
 
-describe Ronin::Core::CLI::ParamOption do
+describe Ronin::Core::CLI::Options::Param do
   module TestParamOption
     class TestCommand < Ronin::Core::CLI::Command
-      include Ronin::Core::CLI::ParamOption
+      include Ronin::Core::CLI::Options::Param
     end
   end
 
