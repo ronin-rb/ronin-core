@@ -62,7 +62,7 @@ module Ronin
                   end
                 end
               else
-                indent { print_list klass.authors }
+                indent { print_list(klass.authors) }
               end
 
               puts
@@ -99,7 +99,7 @@ module Ronin
               puts "References:"
               puts
 
-              indent { print_list klass.references }
+              indent { print_list(klass.references) }
               puts
             end
           end
