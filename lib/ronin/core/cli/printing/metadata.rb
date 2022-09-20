@@ -17,6 +17,7 @@
 
 require 'command_kit/options/verbose'
 require 'command_kit/printing/indent'
+require 'command_kit/printing/lists'
 
 module Ronin
   module Core
@@ -27,6 +28,7 @@ module Ronin
         #
         module Metadata
           include CommandKit::Printing::Indent
+          include CommandKit::Printing::Lists
 
           #
           # Addss a `-v,--verbose` option to the command class.
