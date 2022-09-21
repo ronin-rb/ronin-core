@@ -744,6 +744,30 @@ describe Ronin::Core::CLI::CommandShell do
           end
         end
       end
+
+      context "but the command method raises an exception" do
+        module TestCommandShell
+          class ShellWithCommandThatRaisesAnException < Ronin::Core::CLI::CommandShell
+
+            command 'cmd', summary: 'Test command'
+            def cmd
+              raise("error!")
+            end
+
+          end
+        end
+
+        let(:shell_class) do
+          TestCommandShell::ShellWithCommandThatRaisesAnException
+        end
+        let(:name) { 'cmd' }
+
+        it "must print an error message and return false" do
+          expect {
+            expect(subject.call(name)).to be(false)
+          }.to output(/an unhandled exception occurred in the #{name} command/).to_stderr
+        end
+      end
     end
 
     context "when the command does not exist" do

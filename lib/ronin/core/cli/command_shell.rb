@@ -181,7 +181,14 @@ module Ronin
             return false
           end
 
-          send(method_name,*args)
+          begin
+            send(method_name,*args)
+          rescue => error
+            print_exception(error)
+            print_error "an unhandled exception occurred in the #{name} command"
+            return false
+          end
+
           return true
         end
 
