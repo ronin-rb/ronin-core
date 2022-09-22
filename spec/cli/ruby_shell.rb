@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'ronin/core/cli/console'
+require 'ronin/core/cli/ruby_shell'
 
-describe Ronin::Core::CLI::Console do
+describe Ronin::Core::CLI::RubyShell do
   describe "#initialize" do
     it "must default #name to 'ronin'" do
       expect(subject.name).to eq('ronin')
@@ -75,7 +75,7 @@ describe Ronin::Core::CLI::Console do
 
   describe "#start" do
     let(:fixtures_dir) { File.expand_path(File.join(__dir__,'fixtures')) }
-    let(:console_bin)  { File.join(fixtures_dir,'console') }
+    let(:console_bin)  { File.join(fixtures_dir,'irb_command') }
 
     it "must print a prompt then read and evaluate Ruby" do
       output = nil

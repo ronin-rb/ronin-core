@@ -3,6 +3,6 @@
 require 'bundler/setup'
 
 $LOAD_PATH.unshift(File.expand_path(File.join(__dir__,'..','..','..','lib')))
-require 'ronin/core/cli/console'
+require 'ronin/core/cli/ruby_shell'
 
-Ronin::Core::CLI::Console.start
+Ronin::Core::CLI::RubyShell.start

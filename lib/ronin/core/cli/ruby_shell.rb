@@ -27,7 +27,7 @@ module Ronin
       #
       # @api semipublic
       #
-      class Console
+      class RubyShell
 
         include CommandKit::Colors
 
