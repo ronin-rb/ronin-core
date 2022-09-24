@@ -101,6 +101,19 @@ module Ronin
         end
 
         #
+        # Parses a line of input.
+        #
+        # @param [String] line
+        #   A line of input.
+        #
+        # @return [String, Array<String>]
+        #   The command name and any additional arguments.
+        #
+        def self.parse_command(line)
+          Shellwords.shellsplit(line)
+        end
+
+        #
         # The partially input being tab completed.
         #
         # @param [String] word
@@ -113,29 +126,16 @@ module Ronin
         # @return [Array<String>, nil]
         #   The possible completion values.
         #
-        def self.complete(word,preposing)
+        def complete(word,preposing)
           if !preposing.empty?
             name = preposing.split(/\s+/,2).first
 
-            if (command = commands[name])
+            if (command = self.class.commands[name])
               command.completions.select { |arg| arg.start_with?(word) }
             end
           else
-            commands.keys.select { |name| name.start_with?(word) }
+            self.class.commands.keys.select { |name| name.start_with?(word) }
           end
-        end
-
-        #
-        # Parses a line of input.
-        #
-        # @param [String] line
-        #   A line of input.
-        #
-        # @return [String, Array<String>]
-        #   The command name and any additional arguments.
-        #
-        def self.parse_command(line)
-          Shellwords.shellsplit(line)
         end
 
         #

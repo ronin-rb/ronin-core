@@ -82,7 +82,7 @@ module Ronin
         def self.start(*arguments,**kwargs)
           shell = new(*arguments,**kwargs)
 
-          Reline.completion_proc = method(:complete)
+          Reline.completion_proc = shell.method(:complete)
           use_history = true
 
           begin
@@ -123,7 +123,7 @@ module Ronin
         #
         # @abstract
         #
-        def self.complete(word,preposing)
+        def complete(word,preposing)
         end
 
         # The shell's name.

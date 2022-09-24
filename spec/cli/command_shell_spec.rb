@@ -156,7 +156,7 @@ describe Ronin::Core::CLI::CommandShell do
     end
   end
 
-  describe ".complete" do
+  describe "#complete" do
     module TestCommandShell
       class ShellWithCompletions < Ronin::Core::CLI::CommandShell
         shell_name 'test'
@@ -176,14 +176,14 @@ describe Ronin::Core::CLI::CommandShell do
     end
 
     let(:shell_class) { TestCommandShell::ShellWithCompletions }
-    subject { shell_class }
+    subject { shell_class.new }
 
     context "when the input is empty" do
       let(:preposing) { '' }
       let(:word)      { '' }
 
       it "must return all available command names" do
-        expect(subject.complete(word,preposing)).to eq(subject.commands.keys)
+        expect(subject.complete(word,preposing)).to eq(subject.class.commands.keys)
       end
     end
 
@@ -205,7 +205,7 @@ describe Ronin::Core::CLI::CommandShell do
 
         it "must return the command's argument values that match the end of the input" do
           expect(subject.complete(word,preposing)).to eq(
-            subject.commands[command].completions.select { |value|
+            subject.class.commands[command].completions.select { |value|
               value.start_with?(word)
             }
           )
@@ -216,7 +216,7 @@ describe Ronin::Core::CLI::CommandShell do
 
           it "must still return the command's argument values that match the end of the input" do
             expect(subject.complete(word,preposing)).to eq(
-              subject.commands[command].completions.select { |value|
+              subject.class.commands[command].completions.select { |value|
                 value.start_with?(word)
               }
             )
@@ -245,7 +245,7 @@ describe Ronin::Core::CLI::CommandShell do
 
         it "must return all possible completion values for the command" do
           expect(subject.complete(word,preposing)).to eq(
-            subject.commands[command].completions
+            subject.class.commands[command].completions
           )
         end
       end
