@@ -203,23 +203,92 @@ describe Ronin::Core::CLI::CommandShell do
         let(:preposing) { "#{command} " }
         let(:word)      { arg           }
 
-        it "must return the command's argument values that match the end of the input" do
-          expect(subject.complete(word,preposing)).to eq(
-            subject.class.commands[command].completions.select { |value|
-              value.start_with?(word)
-            }
-          )
-        end
-
-        context "but the input contains multiple spaces" do
-          let(:preposing) { "#{command} bla bla "}
-
-          it "must still return the command's argument values that match the end of the input" do
+        context "and the command defines an Array of completion values" do
+          it "must return the command's argument values that match the end of the input" do
             expect(subject.complete(word,preposing)).to eq(
               subject.class.commands[command].completions.select { |value|
                 value.start_with?(word)
               }
             )
+          end
+
+          context "but the input contains multiple spaces" do
+            let(:preposing) { "#{command} bla bla "}
+
+            it "must still return the command's argument values that match the end of the input" do
+              expect(subject.complete(word,preposing)).to eq(
+                subject.class.commands[command].completions.select { |value|
+                  value.start_with?(word)
+                }
+              )
+            end
+          end
+        end
+
+        context "and the command defines a completion method name" do
+          module TestCommandShell
+            class ShellWithCompletionMethod < Ronin::Core::CLI::CommandShell
+              shell_name 'test'
+
+              command :foo, summary: 'Foo command'
+              def foo
+              end
+
+              command :bar, summary: 'Bar command',
+                            completions: :bar_completion
+              def bar
+              end
+
+              def bar_completion(arg)
+                [
+                  "#{arg}A",
+                  "#{arg}B"
+                ]
+              end
+
+              command :baz, summary: 'Baz command'
+              def baz
+              end
+            end
+          end
+
+          let(:shell_class) { TestCommandShell::ShellWithCompletionMethod }
+
+          it "must call the completion method with the argument" do
+            expect(subject.complete(word,preposing)).to eq(
+              subject.send(subject.class.commands[command].completions,word)
+            )
+          end
+
+          context "but the completion method was not defined" do
+            module TestCommandShell
+              class ShellWithMissingCompletionMethod < Ronin::Core::CLI::CommandShell
+                shell_name 'test'
+
+                command :foo, summary: 'Foo command'
+                def foo
+                end
+
+                command :bar, summary: 'Bar command',
+                              completions: :bar_completion
+                def bar
+                end
+
+                command :baz, summary: 'Baz command'
+                def baz
+                end
+              end
+            end
+
+            let(:shell_class) do
+              TestCommandShell::ShellWithMissingCompletionMethod
+            end
+
+            it "must call the completion method with the argument" do
+              expect {
+                subject.complete(word,preposing)
+              }.to raise_error(NotImplementedError,"#{subject.class}#bar_completion was not defined")
+            end
           end
         end
       end

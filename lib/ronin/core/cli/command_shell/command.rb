@@ -40,7 +40,7 @@ module Ronin
 
           # Possible tab completion values for the command's arguments.
           #
-          # @return [Array<String>]
+          # @return [Array<String>, Symbol, nil]
           attr_reader :completions
 
           # The command's one-line summary.
@@ -65,8 +65,9 @@ module Ronin
           # @param [String, nil] usage
           #   The usage string for the command's arguments.
           #
-          # @param [Array<String>] completions
-          #   Potential tab completion values for the command's arguments.
+          # @param [Array<String>, Symbol, nil] completions
+          #   Potential tab completion values, or a method name, to complete
+          #   the command's arguments.
           #
           # @param [String] summary
           #   A single line summary for the command.
@@ -76,15 +77,15 @@ module Ronin
           #
           def initialize(name, method_name: name,
                                usage: nil,
-                               completions: [],
+                               completions: nil,
                                summary: ,
                                help: summary)
             @name        = name
             @method_name = method_name
             @usage       = usage
-            @completions = completions
             @summary     = summary
             @help        = help
+            @completions = completions
           end
 
           #

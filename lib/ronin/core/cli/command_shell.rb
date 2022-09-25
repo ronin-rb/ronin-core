@@ -79,8 +79,9 @@ module Ronin
         # @param [String, nil] usage
         #   A usage string indicating the shell command's options/arguments.
         #
-        # @param [Array<String>] completions
-        #   The possible tab completion values for the command's arguments.
+        # @param [Array<String>, Symbol, nil] completions
+        #   The possible tab completion values, or a method name, to complete
+        #   the command's arguments.
         #
         # @param [String] summary
         #   A one-line summary of the shell command.
@@ -90,7 +91,7 @@ module Ronin
         #
         def self.command(name, method_name: name,
                                usage: nil,
-                               completions: [],
+                               completions: nil,
                                summary: ,
                                help: summary)
           commands[name.to_s] = Command.new(name, method_name: method_name,
@@ -126,12 +127,27 @@ module Ronin
         # @return [Array<String>, nil]
         #   The possible completion values.
         #
+        # @raise [NotImplementedError]
+        #   The command defined a completion method name but the command shell
+        #   does not define the complete method name.
+        #
         def complete(word,preposing)
           if !preposing.empty?
             name = preposing.split(/\s+/,2).first
 
             if (command = self.class.commands[name])
-              command.completions.select { |arg| arg.start_with?(word) }
+              completions = command.completions
+
+              case completions
+              when Array
+                completions.select { |arg| arg.start_with?(word) }
+              when Symbol
+                unless respond_to?(completions)
+                  raise(NotImplementedError,"#{self.class}##{completions} was not defined")
+                end
+
+                send(completions,word)
+              end
             end
           else
             self.class.commands.keys.select { |name| name.start_with?(word) }

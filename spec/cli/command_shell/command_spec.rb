@@ -24,14 +24,26 @@ describe Ronin::Core::CLI::CommandShell::Command do
   end
 
   describe "#initialize" do
+    subject { described_class.new(name, summary: summary) }
+
     it "must set #name" do
       expect(subject.name).to eq(name)
     end
 
-    context "when the method_name: keyword is not given" do
-      it "must default #method_name to name" do
-        expect(subject.method_name).to eq(name)
-      end
+    it "must default #method_name to name" do
+      expect(subject.method_name).to eq(name)
+    end
+
+    it "must default #usage to nil" do
+      expect(subject.usage).to be(nil)
+    end
+
+    it "must default #completions to nil" do
+      expect(subject.completions).to be(nil)
+    end
+
+    it "must default #help to #summary" do
+      expect(subject.help).to eq(subject.summary)
     end
 
     context "when the method_name: keyword is given" do
@@ -39,10 +51,7 @@ describe Ronin::Core::CLI::CommandShell::Command do
 
       subject do
         described_class.new(name, method_name: method_name,
-                                  usage:       usage,
-                                  completions: completions,
-                                  summary:     summary,
-                                  help:        help)
+                                  summary:     summary)
       end
 
       it "must override #method_name" do
@@ -50,43 +59,36 @@ describe Ronin::Core::CLI::CommandShell::Command do
       end
     end
 
-    context "when the usage: keyword is not given" do
-      subject { described_class.new(name, summary: summary) }
-
-      it "must default #usage to nil" do
-        expect(subject.usage).to be(nil)
-      end
-    end
-
     context "when the usage: keyword is given" do
+      subject do
+        described_class.new(name, usage:   usage,
+                                  summary: summary)
+      end
+
       it "must set #usage" do
         expect(subject.usage).to eq(usage)
       end
     end
 
-    context "when the completions: keyword is not given" do
-      subject { described_class.new(name, summary: summary) }
-
-      it "must default #completions to []" do
-        expect(subject.completions).to eq([])
-      end
-    end
-
     context "when the completions: keyword is given" do
+      subject do
+        described_class.new(name, usage:       usage,
+                                  summary:     summary,
+                                  completions: completions)
+      end
+
       it "must set #completions" do
         expect(subject.completions).to eq(completions)
       end
     end
 
-    context "when the help: keyword is not given" do
-      subject { described_class.new(name, summary: summary) }
-
-      it "must default #help to #summary" do
-        expect(subject.help).to eq(subject.summary)
-      end
-    end
-
     context "when the help: keyword is given" do
+      subject do
+        described_class.new(name, usage:   usage,
+                                  summary: summary,
+                                  help:    help)
+      end
+
       it "must set #help" do
         expect(subject.help).to eq(help)
       end
