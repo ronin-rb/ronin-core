@@ -136,17 +136,18 @@ module Ronin
             name = preposing.split(/\s+/,2).first
 
             if (command = self.class.commands[name])
-              completions = command.completions
+              completions = case command.completions
+                            when Array then command.completions
+                            when Symbol
+                              unless respond_to?(command.completions)
+                                raise(NotImplementedError,"#{self.class}##{command.completions} was not defined")
+                              end
 
-              case completions
-              when Array
+                              send(command.completions,word,preposing)
+                            end
+
+              if completions
                 completions.select { |arg| arg.start_with?(word) }
-              when Symbol
-                unless respond_to?(completions)
-                  raise(NotImplementedError,"#{self.class}##{completions} was not defined")
-                end
-
-                send(completions,word,preposing)
               end
             end
           else
