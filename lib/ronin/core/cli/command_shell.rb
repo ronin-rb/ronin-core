@@ -146,7 +146,7 @@ module Ronin
                   raise(NotImplementedError,"#{self.class}##{completions} was not defined")
                 end
 
-                send(completions,word)
+                send(completions,word,preposing)
               end
             end
           else

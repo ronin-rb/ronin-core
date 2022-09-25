@@ -239,7 +239,7 @@ describe Ronin::Core::CLI::CommandShell do
               def bar
               end
 
-              def bar_completion(arg)
+              def bar_completion(arg,preposing)
                 [
                   "#{arg}A",
                   "#{arg}B"
@@ -255,8 +255,10 @@ describe Ronin::Core::CLI::CommandShell do
           let(:shell_class) { TestCommandShell::ShellWithCompletionMethod }
 
           it "must call the completion method with the argument" do
+            completion_method = subject.class.commands[command].completions
+
             expect(subject.complete(word,preposing)).to eq(
-              subject.send(subject.class.commands[command].completions,word)
+              subject.send(completion_method,word,preposing)
             )
           end
 
