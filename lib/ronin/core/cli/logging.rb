@@ -30,7 +30,7 @@ module Ronin
         #   The message to print.
         #
         def log_info(message)
-          puts("#{colors.bold(colors.bright_green(">>>"))} #{colors.bold(colors.white(message))}")
+          puts("#{colors.bold(colors.bright_green('>>>'))} #{colors.bold(colors.white(message))}")
         end
 
         #
@@ -40,7 +40,7 @@ module Ronin
         #   The message to print.
         #
         def log_warn(message)
-          puts("#{colors.bold(colors.bright_yellow("***"))} #{colors.bold(colors.white(message))}")
+          puts("#{colors.bold(colors.bright_yellow('***'))} #{colors.bold(colors.white(message))}")
         end
 
         #
@@ -50,7 +50,7 @@ module Ronin
         #   The message to print.
         #
         def log_error(message)
-          stderr.puts("#{colors(stderr).bold(colors(stderr).bright_red("!!!"))} #{colors(stderr).bold(colors(stderr).white(message))}")
+          stderr.puts("#{colors(stderr).bold(colors(stderr).bright_red('!!!'))} #{colors(stderr).bold(colors(stderr).white(message))}")
         end
       end
     end

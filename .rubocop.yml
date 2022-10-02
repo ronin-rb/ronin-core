@@ -30,6 +30,11 @@ Style/HashSyntax: { Enabled: false }
 Naming/BlockForwarding: { Enabled: false }
 Lint/ReturnInVoidContext: { Enabled: false }
 Gemspec/DeprecatedAttributeAssignment: { Enabled: false }
+Style/MixinUsage: { Enabled: false }
+Naming/VariableNumber: { Enabled: false }
+Naming/PredicateName: { Enabled: false }
+Style/FetchEnvVar: { Enabled: false }
+Layout/RescueEnsureAlignment: { Enabled: false }
 
 #
 # rules that are in flux
@@ -150,4 +155,4 @@ Gemspec/RequireMFA: { Enabled: false }
 # make an exception for our gemspec code
 Gemspec/DuplicatedAssignment:
   Exclude:
-    - 'ronin-web-server.gemspec'
+    - 'ronin-core.gemspec'

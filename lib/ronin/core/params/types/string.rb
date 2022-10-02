@@ -98,7 +98,7 @@ module Ronin
 
               string = value.to_s
 
-              if @format && !(string =~ @format)
+              if @format && string !~ @format
                 raise(ValidationError,"does not match the format (#{string.inspect})")
               elsif (string.empty? && !allow_empty?)
                 raise(ValidationError,"value cannot be empty")

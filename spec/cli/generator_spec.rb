@@ -19,7 +19,7 @@ describe Ronin::Core::CLI::Generator do
     end
   end
 
-  let(:command_class) { TestGenerator::WithTemplateDir}
+  let(:command_class) { TestGenerator::WithTemplateDir }
   subject { command_class.new }
 
   describe ".template_dir" do

@@ -51,8 +51,6 @@ module Ronin
         config_value('github.user')
       end
 
-      private
-
       #
       # Queries a git configuration value.
       #

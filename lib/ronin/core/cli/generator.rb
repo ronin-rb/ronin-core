@@ -123,7 +123,7 @@ module Ronin
           line << "\t" << colors.green(dest)   if dest
 
           puts(line)
-       end
+        end
 
         #
         # Creates an empty directory.
