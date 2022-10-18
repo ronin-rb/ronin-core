@@ -35,6 +35,7 @@ Naming/VariableNumber: { Enabled: false }
 Naming/PredicateName: { Enabled: false }
 Style/FetchEnvVar: { Enabled: false }
 Layout/RescueEnsureAlignment: { Enabled: false }
+Layout/BeginEndAlignment: { Enabled: false }
 
 #
 # rules that are in flux
