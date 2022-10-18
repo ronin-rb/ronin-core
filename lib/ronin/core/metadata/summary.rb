@@ -67,7 +67,7 @@ module Ronin
             else
               @summary || if superclass.kind_of?(ClassMethods)
                                 superclass.summary
-                              end
+                          end
             end
           end
         end

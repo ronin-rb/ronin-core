@@ -174,7 +174,7 @@ describe Ronin::Core::CLI::Printing::Metadata do
 
         references [
           'https://example.com/url1',
-          'https://example.com/url2',
+          'https://example.com/url2'
         ]
       end
     end

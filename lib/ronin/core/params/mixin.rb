@@ -262,9 +262,9 @@ module Ronin
 
           @params[name] = begin
                             param.coerce(value)
-                          rescue ValidationError => error
+                        rescue ValidationError => error
                             raise(ValidationError,"invalid param value for param '#{name}': #{error.message}")
-                          end
+          end
         end
 
         #

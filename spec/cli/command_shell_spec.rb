@@ -124,7 +124,7 @@ describe Ronin::Core::CLI::CommandShell do
     let(:command_name) { 'foo' }
 
     context "when given a single command name" do
-      let(:line) { "#{command_name}" }
+      let(:line) { command_name.to_s }
 
       it "must return the command name" do
         expect(subject.parse_command(line)).to eq(
@@ -213,7 +213,7 @@ describe Ronin::Core::CLI::CommandShell do
           end
 
           context "but the input contains multiple spaces" do
-            let(:preposing) { "#{command} bla bla "}
+            let(:preposing) { "#{command} bla bla " }
 
             it "must still return the command's argument values that match the end of the input" do
               expect(subject.complete(word,preposing)).to eq(

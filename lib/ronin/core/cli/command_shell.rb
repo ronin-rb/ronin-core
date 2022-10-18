@@ -132,7 +132,9 @@ module Ronin
         #   does not define the complete method name.
         #
         def complete(word,preposing)
-          if !preposing.empty?
+          if preposing.empty?
+            self.class.commands.keys.select { |name| name.start_with?(word) }
+          else
             name = preposing.split(/\s+/,2).first
 
             if (command = self.class.commands[name])
@@ -150,8 +152,6 @@ module Ronin
                 completions.select { |arg| arg.start_with?(word) }
               end
             end
-          else
-            self.class.commands.keys.select { |name| name.start_with?(word) }
           end
         end
 
