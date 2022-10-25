@@ -86,7 +86,7 @@ module Ronin
             attr_reader :author_email
 
             #
-            # Initializes {#author} and {#author_email}.
+            # Initializes {#author_name} and {#author_email}.
             #
             # @param [Hash{Symbol => Object}] kwargs
             #   Additional keyword arguments.
