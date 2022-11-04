@@ -17,6 +17,7 @@
 
 require 'command_kit/command'
 require 'command_kit/help/man'
+require 'command_kit/bug_report'
 
 module Ronin
   module Core
@@ -77,6 +78,7 @@ module Ronin
       class Command < CommandKit::Command
 
         include CommandKit::Help::Man
+        include CommandKit::BugReport
 
       end
     end
