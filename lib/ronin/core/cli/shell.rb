@@ -99,6 +99,8 @@ module Ronin
               unless line.empty?
                 begin
                   shell.exec(line)
+                rescue SystemExit
+                  break
                 rescue => error
                   shell.print_exception(error)
                 end
