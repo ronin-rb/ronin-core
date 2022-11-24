@@ -7,7 +7,7 @@ platform :jruby do
 end
 
 # gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
-#                              branch: '0.4.0'
+#                              branch: 'main'
 
 group :development do
   gem 'rake'
