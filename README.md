@@ -28,6 +28,8 @@ and development.
 * Provides a `Shell` and `CommandShell` base classes for writing interactive
   shells.
 * Provides a `Params` API for adding user configurable parameters to classes.
+* Has 85% documentation coverage.
+* Has 99% test coverage.
 
 ## Requirements
 
