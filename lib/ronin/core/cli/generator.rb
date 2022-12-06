@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Copyright (c) 2021-2022 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
@@ -118,7 +119,8 @@ module Ronin
         #   The file or directory path being created or modified.
         #
         def print_action(command,source=nil,dest)
-          line = "\t" << colors.bold(colors.green(command))
+          line = String.new
+          line << "\t" << colors.bold(colors.green(command))
           line << "\t" << colors.green(source) if source
           line << "\t" << colors.green(dest)   if dest
 
