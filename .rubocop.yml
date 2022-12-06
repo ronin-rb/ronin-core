@@ -36,6 +36,7 @@ Naming/PredicateName: { Enabled: false }
 Style/FetchEnvVar: { Enabled: false }
 Layout/RescueEnsureAlignment: { Enabled: false }
 Layout/BeginEndAlignment: { Enabled: false }
+Layout/EmptyLineAfterMagicComment: { Enabled: false }
 
 #
 # rules that are in flux
