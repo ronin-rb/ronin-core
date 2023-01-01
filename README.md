@@ -274,7 +274,7 @@ http> post /foo var=bar
 
 ## License
 
-Copyright (c) 2021-2022 Hal Brodigan (postmodern.mod3@gmail.com)
+Copyright (c) 2021-2023 Hal Brodigan (postmodern.mod3@gmail.com)
 
 ronin-core is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published
