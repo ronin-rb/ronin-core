@@ -41,7 +41,7 @@ module Ronin
         # @return [Boolean]
         attr_reader :required
 
-        # The cefault value or proc for the param.
+        # The default value or proc for the param.
         #
         # @return [Object, Proc, nil]
         attr_reader :default

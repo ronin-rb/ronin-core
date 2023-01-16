@@ -32,7 +32,7 @@ module Ronin
           include CommandKit::Printing::Lists
 
           #
-          # Addss a `-v,--verbose` option to the command class.
+          # Adds a `-v,--verbose` option to the command class.
           #
           # @param [Class<Command>] command
           #   The command class including {Metadata}.

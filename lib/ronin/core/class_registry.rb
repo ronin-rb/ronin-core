@@ -177,7 +177,7 @@ module Ronin
         #   file.
         #
         # @raise [LoadError]
-        #   A load error curred while requiring the other files required by
+        #   A load error occurred while requiring the other files required by
         #   the class file.
         #
         def load_class_from_file(file)
@@ -212,7 +212,7 @@ module Ronin
         #   a file/registered-name mismatch.
         #
         # @raise [LoadError]
-        #   A load error curred while requiring the other files required by
+        #   A load error occurred while requiring the other files required by
         #   the class file.
         #
         def load_class(id)

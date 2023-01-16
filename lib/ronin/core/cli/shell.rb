@@ -118,7 +118,7 @@ module Ronin
         #   The partial input being tab completed.
         #
         # @param [String] preposing
-        #   The optional command name that preceeds the argument that's being
+        #   The optional command name that precedes the argument that's being
         #   tab completed.
         #
         # @return [Array<String>, nil]

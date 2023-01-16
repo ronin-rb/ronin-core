@@ -79,7 +79,7 @@ module Ronin
         #   The class which is including {Mixin}.
         #
         # @raise [TypeError]
-        #   {Mixin} was inclued into a module instead of a class.
+        #   {Mixin} was included into a module instead of a class.
         #
         # @api private
         #
