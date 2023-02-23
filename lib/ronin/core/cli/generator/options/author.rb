@@ -59,7 +59,7 @@ module Ronin
                                       value: {
                                         type:    String,
                                         usage:   'NAME',
-                                        default: ->{ default_name }
+                                        default: -> { default_name }
                                       },
                                       desc: 'The name of the author' do |author|
                                         @author_name = author
@@ -69,7 +69,7 @@ module Ronin
                                             value: {
                                               type:    String,
                                               usage:   'EMAIL',
-                                              default: ->{ default_email }
+                                              default: -> { default_email }
                                             },
                                             desc: 'The email address of the author' do |email|
                                               @author_email = email
