@@ -59,6 +59,9 @@ module Ronin
           command.extend ClassMethods
         end
 
+        #
+        # Class-methods.
+        #
         module ClassMethods
           #
           # Gets or sets the template directory.
