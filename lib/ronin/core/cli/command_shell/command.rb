@@ -22,6 +22,9 @@ module Ronin
   module Core
     module CLI
       class CommandShell < Shell
+        #
+        # Represents a defined command within a {CommandShell} class.
+        #
         class Command
 
           # The command's name.
