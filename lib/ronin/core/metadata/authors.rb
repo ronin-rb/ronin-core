@@ -53,6 +53,9 @@ module Ronin
           base.extend ClassMethods
         end
 
+        #
+        # Class-methods.
+        #
         module ClassMethods
           #
           # The authors associated with the class.
