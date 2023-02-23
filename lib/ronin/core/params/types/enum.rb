@@ -51,7 +51,11 @@ module Ronin
             end
 
             @values = values
-            @map    = Hash[values.map { |value| [value.to_s, value] }]
+            @map    = {}
+
+            values.each do |value|
+              @map[value.to_s] = value
+            end
           end
 
           #
