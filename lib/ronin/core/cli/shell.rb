@@ -23,6 +23,9 @@ require 'reline'
 module Ronin
   module Core
     module CLI
+      #
+      # Base class for all interactive CLI shells.
+      #
       class Shell
 
         include CommandKit::Printing
