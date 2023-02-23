@@ -46,6 +46,9 @@ module Ronin
           base.extend ClassMethods
         end
 
+        #
+        # Class-methods.
+        #
         module ClassMethods
           #
           # Gets or sets the summary.
