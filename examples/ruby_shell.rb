@@ -4,6 +4,9 @@ require 'bundler/setup'
 require 'ronin/core/cli/ruby_shell'
 
 module Ronin
+  #
+  # Example namespace that the Ruby shell will spawn within.
+  #
   module Test
   end
 end
