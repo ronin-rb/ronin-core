@@ -107,7 +107,8 @@ module Ronin
                 end
               end
             end
-          rescue Interrupt # catch Ctrl^C
+          rescue Interrupt
+            # catch Ctrl^C
           end
         end
 
