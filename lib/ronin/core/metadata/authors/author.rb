@@ -20,6 +20,9 @@ module Ronin
   module Core
     module Metadata
       module Authors
+        #
+        # Represents author metadata.
+        #
         class Author
 
           # The author's name.
