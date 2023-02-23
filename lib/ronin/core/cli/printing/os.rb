@@ -20,6 +20,9 @@ module Ronin
   module Core
     module CLI
       module Printing
+        #
+        # Helper methods for printing Operating System (OS) names.
+        #
         module OS
           # Mapping of Operating System (OS) IDs to printable names.
           OS_NAMES = {
