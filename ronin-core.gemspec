@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   glob = lambda { |patterns| gem.files & Dir[*patterns] }
 
   gem.files  = `git ls-files`.split($/)
-  gem.files = glob[gemspec['files']] if gemspec['files']
+  gem.files  = glob[gemspec['files']] if gemspec['files']
   gem.files += Array(gemspec['generated_files'])
   # exclude test files from the packages gem
   gem.files -= glob[gemspec['test_files'] || 'spec/{**/}*']
