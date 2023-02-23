@@ -64,7 +64,7 @@ module Ronin
             @prompt_sigil = new_sigil
           else
             @prompt_sigil ||= if superclass <= Shell
-                              superclass.prompt_sigil
+                                superclass.prompt_sigil
                               end
           end
         end

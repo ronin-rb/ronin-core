@@ -70,7 +70,7 @@ module Ronin
               @summary = new_summary
             else
               @summary || if superclass.kind_of?(ClassMethods)
-                                superclass.summary
+                            superclass.summary
                           end
             end
           end
