@@ -220,7 +220,7 @@ module Ronin
         #
         def initialize(*arguments, params: nil, **kwargs, &block)
           if params then self.params = params
-          else           initialize_params()
+          else           initialize_params
           end
 
           super(*arguments,**kwargs,&block)
@@ -281,7 +281,7 @@ module Ronin
         #
         def params=(new_params)
           # re-initialize the params each time they are set en-mass
-          initialize_params()
+          initialize_params
 
           new_params.each do |name,value|
             set_param(name,value)
