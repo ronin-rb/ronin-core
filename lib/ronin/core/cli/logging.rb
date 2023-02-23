@@ -21,6 +21,9 @@ require 'command_kit/colors'
 module Ronin
   module Core
     module CLI
+      #
+      # Helper methods for printing log messages.
+      #
       module Logging
         include CommandKit::Colors
 
