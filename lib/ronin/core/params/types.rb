@@ -28,6 +28,9 @@ require 'ronin/core/params/types/enum'
 module Ronin
   module Core
     module Params
+      #
+      # Contains all {Param::Type} classes.
+      #
       module Types
         # Mapping of ruby core classes to param types.
         TYPE_ALIASES = {
