@@ -28,7 +28,6 @@ module Ronin
           # for the generator command.
           #
           module Author
-
             #
             # The default author name.
             #
