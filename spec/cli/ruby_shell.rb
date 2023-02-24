@@ -67,9 +67,9 @@ describe Ronin::Core::CLI::RubyShell do
     end
 
     after do
-      IRB.conf[:IRB_NAME] = nil
-      IRB.conf[:PROMPT].delete(:RONIN)
+      IRB.conf[:IRB_NAME]    = nil
       IRB.conf[:PROMPT_MODE] = :DEFAULT
+      IRB.conf[:PROMPT].delete(:RONIN)
     end
   end
 
