@@ -35,7 +35,7 @@ module Ronin
           def self.included(command)
             command.option :param, short: '-p',
                                    value: {
-                                     type: /\A[^=]+=.+\z/,
+                                     type:  /\A[^=]+=.+\z/,
                                      usage: 'NAME=VALUE'
                                    },
                                    desc: 'Sets a param' do |str|
