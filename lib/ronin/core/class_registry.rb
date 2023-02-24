@@ -191,7 +191,9 @@ module Ronin
           end
 
           previous_entries = registry.keys
+
           require(file)
+
           new_entries = registry.keys - previous_entries
 
           if new_entries.empty?
