@@ -6,12 +6,12 @@
 # it under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # ronin-core is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public License
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
@@ -26,11 +26,11 @@ module Ronin
     # `lib/ronin/exploits.rb`:
     #
     #     require 'ronin/core/class_registry'
-    #     
+    #
     #     module Ronin
     #       module Exploits
     #         include Ronin::Core::ClassRegistry
-    #     
+    #
     #         class_dir "#{__dir__}/classes"
     #       end
     #     end
@@ -40,11 +40,11 @@ module Ronin
     #     module Ronin
     #       module Exploits
     #         class Exploit
-    #     
+    #
     #           def self.register(name)
     #             Exploits.register(name,self)
     #           end
-    #     
+    #
     #         end
     #       end
     #     end
@@ -52,13 +52,13 @@ module Ronin
     # `lib/ronin/exploits/my_exploit.rb`:
     #
     #     require 'ronin/exploits/exploit'
-    #     
+    #
     #     module Ronin
     #       module Exploits
     #         class MyExploit < Exploit
-    #     
+    #
     #           register 'my_exploit'
-    #     
+    #
     #         end
     #       end
     #     end
@@ -91,7 +91,7 @@ module Ronin
         #
         # @return [String]
         #   The class directory path.
-        # 
+        #
         # @raise [NotImplementedError]
         #   The `class_dir` method was not defined in the module.
         #

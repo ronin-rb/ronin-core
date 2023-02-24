@@ -14,7 +14,7 @@ describe Ronin::Core::Params::Types::String do
     it "must default #format to nil" do
       expect(subject.format).to be(nil)
     end
-    
+
     context "when given the format: keyword argument" do
       let(:format) { /foo/ }
 

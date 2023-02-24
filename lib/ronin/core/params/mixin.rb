@@ -6,12 +6,12 @@
 # it under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # ronin-core is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public License
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
@@ -29,36 +29,36 @@ module Ronin
       # ## Examples
       #
       #     class BaseClass
-      #     
+      #
       #       include Ronin::Core::Params::Mixin
-      #     
+      #
       #     end
       #
       #     class MyModule < BaseClass
-      #     
+      #
       #       param :str, desc: 'A basic string param'
-      #     
+      #
       #       param :feature_flag, Boolean, desc: 'A boolean param'
-      #     
+      #
       #       param :enum, Enum[:one, :two, :three],
       #                    desc: 'An enum param'
       #
       #       param :num1, Integer, desc: 'An integer param'
-      #     
+      #
       #       param :num2, Integer, default: 42,
       #                            desc: 'A param with a default value'
-      #     
+      #
       #       param :num3, Integer, default: ->{ rand(42) },
       #                             desc: 'A param with a dynamic default value'
-      #     
+      #
       #       param :float, Float, 'Floating point param'
       #
       #       param :url, URI, desc: 'URL param'
       #
       #       param :pattern, Regexp, desc: 'Regular Expression param'
-      #     
+      #
       #     end
-      #     
+      #
       #     mod = MyModule.new(params: {num1: 1, enum: :two})
       #     mod.params
       #     # => {:num2=>42, :num3=>25, :num1=>1, :enum=>:two}
@@ -197,7 +197,7 @@ module Ronin
         end
 
         # The param values.
-        # 
+        #
         # @return [Hash{Symbol => Object}]
         #
         # @api public

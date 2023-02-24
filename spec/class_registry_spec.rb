@@ -212,8 +212,6 @@ describe Ronin::Core::ClassRegistry do
           subject.load_class(id)
         }.to raise_error(described_class::ClassNotFound,"file registered a class with a different id (#{unexpected_id.inspect}): #{path.inspect}")
       end
-
-      
     end
 
     after do

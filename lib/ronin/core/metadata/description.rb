@@ -6,12 +6,12 @@
 # it under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # ronin-core is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public License
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
@@ -26,9 +26,9 @@ module Ronin
       # ### Example
       #
       #     class MyModule
-      #     
+      #
       #       include Ronin::Core::Metadata::Description
-      #     
+      #
       #       description <<~DESC
       #         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
       #         eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -41,7 +41,7 @@ module Ronin
       #         proident, sunt in culpa qui officia deserunt mollit anim id est
       #         laborum.
       #       DESC
-      #     
+      #
       #     end
       #
       module Description

@@ -6,12 +6,12 @@
 # it under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # ronin-core is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public License
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
@@ -38,9 +38,9 @@ module Ronin
       #       module Foo
       #         class CLI
       #           class Command < Core::CLI::Command
-      #     
+      #
       #             man_dir File.join(__dir__,'..','..','..','..','man')
-      #     
+      #
       #           end
       #         end
       #       end
@@ -50,26 +50,26 @@ module Ronin
       #
       #     # lib/ronin/foo/cli/commands/list.rb
       #     require 'ronin/foo/cli/command'
-      #     
+      #
       #     module Ronin
       #       module Foo
       #         class CLI
       #           module Commands
       #             class List < Command
-      #     
+      #
       #               usage '[options] [NAME]'
-      #     
+      #
       #               argument :name, required: false,
       #                               desc:     'Optional name to list'
-      #     
+      #
       #               description 'Lists all things'
-      #     
+      #
       #               man_page 'ronin-foo-list.1'
-      #     
+      #
       #               def run(name=nil)
       #                 # ...
       #               end
-      #     
+      #
       #             end
       #           end
       #         end

@@ -29,7 +29,7 @@ describe Ronin::Core::CLI::Generator::Options::Author do
         expect(subject.default_name).to eq(name)
       end
     end
-    
+
     context "when `git config user.name` isn't set" do
       before { allow(Ronin::Core::Git).to receive(:user_name).and_return(nil) }
 
