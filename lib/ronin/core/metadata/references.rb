@@ -74,7 +74,11 @@ module Ronin
           #
           def references(new_references=nil)
             if new_references
-              @references = references() + new_references
+              @references = if superclass.kind_of?(ClassMethods)
+                              superclass.references + new_references
+                            else
+                              new_references
+                            end
             else
               @references || if superclass.kind_of?(ClassMethods)
                                superclass.references
