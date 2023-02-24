@@ -38,7 +38,7 @@ module Ronin
           ::Integer => Types::Integer,
           ::Float   => Types::Float,
           ::Regexp  => Types::Regexp,
-          ::URI     => Types::URI,
+          ::URI     => Types::URI
         }
 
         #

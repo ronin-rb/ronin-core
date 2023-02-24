@@ -36,7 +36,7 @@ module Ronin
             command.option :param, short: '-p',
                                    value: {
                                      type: /\A[^=]+=.+\z/,
-                                     usage: 'NAME=VALUE',
+                                     usage: 'NAME=VALUE'
                                    },
                                    desc: 'Sets a param' do |str|
                                      name, value = str.split('=',2)
