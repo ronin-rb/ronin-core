@@ -86,7 +86,9 @@ module Ronin
         def self.start(*arguments,**kwargs)
           shell = new(*arguments,**kwargs)
 
+          prev_completion_proc   = Reline.completion_proc
           Reline.completion_proc = shell.method(:complete)
+
           use_history = true
 
           begin
@@ -112,6 +114,8 @@ module Ronin
             end
           rescue Interrupt
             # catch Ctrl^C
+          ensure
+            Reline.completion_proc = prev_completion_proc
           end
         end
 
