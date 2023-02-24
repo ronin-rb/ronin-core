@@ -80,10 +80,10 @@ module Ronin
           #   Multi-line help information for the command.
           #
           def initialize(name, method_name: name,
-                               usage: nil,
+                               usage:       nil,
                                completions: nil,
-                               summary: ,
-                               help: summary)
+                               summary:     ,
+                               help:        summary)
             @name        = name
             @method_name = method_name
             @usage       = usage
