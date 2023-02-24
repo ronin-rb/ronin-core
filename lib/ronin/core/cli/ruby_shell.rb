@@ -121,6 +121,7 @@ module Ronin
               PROMPT_C: "#{prompt_prefix}* ",
               RETURN:   "=> %s#{$/}"
             }
+
             IRB.conf[:PROMPT_MODE] = :RONIN
           end
         end
