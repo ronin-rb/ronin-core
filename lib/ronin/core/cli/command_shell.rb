@@ -260,7 +260,7 @@ module Ronin
             command_string.length
           }.max
 
-          command_table.each  do |command_string,summary|
+          command_table.each do |command_string,summary|
             puts "  #{command_string.ljust(max_command_string)}\t#{summary}"
           end
         end
@@ -300,11 +300,11 @@ module Ronin
 
           method(name).parameters.each do |(type,arg)|
             case type
-            when :req 
+            when :req
               minimum += 1
               maximum += 1
             when :opt  then maximum += 1
-            when :rest then maximum = Float::INFINITY
+            when :rest then maximum  = Float::INFINITY
             end
           end
 
