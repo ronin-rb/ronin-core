@@ -45,10 +45,10 @@ module Ronin
             rows = []
 
             klass.params.each do |name,param|
-              param_type = param.type.class.name.split('::').last
-              required   = if param.required? then 'Yes'
-                           else                    'No'
-                           end
+              param_type  = param.type.class.name.split('::').last
+              required    = if param.required? then 'Yes'
+                            else                    'No'
+                            end
               default     = param.default_value
               description = param.desc
 
