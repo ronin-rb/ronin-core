@@ -89,11 +89,9 @@ module Ronin
           prev_completion_proc   = Reline.completion_proc
           Reline.completion_proc = shell.method(:complete)
 
-          use_history = true
-
           begin
             loop do
-              line = Reline.readline("#{shell.prompt} ", use_history)
+              line = Reline.readline("#{shell.prompt} ", true)
 
               if line.nil? # Ctrl^D
                 puts
