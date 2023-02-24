@@ -194,7 +194,7 @@ describe Ronin::Core::ClassRegistry do
     end
 
     context "when the file does not register a module" do
-      let(:id)   { 'no_module' }
+      let(:id) { 'no_module' }
 
       it do
         expect {
