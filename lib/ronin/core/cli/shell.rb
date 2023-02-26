@@ -103,6 +103,8 @@ module Ronin
               unless line.empty?
                 begin
                   shell.exec(line)
+                rescue Interrupt
+                  # catch Ctrl^C but keep reading input
                 rescue SystemExit
                   break
                 rescue => error
@@ -111,7 +113,7 @@ module Ronin
               end
             end
           rescue Interrupt
-            # catch Ctrl^C
+            # catch Ctrl^C and return
           ensure
             Reline.completion_proc = prev_completion_proc
           end
