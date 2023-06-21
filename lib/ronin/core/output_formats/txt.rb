@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/output_formats/output_format'
+require 'ronin/core/output_formats/output_file'
 
 module Ronin
   module Core
@@ -28,7 +28,7 @@ module Ronin
       #
       # @since 0.2.0
       #
-      class TXT < OutputFormat
+      class TXT < OutputFile
 
         #
         # Appends a value to the list output stream.

@@ -28,52 +28,8 @@ module Ronin
       #
       class OutputFormat
 
-        # The output stream to write to.
         #
-        # @return [IO]
-        attr_reader :io
-
-        #
-        # Initializes the output format.
-        #
-        # @param [IO] io
-        #   The output stream to write to.
-        #
-        def initialize(io)
-          @io = io
-        end
-
-        #
-        # Opens an output file.
-        #
-        # @param [String] path
-        #   The path to the new output file.
-        #
-        # @yield [output_format]
-        #   If a block is given, it will be passed the initialized output
-        #   format. Once the block returns, the output format will automatically
-        #   be closed.
-        #
-        # @yieldparam [OutputFormat] output_format
-        #   The newly opened output format.
-        #
-        # @return [OutputFormat]
-        #   If no block is given, the newly initialized output format will be
-        #   returned.
-        #
-        def self.open(path)
-          output = new(File.open(path,'w'))
-
-          if block_given?
-            yield output
-            output.close
-          else
-            return output
-          end
-        end
-
-        #
-        # Writes a value to the output file.
+        # Writes a value to the output format.
         #
         # @param [Object] value
         #   The output value object to write.
@@ -84,13 +40,6 @@ module Ronin
         #
         def <<(value)
           raise(NotImplementedError,"#{self.class}#<< was not implemented")
-        end
-
-        #
-        # Closes the output file.
-        #
-        def close
-          @io.close unless @io == $stdout
         end
 
       end
