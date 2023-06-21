@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/output_formats/output_format'
+require 'ronin/core/output_formats/output_file'
 
 require 'json'
 
@@ -30,7 +30,7 @@ module Ronin
       #
       # @since 0.2.0
       #
-      class JSON < OutputFormat
+      class JSON < OutputFile
 
         #
         # Initializes the JSON output format.
