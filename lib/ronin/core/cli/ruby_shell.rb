@@ -16,8 +16,9 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'command_kit/colors'
+require 'ronin/core/cli/banner'
 
+require 'command_kit/colors'
 require 'irb'
 
 module Ronin
@@ -30,6 +31,7 @@ module Ronin
       #
       class RubyShell
 
+        include Banner
         include CommandKit::Colors
 
         # The console name.
@@ -104,6 +106,8 @@ module Ronin
         # [irb]: https://github.com/ruby/irb#readme
         #
         def start
+          print_banner if STDOUT.tty?
+
           configure
 
           workspace = if @context then IRB::WorkSpace.new(@context)
