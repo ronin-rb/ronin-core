@@ -16,6 +16,8 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require 'ronin/core/cli/banner'
+
 require 'command_kit/printing'
 require 'command_kit/colors'
 require 'reline'
@@ -28,6 +30,7 @@ module Ronin
       #
       class Shell
 
+        include Banner
         include CommandKit::Printing
         include CommandKit::Colors
 
@@ -88,6 +91,8 @@ module Ronin
 
           prev_completion_proc   = Reline.completion_proc
           Reline.completion_proc = shell.method(:complete)
+
+          shell.print_banner if shell.stdout.tty?
 
           begin
             loop do
