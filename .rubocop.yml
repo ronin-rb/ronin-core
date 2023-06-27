@@ -21,3 +21,5 @@ Style/GlobalStdStream:
     - 'lib/ronin/core/cli/ruby_shell.rb'
     - 'spec/cli/ruby_shell_spec.rb'
 
+Layout/HeredocIndentation: { Exclude: ['lib/ronin/core/cli/banner.rb'] }
+Layout/ClosingHeredocIndentation: { Exclude: ['lib/ronin/core/cli/banner.rb'] }
