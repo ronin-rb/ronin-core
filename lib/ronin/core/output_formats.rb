@@ -20,3 +20,70 @@ require 'ronin/core/output_formats/txt'
 require 'ronin/core/output_formats/csv'
 require 'ronin/core/output_formats/json'
 require 'ronin/core/output_formats/ndjson'
+
+module Ronin
+  module Core
+    #
+    # Contains common output file formats, such as {TXT txt}, {CSV csv},
+    # {JSON json}, and {NDJSON ndjson}.
+    #
+    module OutputFormats
+      #
+      # Adds {ClassMethods} to the other `OutputFormats` module which is
+      # including {Ronin::Core::OutputFormats}.
+      #
+      # @param [Module] output_formats
+      #   The other `OutputFormats` module which is including {OutputFormats}.
+      #
+      def self.included(output_formats)
+        output_formats.extend ClassMethods
+      end
+
+      #
+      # Class methods which are added to another `OutputFormats` module
+      # when {Ronin::Core::OutputFormats} is included.
+      #
+      module ClassMethods
+        #
+        # Output formats grouped by name.
+        #
+        # @return [Hash{Symbol => Class<OutputFormat>}]
+        #
+        def formats
+          @formats ||= {}
+        end
+
+        #
+        # Output formats grouped by file extension.
+        #
+        # @return [Hash{String => Class<OutputFormat>}]
+        #
+        def file_exts
+          @file_exts ||= {}
+        end
+
+        #
+        # Registers a new output format.
+        #
+        def register(name,ext,output_format)
+          formats[name]  = output_format
+          file_exts[ext] = output_format
+        end
+
+        #
+        # Infers the output format from the output file path.
+        #
+        # @param [String] path
+        #   The output file path to infer the output format from.
+        #
+        # @return [Class<OutputFormat>, Class<TXT>]
+        #   The inferred output format for the given path, or {TXT} if the
+        #   output format could not be inferred.
+        #
+        def infer_from(path)
+          file_exts.fetch(File.extname(path),TXT)
+        end
+      end
+    end
+  end
+end
