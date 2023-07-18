@@ -38,6 +38,12 @@ describe Ronin::Core::CLI::RubyShell do
 
             def a_method
             end
+
+            protected
+
+            def self.const_missing(name)
+              name
+            end
           end
         end
 
@@ -55,6 +61,10 @@ describe Ronin::Core::CLI::RubyShell do
 
         it "must include the Module's constants into the Object's scope" do
           expect(subject.context.instance_eval("SubModule",__FILE__,__LINE__)).to be(context::SubModule)
+        end
+
+        it "must override the .const_missing method of the Object to call the Module's .const_missing method" do
+          expect(subject.context.instance_eval('MissingConst',__FILE__,__LINE__)).to eq(:MissingConst)
         end
 
         it "must override the #inspect method of the Object to show the original module" do

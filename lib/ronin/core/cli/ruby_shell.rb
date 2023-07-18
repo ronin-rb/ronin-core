@@ -62,6 +62,7 @@ module Ronin
                      when Module
                        Object.new.tap do |obj|
                          obj.singleton_class.include(context)
+                         obj.singleton_class.define_singleton_method(:const_missing,&context.method(:const_missing))
                          obj.define_singleton_method(:inspect) do
                            "#<#{context}>"
                          end
