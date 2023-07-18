@@ -29,7 +29,7 @@ module Ronin
   module Core
     module Params
       #
-      # Contains all {Param::Type} classes.
+      # Contains all {Types} classes.
       #
       module Types
         # Mapping of ruby core classes to param types.
