@@ -29,6 +29,20 @@ describe Ronin::Core::CLI::RubyShell do
       it "must set #context" do
         expect(subject.context).to be(context)
       end
+
+      context "when given a Module object" do
+        module TestRubyShell
+          module Namespace
+          end
+        end
+
+        let(:context) { TestRubyShell::Namespace }
+
+        it "must wrap the Module in an Object" do
+          expect(subject.context.class).to be(Object)
+          expect(subject.context).to be_kind_of(context)
+        end
+      end
     end
   end
 

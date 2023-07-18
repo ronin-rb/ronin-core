@@ -48,7 +48,7 @@ module Ronin
         # @param [String] name
         #   The name of the IRB console.
         #
-        # @param [Object] context
+        # @param [Object, Module] context
         #   Custom context to launch IRB from within.
         #
         # @param [Hash{Symbol => Object}] kwargs
@@ -58,7 +58,12 @@ module Ronin
           super(**kwargs)
 
           @name    = name
-          @context = context
+          @context = case context
+                     when Module
+                       Object.new.tap { |obj| obj.extend(context) }
+                     else
+                       context
+                     end
         end
 
         #
