@@ -54,7 +54,7 @@ describe Ronin::Core::CLI::RubyShell do
         end
 
         it "must include the Module's constants into the Object's scope" do
-          expect(subject.context.instance_eval("SubModule")).to be(context::SubModule)
+          expect(subject.context.instance_eval("SubModule",__FILE__,__LINE__)).to be(context::SubModule)
         end
 
         it "must override the #inspect method of the Object to show the original module" do
