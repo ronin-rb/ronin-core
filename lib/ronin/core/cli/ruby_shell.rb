@@ -60,7 +60,12 @@ module Ronin
           @name    = name
           @context = case context
                      when Module
-                       Object.new.tap { |obj| obj.extend(context) }
+                       Object.new.tap do |obj|
+                         obj.singleton_class.include(context)
+                         obj.define_singleton_method(:inspect) do
+                           "#<#{context}>"
+                         end
+                       end
                      else
                        context
                      end

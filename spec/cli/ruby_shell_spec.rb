@@ -33,14 +33,32 @@ describe Ronin::Core::CLI::RubyShell do
       context "when given a Module object" do
         module TestRubyShell
           module Namespace
+            module SubModule
+            end
+
+            def a_method
+            end
           end
         end
 
         let(:context) { TestRubyShell::Namespace }
 
         it "must wrap the Module in an Object" do
-          expect(subject.context.class).to be(Object)
+          expect(subject.context).to be_kind_of(Object)
+          expect(subject.context.class).to be_a(Class)
           expect(subject.context).to be_kind_of(context)
+        end
+
+        it "must include the Module's instance methods into the Object" do
+          expect(subject.context.methods).to include(:a_method)
+        end
+
+        it "must include the Module's constants into the Object's scope" do
+          expect(subject.context.instance_eval("SubModule")).to be(context::SubModule)
+        end
+
+        it "must override the #inspect method of the Object to show the original module" do
+          expect(subject.context.inspect).to eq("#<#{context}>")
         end
       end
     end
