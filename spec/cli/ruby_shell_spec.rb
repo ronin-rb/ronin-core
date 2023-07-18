@@ -39,8 +39,6 @@ describe Ronin::Core::CLI::RubyShell do
             def a_method
             end
 
-            protected
-
             def self.const_missing(name)
               name
             end
