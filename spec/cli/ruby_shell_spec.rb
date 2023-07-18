@@ -7,6 +7,10 @@ describe Ronin::Core::CLI::RubyShell do
       expect(subject.name).to eq('ronin')
     end
 
+    it "must default #context to nil" do
+      expect(subject.context).to be(nil)
+    end
+
     context "when given a name: keyword argument" do
       let(:name) { 'ronin-foo' }
 
@@ -15,10 +19,6 @@ describe Ronin::Core::CLI::RubyShell do
       it "must set #name" do
         expect(subject.name).to eq(name)
       end
-    end
-
-    it "must default #context to nil" do
-      expect(subject.context).to be(nil)
     end
 
     context "when given a context: keyword argument" do
