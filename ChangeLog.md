@@ -1,3 +1,12 @@
+### 0.1.2 / 2023-07-18
+
+#### CLI
+
+* Changed {Ronin::Core::CLI::RubyShell#initialize} to wrap a `Module` `context:`
+  value in an `Object` instance which includes the module. This allows the
+  IRB session to gain access to the module's constants and instances methods,
+  as well as correctly define and call instance methods in the IRB session.
+
 ### 0.1.1 / 2023-03-01
 
 #### CLI
