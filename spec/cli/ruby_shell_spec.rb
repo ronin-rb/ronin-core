@@ -48,8 +48,7 @@ describe Ronin::Core::CLI::RubyShell do
         let(:context) { TestRubyShell::Namespace }
 
         it "must wrap the Module in an Object" do
-          expect(subject.context).to be_kind_of(Object)
-          expect(subject.context.class).to be_a(Class)
+          expect(subject.context).to be_a(Object)
           expect(subject.context).to be_kind_of(context)
         end
 
