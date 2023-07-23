@@ -246,6 +246,17 @@ module Ronin
           end
         end
 
+        command :quit, summary: 'Exits the shell'
+
+        #
+        # Quits the shell.
+        #
+        # @since 0.2.0
+        #
+        def quit
+          exit
+        end
+
         private
 
         #
