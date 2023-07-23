@@ -15,8 +15,9 @@ describe Ronin::Core::CLI::CommandShell do
       let(:shell_class) { TestCommandShell::ShellWithNoCommands }
 
       it "must return a Hash only containing the help command" do
-        expect(subject.commands.keys).to eq(%w[help])
+        expect(subject.commands.keys).to eq(%w[help quit])
         expect(subject.commands['help']).to be_kind_of(described_class::Command)
+        expect(subject.commands['quit']).to be_kind_of(described_class::Command)
       end
     end
 
@@ -938,6 +939,7 @@ describe Ronin::Core::CLI::CommandShell do
           }.to output(
             [
               "  help [COMMAND]\tPrints the list of commands or additional help",
+              "  quit          \tExits the shell",
               ''
             ].join($/)
           ).to_stdout
@@ -955,6 +957,7 @@ describe Ronin::Core::CLI::CommandShell do
           }.to output(
             [
               "  help [COMMAND]\tPrints the list of commands or additional help",
+              "  quit          \tExits the shell",
               "  foo           \tFoo command",
               "  bar           \tBar command",
               ''
@@ -974,6 +977,7 @@ describe Ronin::Core::CLI::CommandShell do
           }.to output(
             [
               "  help [COMMAND] \tPrints the list of commands or additional help",
+              "  quit           \tExits the shell",
               "  foo ARG        \tFoo command",
               "  bar ARG1 [ARG2]\tBar command",
               ''
@@ -1109,6 +1113,14 @@ describe Ronin::Core::CLI::CommandShell do
           }.to output("help: unknown command: #{command}#{$/}").to_stderr
         end
       end
+    end
+  end
+
+  describe "#quit" do
+    it "must raise SystemExit to exit the shell" do
+      expect {
+        subject.quit
+      }.to raise_error(SystemExit)
     end
   end
 end
