@@ -231,6 +231,7 @@ module Ronin
           end
 
           previous_entries = registry.keys
+
           require(path)
 
           unless (klass = registry[id])
