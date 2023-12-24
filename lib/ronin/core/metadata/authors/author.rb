@@ -249,6 +249,23 @@ module Ronin
           end
 
           #
+          # Returns the URL to the author's Mastodon profile.
+          #
+          # @return [String, nil]
+          #   Returns the URL to the author's Mastodon profile, or `nil`
+          #   if no {#mastodon} user name has been set.
+          #
+          # @since 0.2.0
+          #
+          def mastodon_url
+            if @mastodon
+              username, host = @mastodon.sub(/\A@/,'').split('@',2)
+
+              "https://#{host}/@#{username}"
+            end
+          end
+
+          #
           # Converts the author to a String.
           #
           # @return [String]

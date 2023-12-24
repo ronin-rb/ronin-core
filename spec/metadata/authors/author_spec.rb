@@ -342,6 +342,26 @@ describe Ronin::Core::Metadata::Authors::Author do
     end
   end
 
+  describe "#mastodon_url" do
+    let(:mastodon_url) { 'https://mastodon.social/@jsmith' }
+
+    context "when #mastodon is set" do
+      subject { described_class.new(name, mastodon: mastodon) }
+
+      it "must return the 'https://host/@username' URL" do
+        expect(subject.mastodon_url).to eq(mastodon_url)
+      end
+    end
+
+    context "when #mastodon is not set" do
+      subject { described_class.new(name) }
+
+      it "must return nil" do
+        expect(subject.mastodon_url).to be(nil)
+      end
+    end
+  end
+
   describe "#to_s" do
     context "when #name and #email are set" do
       subject { described_class.new(name, email: email) }
