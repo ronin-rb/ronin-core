@@ -32,23 +32,25 @@ describe Ronin::Core::CLI::Printing::Metadata do
       class WithAuthors
         include Ronin::Core::Metadata::Authors
 
-        author 'John Doe', email:   'john.doe@example.com',
-                           pgp:     '0x123456789',
-                           website: 'https://johndoe.name',
-                           blog:    'https://johndoe.name/blog',
-                           github:  '@johndoe',
-                           gitlab:  '@johndoe',
-                           twitter: '@johndoe',
-                           discord: 'https://discord.gg/1234'
+        author 'John Doe', email:    'john.doe@example.com',
+                           pgp:      '0x123456789',
+                           website:  'https://johndoe.name',
+                           blog:     'https://johndoe.name/blog',
+                           github:   '@johndoe',
+                           gitlab:   '@johndoe',
+                           twitter:  '@johndoe',
+                           mastodon: '@johndoe@mastodon.social',
+                           discord:  'https://discord.gg/1234'
 
-        author 'John Smith', email:   'john.smith@example.com',
-                             pgp:     '0xABCDEF',
-                             website: 'https://johnsmith.name',
-                             blog:    'https://johnsmith.name/blog',
-                             github:  '@john.smith',
-                             gitlab:  '@john.smith',
-                             twitter: '@john.smith',
-                             discord: 'https://discord.gg/ABCDEF'
+        author 'John Smith', email:    'john.smith@example.com',
+                             pgp:      '0xABCDEF',
+                             website:  'https://johnsmith.name',
+                             blog:     'https://johnsmith.name/blog',
+                             github:   '@john.smith',
+                             gitlab:   '@john.smith',
+                             twitter:  '@john.smith',
+                             mastodon: '@john.smith@mastodon.social',
+                             discord:  'https://discord.gg/ABCDEF'
       end
     end
 
@@ -97,6 +99,7 @@ describe Ronin::Core::CLI::Printing::Metadata do
               "    * GitHub: #{klass.authors[0].github_url}",
               "    * GitLab: #{klass.authors[0].gitlab_url}",
               "    * Twitter: #{klass.authors[0].twitter_url}",
+              "    * Mastodon: #{klass.authors[0].mastodon_url}",
               "    * Discord: #{klass.authors[0].discord}",
               "  * #{klass.authors[1]}",
               "    * PGP: #{klass.authors[1].pgp}",
@@ -105,6 +108,7 @@ describe Ronin::Core::CLI::Printing::Metadata do
               "    * GitHub: #{klass.authors[1].github_url}",
               "    * GitLab: #{klass.authors[1].gitlab_url}",
               "    * Twitter: #{klass.authors[1].twitter_url}",
+              "    * Mastodon: #{klass.authors[1].mastodon_url}",
               "    * Discord: #{klass.authors[1].discord}",
               '',
               ''

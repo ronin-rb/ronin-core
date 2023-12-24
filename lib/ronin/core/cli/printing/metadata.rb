@@ -55,13 +55,14 @@ module Ronin
                 indent do
                   klass.authors.each do |author|
                     puts "* #{author}"
-                    puts "  * PGP: #{author.pgp}"             if author.pgp?
-                    puts "  * Website: #{author.website}"     if author.website?
-                    puts "  * Blog: #{author.blog}"           if author.blog?
-                    puts "  * GitHub: #{author.github_url}"   if author.github?
-                    puts "  * GitLab: #{author.gitlab_url}"   if author.gitlab?
-                    puts "  * Twitter: #{author.twitter_url}" if author.twitter?
-                    puts "  * Discord: #{author.discord}"     if author.discord?
+                    puts "  * PGP: #{author.pgp}"               if author.pgp?
+                    puts "  * Website: #{author.website}"       if author.website?
+                    puts "  * Blog: #{author.blog}"             if author.blog?
+                    puts "  * GitHub: #{author.github_url}"     if author.github?
+                    puts "  * GitLab: #{author.gitlab_url}"     if author.gitlab?
+                    puts "  * Twitter: #{author.twitter_url}"   if author.twitter?
+                    puts "  * Mastodon: #{author.mastodon_url}" if author.mastodon?
+                    puts "  * Discord: #{author.discord}"       if author.discord?
                   end
                 end
               else
