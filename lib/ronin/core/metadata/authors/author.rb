@@ -65,6 +65,13 @@ module Ronin
           # @return [String, nil]
           attr_reader :twitter
 
+          # The author's Mastodon handle.
+          #
+          # @return [String, nil]
+          #
+          # @since 0.2.0
+          attr_reader :mastodon
+
           # The author's Discord handle.
           #
           # @return [String, nil]
@@ -97,27 +104,32 @@ module Ronin
           # @param [String, nil] twitter
           #   The author's Twitter handle.
           #
+          # @param [String, nil] mastodon
+          #   The author's Mastodon handle.
+          #
           # @param [String, nil] discord
           #   The author's Discord handle.
           #
-          def initialize(name, email:   nil,
-                               pgp:     nil,
-                               website: nil,
-                               blog:    nil,
-                               github:  nil,
-                               gitlab:  nil,
-                               twitter: nil,
-                               discord: nil)
+          def initialize(name, email:    nil,
+                               pgp:      nil,
+                               website:  nil,
+                               blog:     nil,
+                               github:   nil,
+                               gitlab:   nil,
+                               twitter:  nil,
+                               mastodon: nil,
+                               discord:  nil)
             @name  = name
             @email = email
             @pgp   = pgp
 
-            @website = website
-            @blog    = blog
-            @github  = github
-            @gitlab  = gitlab
-            @twitter = twitter
-            @discord = discord
+            @website  = website
+            @blog     = blog
+            @github   = github
+            @gitlab   = gitlab
+            @twitter  = twitter
+            @mastodon = mastodon
+            @discord  = discord
           end
 
           #
@@ -181,6 +193,17 @@ module Ronin
           #
           def twitter?
             @twitter != nil
+          end
+
+          #
+          # Determines if the author has a {#mastodon} handle set.
+          #
+          # @return [Boolean]
+          #
+          # @since 0.2.0
+          #
+          def mastodon?
+            @mastodon != nil
           end
 
           #

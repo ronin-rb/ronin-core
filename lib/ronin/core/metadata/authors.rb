@@ -102,6 +102,9 @@ module Ronin
           # @option kwargs [String, nil] :twitter
           #   The author's Twitter handle.
           #
+          # @option kwargs [String, nil] :mastodon
+          #   The author's Mastodon handle.
+          #
           # @option kwargs [String, nil] :discord
           #   The author's Discord handle.
           #

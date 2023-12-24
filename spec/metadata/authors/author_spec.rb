@@ -2,15 +2,16 @@ require 'spec_helper'
 require 'ronin/core/metadata/authors/author'
 
 describe Ronin::Core::Metadata::Authors::Author do
-  let(:name)    { 'John Smith'               }
-  let(:email)   { 'john.smith@example.com'   }
-  let(:pgp)     { '0x123456789'              }
-  let(:website) { 'https://jsmith.name'      }
-  let(:blog)    { 'https://blog.jsmith.name' }
-  let(:github)  { 'jsmith_github'            }
-  let(:gitlab)  { 'jsmith_gitlab'            }
-  let(:twitter) { 'jsmith_twitter'           }
-  let(:discord) { 'jsmith_discord'           }
+  let(:name)     { 'John Smith'               }
+  let(:email)    { 'john.smith@example.com'   }
+  let(:pgp)      { '0x123456789'              }
+  let(:website)  { 'https://jsmith.name'      }
+  let(:blog)     { 'https://blog.jsmith.name' }
+  let(:github)   { 'jsmith_github'            }
+  let(:gitlab)   { 'jsmith_gitlab'            }
+  let(:twitter)  { 'jsmith_twitter'           }
+  let(:mastodon) { '@jsmith@mastodon.social'  }
+  let(:discord)  { 'jsmith_discord'           }
 
   describe "#initialize" do
     subject { described_class.new(name) }
@@ -72,6 +73,14 @@ describe Ronin::Core::Metadata::Authors::Author do
 
       it "must set #twitter" do
         expect(subject.twitter).to eq(twitter)
+      end
+    end
+
+    context "when given the mastodon: keyword argument" do
+      subject { described_class.new(name, mastodon: mastodon) }
+
+      it "must set #mastodon" do
+        expect(subject.mastodon).to eq(mastodon)
       end
     end
 
@@ -215,6 +224,24 @@ describe Ronin::Core::Metadata::Authors::Author do
 
       it "must return false" do
         expect(subject.twitter?).to be(false)
+      end
+    end
+  end
+
+  describe "#mastodon?" do
+    context "when #mastodon is set" do
+      subject { described_class.new(name, mastodon: mastodon) }
+
+      it "must return true" do
+        expect(subject.mastodon?).to be(true)
+      end
+    end
+
+    context "when #mastodon is not set" do
+      subject { described_class.new(name) }
+
+      it "must return false" do
+        expect(subject.mastodon?).to be(false)
       end
     end
   end
