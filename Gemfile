@@ -7,8 +7,8 @@ platform :jruby do
   gem 'jruby-openssl',	'~> 0.7'
 end
 
-# gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
-#                              branch: 'main'
+gem 'command_kit', '~> 0.5', github: 'postmodern/command_kit.rb',
+                             branch: '0.5.0'
 
 group :development do
   gem 'rake'
