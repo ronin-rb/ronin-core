@@ -134,16 +134,68 @@ module Ronin
         # Runs the `completion` command.
         #
         def run
+          if shell_type == :fish
+            print_error "shell completions for the fish shell are not currently supported"
+            exit(-1)
+          end
+
           case @mode
           when :print
-            print_completion_file(completion_file)
+            print_completion_file
           when :install
-            install_completion_file(completion_file)
+            install_completion_file
+
+            if shell_type == :zsh
+              puts "Ensure that you have the following lines added to your ~/.zshrc:"
+              puts
+              puts "    autoload -Uz +X compinit && compinit"
+              puts "    autoload -Uz +X bashcompinit && bashcompinit"
+              puts
+            end
           when :uninstall
-            uninstall_completion_file_for(File.basename(completion_file))
+            uninstall_completion_file
+
+            puts "Completion rules successfully uninstalled. Please restart your shell."
           else
             raise(NotImplementedError,"mode not implemented: #{@mode.inspect}")
           end
+        end
+
+        #
+        # Prints the `completion` command's {completion_file} to stdout.
+        #
+        # @param [String] completion_file
+        #   The path to the completion file to print.
+        #
+        # @api private
+        #
+        def print_completion_file(completion_file=self.completion_file)
+          super(completion_file)
+        end
+
+        #
+        # Installs the `completion` command's {completion_file} for the current
+        # `SHELL`.
+        #
+        # @param [String] completion_file
+        #   The path to the completion file to install.
+        #
+        # @api private
+        #
+        def install_completion_file(completion_file=self.completion_file)
+          super(completion_file)
+        end
+
+        #
+        # Uninstalls the `completion` command's {completion_file}.
+        #
+        # @param [String] completion_file
+        #   The path to the completion file to uninstall.
+        #
+        # @api private
+        #
+        def uninstall_completion_file(completion_file=self.completion_file)
+          uninstall_completion_file_for(File.basename(completion_file))
         end
 
       end
