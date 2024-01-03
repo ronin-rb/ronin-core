@@ -120,7 +120,7 @@ describe Ronin::Core::CLI::CompletionCommand do
   describe "#run" do
     context "when no options are given" do
       it "must call #print_completion_file with #completion_file" do
-        expect(subject).to receive(:print_completion_file).with(subject.completion_file)
+        expect(subject).to receive(:print_completion_file).with(no_args)
 
         subject.run
       end
@@ -130,7 +130,7 @@ describe Ronin::Core::CLI::CompletionCommand do
       before { subject.option_parser.parse(%w[--print]) }
 
       it "must call #print_completion_file with #completion_file" do
-        expect(subject).to receive(:print_completion_file).with(subject.completion_file)
+        expect(subject).to receive(:print_completion_file).with(no_args)
 
         subject.run
       end
@@ -140,21 +140,67 @@ describe Ronin::Core::CLI::CompletionCommand do
       before { subject.option_parser.parse(%w[--install]) }
 
       it "must call #install_completion_file with #completion_file" do
-        expect(subject).to receive(:install_completion_file).with(subject.completion_file)
+        expect(subject).to receive(:install_completion_file).with(no_args)
 
         subject.run
+      end
+
+      context "and the 'SHELL' is a zsh shell" do
+        let(:shell) { '/bin/zsh' }
+
+        subject do
+          command_class.new(env: {'SHELL' => shell})
+        end
+
+        it "must also print a message instructing the user to add additional configuration to their ~/.zshrc file to enable the installed bash completions" do
+          expect(subject).to receive(:install_completion_file).with(no_args)
+          expect(subject).to receive(:puts).with(
+            "Ensure that you have the following lines added to your ~/.zshrc:"
+          )
+          expect(subject).to receive(:puts).with(no_args)
+          expect(subject).to receive(:puts).with(
+            "    autoload -Uz +X compinit && compinit"
+          )
+          expect(subject).to receive(:puts).with(
+            "    autoload -Uz +X bashcompinit && bashcompinit"
+          )
+          expect(subject).to receive(:puts).with(no_args)
+
+          subject.run
+        end
       end
     end
 
     context "when the --uninstall option is given" do
       before { subject.option_parser.parse(%w[--uninstall]) }
 
-      it "must call #uninstall_completion_file with the basename of the #completion_file" do
-        expect(subject).to receive(:uninstall_completion_file_for).with(
-          File.basename(subject.completion_file)
+      it "must call #uninstall_completion_file with the basename of the #completion_file and print a message instructing the user to restart their shell" do
+        expect(subject).to receive(:uninstall_completion_file).with(no_args)
+        expect(subject).to receive(:puts).with(
+          "Completion rules successfully uninstalled. Please restart your shell."
         )
 
         subject.run
+      end
+    end
+
+    context "when the 'SHELL' is a fish shell" do
+      let(:shell) { '/bin/fish' }
+
+      subject do
+        command_class.new(env: {'SHELL' => shell})
+      end
+
+      it "must print an error message about fish completions not being supported and exit with -1" do
+        expect(subject).to receive(:print_error).with(
+          "shell completions for the fish shell are not currently supported"
+        )
+
+        expect {
+          subject.run
+        }.to raise_error(SystemExit) { |error|
+          expect(error.status).to eq(-1)
+        }
       end
     end
 
