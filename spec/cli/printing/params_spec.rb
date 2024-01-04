@@ -79,8 +79,8 @@ describe Ronin::Core::CLI::Printing::Params do
     context "when given a param with an Integer type" do
       let(:type)  { Ronin::Core::Params::Types::Integer.new }
 
-      it "must return 'INT'" do
-        expect(subject.param_usage(param)).to eq('INT')
+      it "must return 'NUM'" do
+        expect(subject.param_usage(param)).to eq('NUM')
       end
     end
 
