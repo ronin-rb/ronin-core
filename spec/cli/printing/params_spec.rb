@@ -44,6 +44,7 @@ describe Ronin::Core::CLI::Printing::Params do
             "  │ foo  │ String  │ Yes      │         │ Foo param   │",
             "  │ bar  │ Integer │ No       │ 42      │ Bar param   │",
             "  └──────┴─────────┴──────────┴─────────┴─────────────┘",
+            "",
             ""
           ].join($/)
         ).to_stdout
