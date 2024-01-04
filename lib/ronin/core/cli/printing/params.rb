@@ -61,6 +61,8 @@ module Ronin
             indent do
               print_table(rows,header: PARAM_TABLE_HEADER, border: :line)
             end
+
+            puts
           end
 
           #
