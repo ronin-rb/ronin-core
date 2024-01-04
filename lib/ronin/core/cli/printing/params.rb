@@ -83,7 +83,7 @@ module Ronin
           def param_usage(param)
             case param.type
             when Core::Params::Types::Boolean then 'BOOL'
-            when Core::Params::Types::Integer then 'INT'
+            when Core::Params::Types::Integer then 'NUM'
             when Core::Params::Types::Float   then 'FLOAT'
             when Core::Params::Types::Regexp  then '/REGEX/'
             when Core::Params::Types::URI     then 'URL'
