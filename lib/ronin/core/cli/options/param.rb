@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #
-# Copyright (c) 2021-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2021-2024 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This file is part of ronin-core.
 #
