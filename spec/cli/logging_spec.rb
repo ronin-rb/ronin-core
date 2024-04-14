@@ -53,20 +53,20 @@ describe Ronin::Core::CLI::Logging do
     context "when stdout is a TTY" do
       before { allow(stdout).to receive(:tty?).and_return(true) }
 
-      it "must print '*** message' in bright-yellow and bold-white to stdout" do
+      it "must print '/!\\ message' in bright-yellow and bold-white to stdout" do
         subject.log_warn(message)
 
         expect(stdout.string).to eq(
-          "#{bold}#{bright_yellow}***#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
+          "#{bold}#{bright_red}/!\\#{reset_color}#{reset_intensity} #{bold}#{bright_yellow}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end
 
     context "when stdout is not a TTY" do
-      it "must print '*** message' to stdout" do
+      it "must print '/!\\ message' to stdout" do
         subject.log_warn(message)
 
-        expect(stdout.string).to eq("*** #{message}#{$/}")
+        expect(stdout.string).to eq("/!\\ #{message}#{$/}")
       end
     end
   end

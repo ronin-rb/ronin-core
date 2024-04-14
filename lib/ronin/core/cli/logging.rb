@@ -44,7 +44,7 @@ module Ronin
         #   The message to print.
         #
         def log_warn(message)
-          puts("#{colors.bold(colors.bright_yellow('***'))} #{colors.bold(colors.white(message))}")
+          puts("#{colors.bold(colors.bright_red('/!\\'))} #{colors.bold(colors.bright_yellow(message))}")
         end
 
         #
