@@ -31,7 +31,7 @@ describe Ronin::Core::CLI::Logging do
     context "when stdout is a TTY" do
       before { allow(stdout).to receive(:tty?).and_return(true) }
 
-      it "must print '>>> message' in bold-green and bold-white to stdout" do
+      it "must print '>>> message' in bright-green and bold-white to stdout" do
         subject.log_info(message)
 
         expect(stdout.string).to eq(
@@ -53,7 +53,7 @@ describe Ronin::Core::CLI::Logging do
     context "when stdout is a TTY" do
       before { allow(stdout).to receive(:tty?).and_return(true) }
 
-      it "must print '*** message' in bold-yellow and bold-white to stdout" do
+      it "must print '*** message' in bright-yellow and bold-white to stdout" do
         subject.log_warn(message)
 
         expect(stdout.string).to eq(
