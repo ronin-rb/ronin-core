@@ -23,6 +23,7 @@ describe Ronin::Core::CLI::Logging do
   let(:bright_yellow) { CommandKit::Colors::ANSI::BRIGHT_YELLOW }
   let(:bright_red)    { CommandKit::Colors::ANSI::BRIGHT_RED    }
   let(:white)  { CommandKit::Colors::ANSI::WHITE  }
+  let(:red)    { CommandKit::Colors::ANSI::RED    }
   let(:bold)   { CommandKit::Colors::ANSI::BOLD   }
   let(:reset_intensity) { CommandKit::Colors::ANSI::RESET_INTENSITY }
   let(:reset_color)     { CommandKit::Colors::ANSI::RESET_COLOR     }
@@ -79,7 +80,7 @@ describe Ronin::Core::CLI::Logging do
         subject.log_error(message)
 
         expect(stderr.string).to eq(
-          "#{bold}#{bright_red}!!!#{reset_color}#{reset_intensity} #{bold}#{white}#{message}#{reset_color}#{reset_intensity}#{$/}"
+          "#{bold}#{bright_red}!!!#{reset_color}#{reset_intensity} #{bold}#{red}#{message}#{reset_color}#{reset_intensity}#{$/}"
         )
       end
     end

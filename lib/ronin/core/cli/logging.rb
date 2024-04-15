@@ -54,7 +54,7 @@ module Ronin
         #   The message to print.
         #
         def log_error(message)
-          stderr.puts("#{colors(stderr).bold(colors(stderr).bright_red('!!!'))} #{colors(stderr).bold(colors(stderr).white(message))}")
+          stderr.puts("#{colors(stderr).bold(colors(stderr).bright_red('!!!'))} #{colors(stderr).bold(colors(stderr).red(message))}")
         end
       end
     end
