@@ -192,7 +192,7 @@ module Ronin
 
           previous_entries = registry.keys
 
-          load(file)
+          require(file)
 
           new_entries = registry.keys - previous_entries
 
