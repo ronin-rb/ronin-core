@@ -105,10 +105,12 @@ describe Ronin::Core::ClassRegistry do
     let(:file)  { File.join(subject.class_dir,"#{id}.rb") }
     let(:klass) { ExampleClassRegistry::LoadedClass }
 
-    it "must require the file" do
-      subject.load_class_from_file(file)
+    it "must load the file" do
+      expect(subject).to receive(:load).with(file) do
+        load(file)
+      end
 
-      expect($LOADED_FEATURES).to include(file)
+      subject.load_class_from_file(file)
     end
 
     it "must return the registered module" do
@@ -126,7 +128,7 @@ describe Ronin::Core::ClassRegistry do
       let(:absolute_path) { File.expand_path(relative_path) }
 
       it "must expand the path first" do
-        expect(subject).to receive(:require).with(absolute_path) do
+        expect(subject).to receive(:load).with(absolute_path) do
           load(absolute_path)
         end
 
@@ -158,7 +160,6 @@ describe Ronin::Core::ClassRegistry do
 
     after do
       subject.registry.clear
-      $LOADED_FEATURES.delete(file)
     end
   end
 
