@@ -216,10 +216,5 @@ describe Ronin::Core::ClassRegistry do
         }.to raise_error(described_class::ClassNotFound,"file registered a class with a different id (#{unexpected_id.inspect}): #{path.inspect}")
       end
     end
-
-    after do
-      subject.registry.clear
-      $LOADED_FEATURES.delete(path)
-    end
   end
 end
