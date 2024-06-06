@@ -121,6 +121,14 @@ describe Ronin::Core::ClassRegistry do
       expect(subject.registry[id]).to be(klass)
     end
 
+    context "when the file has already been loaded" do
+      it "must find the already registered class for the given file" do
+        require(file)
+
+        expect(subject.load_class_from_file(file)).to be(klass)
+      end
+    end
+
     context "when given a relative path" do
       let(:relative_path) { File.join(subject.class_dir,'foo','..',"#{id}.rb") }
       let(:absolute_path) { File.expand_path(relative_path) }
@@ -154,11 +162,6 @@ describe Ronin::Core::ClassRegistry do
           subject.load_class_from_file(file)
         }.to raise_error(described_class::ClassNotFound,"file did not register a class: #{file.inspect}")
       end
-    end
-
-    after do
-      subject.registry.clear
-      $LOADED_FEATURES.delete(file)
     end
   end
 

@@ -190,17 +190,15 @@ module Ronin
             raise(ClassNotFound,"no such file or directory: #{file.inspect}")
           end
 
-          previous_entries = registry.keys
-
           require(file)
 
-          new_entries = registry.keys - previous_entries
+          registry.each_value do |worker_class|
+            class_file, = worker_class.const_source_location(worker_class.name)
 
-          if new_entries.empty?
-            raise(ClassNotFound,"file did not register a class: #{file.inspect}")
+            return worker_class if class_file == file
           end
 
-          return registry[new_entries.last]
+          raise(ClassNotFound,"file did not register a class: #{file.inspect}")
         end
 
         #
