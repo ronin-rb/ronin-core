@@ -1,3 +1,8 @@
+### 0.1.3 / 2024-06-19
+
+* Improved {Ronin::Core::ClassRegistry::ClassMethods#load_class_from_file}
+  to handle returning the class when the file has already been loaded.
+
 ### 0.1.2 / 2023-07-18
 
 #### CLI
