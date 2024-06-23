@@ -1,3 +1,27 @@
+### 0.2.0 / 2024-XX-XX
+
+* Require [command_kit] ~> 0.5.
+* Added the `mastodon:` keyword argument to {Ronin::Core::Metadata::Authors::ClassMethods#author}.
+* Added {Ronin::Core::Metadata::Authors::Author#mastodon}.
+* Added {Ronin::Core::Metadata::Authors::Author#mastodon_url}.
+* Added {Ronin::Core::OutputFormats}.
+* Added {Ronin::Core::OutputFormats::OutputFile}.
+* Added {Ronin::Core::OutputFormats::OutputDir}.
+* Added {Ronin::Core::System}.
+* Added {Ronin::Core::CLI::Banner}.
+* Added {Ronin::Core::CLI::Help::Banner}.
+* Added {Ronin::Core::CLI::CompletionCommand}.
+* Added {Ronin::Core::CLI::Printing::Params#param_usage}.
+* Print the new ASCII art banner in {Ronin::Core::CLI::RubyShell#start} and
+  {Ronin::Core::CLI::Shell.start}.
+* Added a default `quit` command to {Ronin::Core::CLI::CommandShell}.
+* Print the author's Mastodon profile URL in
+  {Ronin::Core::CLI::Printing::Metadata}.
+* Change the formatting of {Ronin::Core::CLI::Logging#log_warn} to output
+  ANSI bold-bright-yellow.
+* Change the formatting of {Ronin::Core::CLI::Logging#log_error} to output
+  ANSI bold-bright-red.
+
 ### 0.1.3 / 2024-06-19
 
 * Improved {Ronin::Core::ClassRegistry::ClassMethods#load_class_from_file}
@@ -31,3 +55,4 @@
     shells.
   * Provides a `Params` API for adding user configurable parameters to classes.
 
+[command_kit]: https://github.com/postmodern/command_kit.rb#readme
