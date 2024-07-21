@@ -19,6 +19,6 @@
 module Ronin
   module Core
     # ronin-core version
-    VERSION = '0.2.0.rc1'
+    VERSION = '0.2.0'
   end
 end
