@@ -1,4 +1,4 @@
-### 0.2.0 / 2024-XX-XX
+### 0.2.0 / 2024-07-22
 
 * Require [command_kit] ~> 0.5.
 * Added the `mastodon:` keyword argument to {Ronin::Core::Metadata::Authors::ClassMethods#author}.
