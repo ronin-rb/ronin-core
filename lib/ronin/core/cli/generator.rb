@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/cli/command'
+require_relative 'command'
 
 require 'command_kit/colors'
 require 'fileutils'

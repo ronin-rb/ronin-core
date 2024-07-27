@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/params/exceptions'
+require_relative '../exceptions'
 
 module Ronin
   module Core

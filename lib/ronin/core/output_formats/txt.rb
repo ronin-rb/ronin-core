@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/output_formats/output_file'
+require_relative 'output_file'
 
 module Ronin
   module Core

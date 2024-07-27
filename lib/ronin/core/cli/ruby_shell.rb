@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/cli/banner'
+require_relative 'banner'
 
 require 'command_kit/colors'
 require 'irb'

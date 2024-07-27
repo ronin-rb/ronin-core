@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/params/types/type'
+require_relative 'type'
 
 module Ronin
   module Core

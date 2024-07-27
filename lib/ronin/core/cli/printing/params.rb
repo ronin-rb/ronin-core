@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/params/types'
+require_relative '../../params/types'
 
 require 'command_kit/printing/tables'
 

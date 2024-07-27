@@ -16,14 +16,14 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/params/exceptions'
-require 'ronin/core/params/types/string'
-require 'ronin/core/params/types/boolean'
-require 'ronin/core/params/types/integer'
-require 'ronin/core/params/types/float'
-require 'ronin/core/params/types/regexp'
-require 'ronin/core/params/types/uri'
-require 'ronin/core/params/types/enum'
+require_relative 'exceptions'
+require_relative 'types/string'
+require_relative 'types/boolean'
+require_relative 'types/integer'
+require_relative 'types/float'
+require_relative 'types/regexp'
+require_relative 'types/uri'
+require_relative 'types/enum'
 
 module Ronin
   module Core
