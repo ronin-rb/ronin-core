@@ -16,4 +16,4 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/params/mixin'
+require_relative 'params/mixin'

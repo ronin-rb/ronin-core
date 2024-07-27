@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/params/types/numeric'
+require_relative 'numeric'
 
 module Ronin
   module Core

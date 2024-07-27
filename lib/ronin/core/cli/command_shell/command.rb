@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/cli/shell'
+require_relative '../../cli/shell'
 
 module Ronin
   module Core

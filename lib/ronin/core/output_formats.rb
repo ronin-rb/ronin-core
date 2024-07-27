@@ -16,10 +16,10 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/output_formats/txt'
-require 'ronin/core/output_formats/csv'
-require 'ronin/core/output_formats/json'
-require 'ronin/core/output_formats/ndjson'
+require_relative 'output_formats/txt'
+require_relative 'output_formats/csv'
+require_relative 'output_formats/json'
+require_relative 'output_formats/ndjson'
 
 module Ronin
   module Core

@@ -16,8 +16,8 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/cli/shell'
-require 'ronin/core/cli/command_shell/command'
+require_relative 'shell'
+require_relative 'command_shell/command'
 
 require 'shellwords'
 

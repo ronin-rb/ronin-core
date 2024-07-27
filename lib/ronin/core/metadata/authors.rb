@@ -16,7 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/core/metadata/authors/author'
+require_relative 'authors/author'
 
 module Ronin
   module Core
