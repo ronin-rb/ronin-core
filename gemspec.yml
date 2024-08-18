@@ -21,7 +21,7 @@ required_ruby_version: ">= 3.0.0"
 
 dependencies:
   reline: ~> 0.1
-  command_kit: ~> 0.5
+  command_kit: ~> 0.6
   irb: ~> 1.0
 
 development_dependencies:
