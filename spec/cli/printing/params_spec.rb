@@ -13,6 +13,7 @@ describe Ronin::Core::CLI::Printing::Params do
                           desc: 'Foo param'
       param :bar, Integer, default: 42,
                            desc: 'Bar param'
+      param :baz, Enum[:one, :two], desc: 'Baz param'
 
     end
 
@@ -43,6 +44,9 @@ describe Ronin::Core::CLI::Printing::Params do
             "  ├──────┼─────────┼──────────┼─────────┼─────────────┤",
             "  │ foo  │ String  │ Yes      │         │ Foo param   │",
             "  │ bar  │ Integer │ No       │ 42      │ Bar param   │",
+            "  │ baz  │ Enum    │ No       │         │ Baz param   │",
+            "  │      │         │          │         │  * one      │",
+            "  │      │         │          │         │  * two      │",
             "  └──────┴─────────┴──────────┴─────────┴─────────────┘",
             "",
             ""
@@ -121,6 +125,35 @@ describe Ronin::Core::CLI::Printing::Params do
 
       it "must return the upcased version of the param name" do
         expect(subject.param_usage(param)).to eq(name.upcase)
+      end
+    end
+  end
+
+  describe "#param_description" do
+    let(:name)  { :foo }
+    let(:param) do
+      Ronin::Core::Params::Param.new(name,type, desc: 'Test param')
+    end
+
+    context "when given a param with a Enum type" do
+      let(:type)  { Ronin::Core::Params::Types::Enum[:bar, :baz] }
+
+      it "must return the param desc text plus all Enum values in list form" do
+        expect(subject.param_description(param)).to eq(
+          [
+            param.desc,
+            " * bar",
+            " * baz"
+          ].join($/)
+        )
+      end
+    end
+
+    context "when given any other type of param" do
+      let(:type)  { Ronin::Core::Params::Types::String.new }
+
+      it "must return the param's desc text" do
+        expect(subject.param_description(param)).to eq(param.desc)
       end
     end
   end

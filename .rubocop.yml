@@ -23,3 +23,8 @@ Style/GlobalStdStream:
 
 Layout/HeredocIndentation: { Exclude: ['lib/ronin/core/cli/banner.rb'] }
 Layout/ClosingHeredocIndentation: { Exclude: ['lib/ronin/core/cli/banner.rb'] }
+
+# `param.type.values.each` false positive
+Style/HashEachMethods:
+  Exclude:
+    - 'lib/ronin/core/cli/printing/params.rb'

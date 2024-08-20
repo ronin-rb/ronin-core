@@ -50,7 +50,7 @@ module Ronin
                             else                    'No'
                             end
               default     = param.default_value
-              description = param.desc
+              description = param_description(param)
 
               rows << [name, param_type, required, default, description]
             end
@@ -90,6 +90,36 @@ module Ronin
             else
               param.name.upcase
             end
+          end
+
+          #
+          # Returns the description text for the given param.
+          #
+          # @param [Core::Params::Param] param
+          #   The param.
+          #
+          # @return [String]
+          #   The description text.
+          #
+          # @note
+          #   Will list all possible values for {Core::Params::Types::Enum Enum}
+          #   type params.
+          #
+          # @since 0.3.0
+          #
+          def param_description(param)
+            description = param.desc
+
+            case param.type
+            when Core::Params::Types::Enum
+              description = description.dup
+
+              param.type.values.each do |value|
+                description << "#{$/} * #{value}"
+              end
+            end
+
+            return description
           end
         end
       end
