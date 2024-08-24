@@ -98,6 +98,8 @@ describe Ronin::Core::System do
     end
 
     context "otherwise" do
+      before { expect(subject).to receive(:os).and_return(:linux) }
+
       context "when both wget and curl are installed" do
         before do
           expect(subject).to receive(:installed?).with('wget').and_return(true)
