@@ -43,8 +43,7 @@ module Ronin
         end
 
         #
-        # Closes the output file. Needs to be defined
-        # in a child class.
+        # Optional place holder method for closing any output file(s).
         #
         # @since 0.3.0
         #
