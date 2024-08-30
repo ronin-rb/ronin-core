@@ -42,6 +42,16 @@ module Ronin
           raise(NotImplementedError,"#{self.class}#<< was not implemented")
         end
 
+        #
+        # Optional place holder method for closing any output file(s).
+        #
+        # @since 0.3.0
+        #
+        # @abstract
+        #
+        def close
+        end
+
       end
     end
   end
