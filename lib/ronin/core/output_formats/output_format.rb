@@ -42,6 +42,17 @@ module Ronin
           raise(NotImplementedError,"#{self.class}#<< was not implemented")
         end
 
+        #
+        # Closes the output file. Needs to be defined
+        # in a child class.
+        #
+        # @since 0.3.0
+        #
+        # @abstract
+        #
+        def close
+        end
+
       end
     end
   end
