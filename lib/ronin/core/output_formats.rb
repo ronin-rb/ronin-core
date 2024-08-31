@@ -65,9 +65,9 @@ module Ronin
         #
         # Registers a new output format.
         #
-        def register(name,ext,output_format)
+        def register(name,ext=nil,output_format)
           formats[name]  = output_format
-          file_exts[ext] = output_format
+          file_exts[ext] = output_format if ext
         end
 
         #
