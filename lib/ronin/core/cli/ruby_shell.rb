@@ -99,6 +99,7 @@ module Ronin
           IRB.conf[:IRB_NAME] = @name
 
           set_prompt
+          set_completion_dialog
         end
 
         #
@@ -138,6 +139,19 @@ module Ronin
             }
 
             IRB.conf[:PROMPT_MODE] = :RONIN
+          end
+        end
+
+        #
+        # Sets colors for the tab-completion menu.
+        #
+        # @since 0.3.0
+        #
+        def set_completion_dialog
+          Reline::Face.config(:completion_dialog) do |conf|
+            conf.define :default, foreground: :white, background: :black
+            conf.define :enhanced, foreground: :black, background: :white
+            conf.define :scrollbar, foreground: :white, background: :black
           end
         end
 

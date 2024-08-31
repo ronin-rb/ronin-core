@@ -34,7 +34,7 @@ and development.
 ## Requirements
 
 * [Ruby] >= 3.0.0
-* [reline] ~> 0.1
+* [reline] ~> 0.4
 * [command_kit] ~> 0.6
 * [irb] ~> 1.0
 
