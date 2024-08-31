@@ -68,15 +68,15 @@ module Ronin
         # @param [Symbol] name
         #   The output format name.
         #
-        # @param [String] ext
+        # @param [String, nil] ext
         #   The file extension associated with the output format.
         #
         # @param [Class] output_format
         #   The output format class.
         #
-        def register(name,ext,output_format)
+        def register(name,ext=nil,output_format)
           formats[name]  = output_format
-          file_exts[ext] = output_format
+          file_exts[ext] = output_format if ext
         end
 
         #

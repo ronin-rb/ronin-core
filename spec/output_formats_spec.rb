@@ -15,6 +15,14 @@ describe Ronin::Core::OutputFormats do
       register :json, '.json', JSON
       register :ndjson, '.ndjson', NDJSON
     end
+
+    class NoExtOutputFormat < Ronin::Core::OutputFormats::OutputFile; end
+
+    module NoExtOutputFormats
+      include Ronin::Core::OutputFormats
+
+      register :no_ext, NoExtOutputFormat
+    end
   end
 
   subject { TestOutputFormats::EmptyOutputFormats }
@@ -66,6 +74,14 @@ describe Ronin::Core::OutputFormats do
           )
         end
       end
+
+      context "when output formats without extension have been registered" do
+        subject { TestOutputFormats::NoExtOutputFormats }
+
+        it "must return an empty Hash" do
+          expect(subject.file_exts).to eq({})
+        end
+      end
     end
 
     describe ".register" do
@@ -77,6 +93,18 @@ describe Ronin::Core::OutputFormats do
 
       it "must register the output format in #file_exts with the given ext" do
         expect(subject.file_exts['.txt']).to be(described_class::TXT)
+      end
+
+      context "without file extension" do
+        subject { TestOutputFormats::NoExtOutputFormats }
+
+        it "must register the output format in #formats with the given name" do
+          expect(subject.formats[:no_ext]).to be(TestOutputFormats::NoExtOutputFormat)
+        end
+
+        it "must not register the output format in #file_exts" do
+          expect(subject.file_exts).to eq({})
+        end
       end
     end
 
