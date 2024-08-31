@@ -20,7 +20,7 @@ metadata:
 required_ruby_version: ">= 3.0.0"
 
 dependencies:
-  reline: ~> 0.1
+  reline: ~> 0.4
   command_kit: ~> 0.6
   irb: ~> 1.0
 
