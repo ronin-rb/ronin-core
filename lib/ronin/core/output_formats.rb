@@ -65,6 +65,15 @@ module Ronin
         #
         # Registers a new output format.
         #
+        # @param [Symbol] name
+        #   The output format name.
+        #
+        # @param [String] ext
+        #   The file extension associated with the output format.
+        #
+        # @param [Class] output_format
+        #   The output format class.
+        #
         def register(name,ext,output_format)
           formats[name]  = output_format
           file_exts[ext] = output_format
