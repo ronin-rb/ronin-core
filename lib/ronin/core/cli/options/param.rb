@@ -35,12 +35,10 @@ module Ronin
           def self.included(command)
             command.option :param, short: '-p',
                                    value: {
-                                     type:  /\A[^=]+=.+\z/,
+                                     type:  /\A([^=]+)=(.+)\z/,
                                      usage: 'NAME=VALUE'
                                    },
-                                   desc: 'Sets a param' do |str|
-                                     name, value = str.split('=',2)
-
+                                   desc: 'Sets a param' do |str,name,value|
                                      @params[name.to_sym] = value
                                    end
           end
