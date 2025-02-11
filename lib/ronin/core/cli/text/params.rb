@@ -30,6 +30,19 @@ module Ronin
         #
         module Params
           #
+          # Returns the display name for the param's type.
+          #
+          # @param [Core::Params::Param] param
+          #   The param.
+          #
+          # @return [String]
+          #   The display name for the param's type.
+          #
+          def param_type_name(param)
+            param.type.class.name.split('::').last
+          end
+
+          #
           # Returns a placeholder usage value for the given param.
           #
           # @param [Core::Params::Param] param
