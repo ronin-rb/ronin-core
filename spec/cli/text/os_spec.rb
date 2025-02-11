@@ -61,4 +61,22 @@ describe Ronin::Core::CLI::Text::OS do
       end
     end
   end
+
+  describe "#os_name_and_version" do
+    let(:os) { :linux }
+
+    context "when only given an OS ID" do
+      it "must return the OS display name" do
+        expect(subject.os_name_and_version(os)).to eq('Linux')
+      end
+    end
+
+    context "when given an OS ID and a version" do
+      let(:version) { '6.10.1' }
+
+      it "must return the OS display name and version" do
+        expect(subject.os_name_and_version(os,version)).to eq("Linux #{version}")
+      end
+    end
+  end
 end
