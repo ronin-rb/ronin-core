@@ -47,7 +47,7 @@ module Ronin
             rows = []
 
             klass.params.each do |name,param|
-              param_type  = param.type.class.name.split('::').last
+              param_type  = param_type_name(param)
               required    = if param.required? then 'Yes'
                             else                    'No'
                             end

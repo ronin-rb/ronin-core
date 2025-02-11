@@ -31,6 +31,18 @@ describe Ronin::Core::CLI::Text::Params do
   let(:test_command) { TestCLITextParams::TestCommand }
   subject { test_command.new }
 
+  describe "#param_type_name" do
+    let(:name)  { :foo }
+    let(:type)  { Ronin::Core::Params::Types::Integer.new }
+    let(:param) do
+      Ronin::Core::Params::Param.new(name,type, desc: 'Test param')
+    end
+
+    it "must return the param type's class name without the suffix" do
+      expect(subject.param_type_name(param)).to eq('Integer')
+    end
+  end
+
   describe "#param_usage" do
     let(:name)  { :foo }
     let(:param) do
