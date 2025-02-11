@@ -53,6 +53,26 @@ module Ronin
           def os_name(os)
             OS_NAMES.fetch(os,&:to_s)
           end
+
+          #
+          # Converts the Operating System (OS) ID and version into display text.
+          #
+          # @param [Symbol] os
+          #   The OS ID.
+          #
+          # @param [String, nil] version
+          #   The optional OS version.
+          #
+          # @return [String]
+          #   The display text.
+          #
+          def os_name_and_version(os,version=nil)
+            if version
+              "#{os_name(os)} #{version}"
+            else
+              os_name(os)
+            end
+          end
         end
       end
     end
