@@ -16,6 +16,7 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require_relative '../text/params'
 require_relative '../../params/types'
 
 require 'command_kit/printing/tables'
@@ -28,6 +29,7 @@ module Ronin
         # Handles printing {Core::Params::Mixin params} defined on a class.
         #
         module Params
+          include Text::Params
           include CommandKit::Printing::Tables
 
           # The params table header.
@@ -63,33 +65,6 @@ module Ronin
             end
 
             puts
-          end
-
-          #
-          # Returns a placeholder usage value for the given param.
-          #
-          # @param [Core::Params::Param] param
-          #   The param.
-          #
-          # @return [String]
-          #   The placeholder usage value.
-          #
-          # @note
-          #   This method is primarily used to help build example commands
-          #   that accept certain params.
-          #
-          # @since 0.2.0
-          #
-          def param_usage(param)
-            case param.type
-            when Core::Params::Types::Boolean then 'BOOL'
-            when Core::Params::Types::Integer then 'NUM'
-            when Core::Params::Types::Float   then 'FLOAT'
-            when Core::Params::Types::Regexp  then '/REGEX/'
-            when Core::Params::Types::URI     then 'URL'
-            else
-              param.name.upcase
-            end
           end
 
           #
