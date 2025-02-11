@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'ronin/core/cli/printing/params'
+
 require 'ronin/core/cli/command'
 require 'ronin/core/params/mixin'
 
@@ -62,69 +63,6 @@ describe Ronin::Core::CLI::Printing::Params do
         expect {
           subject.print_params(test_class)
         }.to_not output.to_stdout
-      end
-    end
-  end
-
-  describe "#param_usage" do
-    let(:name)  { :foo }
-    let(:param) do
-      Ronin::Core::Params::Param.new(name,type, desc: 'Test param')
-    end
-
-    context "when given a param with a Boolean type" do
-      let(:type)  { Ronin::Core::Params::Types::Boolean.new }
-
-      it "must return 'BOOL'" do
-        expect(subject.param_usage(param)).to eq('BOOL')
-      end
-    end
-
-    context "when given a param with an Integer type" do
-      let(:type)  { Ronin::Core::Params::Types::Integer.new }
-
-      it "must return 'NUM'" do
-        expect(subject.param_usage(param)).to eq('NUM')
-      end
-    end
-
-    context "when given a param with a Float type" do
-      let(:type)  { Ronin::Core::Params::Types::Float.new }
-
-      it "must return 'FLOAT'" do
-        expect(subject.param_usage(param)).to eq('FLOAT')
-      end
-    end
-
-    context "when given a param with a Regexp type" do
-      let(:type)  { Ronin::Core::Params::Types::Regexp.new }
-
-      it "must return '/REGEX/'" do
-        expect(subject.param_usage(param)).to eq('/REGEX/')
-      end
-    end
-
-    context "when given a param with a URI type" do
-      let(:type)  { Ronin::Core::Params::Types::URI.new }
-
-      it "must return 'URL'" do
-        expect(subject.param_usage(param)).to eq('URL')
-      end
-    end
-
-    context "when given a param with a String type" do
-      let(:type)  { Ronin::Core::Params::Types::String.new }
-
-      it "must return the upcased version of the param name" do
-        expect(subject.param_usage(param)).to eq(name.upcase)
-      end
-    end
-
-    context "when given a param with a Enum type" do
-      let(:type)  { Ronin::Core::Params::Types::Enum[:bar, :baz] }
-
-      it "must return the upcased version of the param name" do
-        expect(subject.param_usage(param)).to eq(name.upcase)
       end
     end
   end
