@@ -16,6 +16,8 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require_relative '../text/os'
+
 module Ronin
   module Core
     module CLI
@@ -23,34 +25,9 @@ module Ronin
         #
         # Helper methods for printing Operating System (OS) names.
         #
-        module OS
-          # Mapping of Operating System (OS) IDs to printable names.
-          OS_NAMES = {
-            unix:  'UNIX',
-
-            bsd:     'BSD',
-            freebsd: 'FreeBSD',
-            openbsd: 'OpenBSD',
-            netbsd:  'NetBSD',
-
-            linux:   'Linux',
-            macos:   'macOS',
-            windows: 'Windows'
-          }
-
-          #
-          # Converts the Operating System (OS) ID to a printable name.
-          #
-          # @param [Symbol] os
-          #   The OS ID.
-          #
-          # @return [String]
-          #   The display name for the OS ID.
-          #
-          def os_name(os)
-            OS_NAMES.fetch(os,&:to_s)
-          end
-        end
+        # @deprecated Use {Text::OS} instead.
+        #
+        OS = Text::OS
       end
     end
   end
