@@ -16,55 +16,18 @@
 # along with ronin-core.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require_relative '../text/arch'
+
 module Ronin
   module Core
     module CLI
       module Printing
         #
-        # Command methods for printing arch IDs.
+        # Command methods for printing computer architecture IDs.
         #
-        module Arch
-          # Mapping of architecture IDs to printable names.
-          ARCH_NAMES = {
-            x86: 'x86',
-
-            x86_64: 'x86-64',
-            ia64:   'IA64',
-            amd64:  'x86-64',
-
-            ppc:   'PPC',
-            ppc64: 'PPC64',
-
-            mips:    'MIPS',
-            mips_le: 'MIPS (LE)',
-            mips_be: 'MIPS',
-
-            mips64:    'MIPS64',
-            mips64_le: 'MIPS64 (LE)',
-            mips64_be: 'MIPS64',
-
-            arm:      'ARM',
-            arm_le:   'ARM',
-            arm_be:   'ARM (BE)',
-
-            arm64:    'ARM64',
-            arm64_le: 'ARM64',
-            arm64_be: 'ARM64 (BE)'
-          }
-
-          #
-          # Converts the architecture ID to a printable name.
-          #
-          # @param [Symbol] arch
-          #   The arch ID.
-          #
-          # @return [String]
-          #   The arch display name.
-          #
-          def arch_name(arch)
-            ARCH_NAMES.fetch(arch,&:to_s)
-          end
-        end
+        # @deprecated Use {Text::Arch} instead.
+        #
+        Arch = Text::Arch
       end
     end
   end
