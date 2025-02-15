@@ -1,3 +1,9 @@
+### 0.2.1 / 2025-02-14
+
+* Added the `csv` gem as a dependency for Bundler and Ruby 3.4.0.
+* Use `require_relative` to improve load times.
+* Documentation improvements.
+
 ### 0.2.0 / 2024-07-22
 
 * Require [command_kit] ~> 0.5.
