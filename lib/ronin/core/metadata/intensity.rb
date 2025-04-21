@@ -20,7 +20,7 @@ module Ronin
   module Core
     module Metadata
       #
-      # Adds a {Intensity::ClassMethods#Intensity intensity} metadata
+      # Adds an {Intensity::ClassMethods#Intensity intensity} metadata
       # attribute to a class.
       #
       # ### Example
