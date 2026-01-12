@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #
-# Copyright (c) 2021-2025 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2021-2026 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # ronin-core is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
